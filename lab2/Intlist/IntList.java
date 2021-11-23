@@ -123,18 +123,20 @@ public class IntList {
         IntList pb=B;
         IntList pl=L;
 
-
         while(pa!=null){
             pl.first=pa.first;
-            //if(pa.rest!=null){}
-            pl.rest=new IntList();
-            pl=pl.rest;
+            if(pa.rest!=null){
+                pl.rest=new IntList();
+                pl=pl.rest;
+            }
             pa=pa.rest;
         }
         while(pb!=null){
             pl.first=pb.first;
-            pl.rest=new IntList();
-            pl=pl.rest;
+            if(pb.rest!=null){
+                pl.rest=new IntList();
+                pl=pl.rest;
+            }
             pb=pb.rest;
         }
         return L;
