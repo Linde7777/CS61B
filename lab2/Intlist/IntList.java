@@ -79,6 +79,8 @@ public class IntList {
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
+
+    /*
     public static void main(String[] args){
         IntList L=new IntList(3,null);
         L=new IntList(2,L);
@@ -92,6 +94,7 @@ public class IntList {
         newList=catenate(L,L2);
         printAll(newList);
     }
+    */
 
     public static void printAll(IntList L){
         while(L!=null){
