@@ -26,5 +26,13 @@ public class Planet {
         this.imgFileName=p.imgFileName;
     }
 
-
+    public double calcDistance(Planet anotherPlanet){
+        double distance;
+        distance=Math.sqrt(
+        (this.xxPos-anotherPlanet.xxPos)*
+        (this.xxPos-anotherPlanet.xxPos)+
+        (this.yyPos-anotherPlanet.yyPos)*
+        (this.yyPos-anotherPlanet.yyPos));
+        return distance;
+    }
 }
