@@ -79,12 +79,32 @@ public class IntList {
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
+    public static void main(String[] args){
+        IntList L=new IntList(3,null);
+        L=new IntList(2,L);
+        L=new IntList(1,L);
+
+        IntList L2=new IntList(6,null);
+        L2=new IntList(5,L2);
+        L2=new IntList(4,L2);
+
+        IntList newList;
+        newList=catenate(L,L2);
+        printAll(newList);
+    }
+
+    public static void printAll(IntList L){
+        while(L!=null){
+            System.out.println(" "+L.first);
+            L=L.rest;
+        }
+    }
 
     public static IntList dcatenate(IntList A, IntList B) {
         IntList pa=A;
         IntList pb=B;
 
-        while(pa!=null){
+        while(pa.rest!=null){
             pa=pa.rest;
         }
 
@@ -109,13 +129,15 @@ public class IntList {
             //if(pa.rest!=null){}
             pl.rest=new IntList();
             pl=pl.rest;
+            pa=pa.rest;
         }
         while(pb!=null){
             pl.first=pb.first;
             pl.rest=new IntList();
             pl=pl.rest;
+            pb=pb.rest;
         }
-        return null;
+        return L;
     }
 
 
