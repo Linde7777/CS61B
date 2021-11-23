@@ -18,8 +18,13 @@ public class Planet {
     }
 
     public Planet(Planet p){
-        Planet planet=new Planet(p.xxPos,
-        p.yyPos,p.xxVel,p.yyVel,p.mass,p.imgFileName);
+        this.xxPos=p.xxPos;
+        this.yyPos=p.yyPos;
+        this.xxVel=p.xxVel;
+        this.yyVel=p.yyVel;
+        this.mass=p.mass;
+        this.imgFileName=p.imgFileName;
     }
+
 
 }
