@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class Planet {
     public double xxPos;
     public double yyPos;
@@ -26,13 +27,63 @@ public class Planet {
         this.imgFileName=p.imgFileName;
     }
 
-    public double calcDistance(Planet anotherPlanet){
+    public double calcDistance(Planet aPlanet){
         double distance;
         distance=Math.sqrt(
-        (this.xxPos-anotherPlanet.xxPos)*
-        (this.xxPos-anotherPlanet.xxPos)+
-        (this.yyPos-anotherPlanet.yyPos)*
-        (this.yyPos-anotherPlanet.yyPos));
+        (this.xxPos-aPlanet.xxPos)*
+        (this.xxPos-aPlanet.xxPos)+
+        (this.yyPos-aPlanet.yyPos)*
+        (this.yyPos-aPlanet.yyPos));
         return distance;
+    }
+
+    public double calcForceExertedBy(Planet aPlanet){
+        final double G=6.67e-11;
+        double totalForce=0;
+        totalForce=(G * this.mass * aPlanet.mass)/
+        ( calcDistance(aPlanet) * calcDistance(aPlanet) );
+        return totalForce;
+    }
+
+    public double calcForceExertedByX(Planet aPlanet){
+        double forceByX=0;
+        forceByX=( (aPlanet.xxPos-this.xxPos) / calcDistance(aPlanet) )
+        *calcForceExertedBy(aPlanet);
+        return forceByX;
+    }
+
+    public double calcForceExertedByY(Planet aPlanet){
+        double forceByY=0;
+        forceByY = ((aPlanet.yyPos-this.yyPos) / calcDistance(aPlanet))
+        *calcForceExertedBy(aPlanet);
+        return forceByY;
+    }
+
+    public double calcNetForceExertedByX(Planet[] arr){
+        double netForceByX=0;
+        for(int i=0;i<arr.length;i++){
+            if(this.equals(arr[i])){
+                continue;
+            }
+            else{
+                netForceByX += calcForceExertedByX(arr[i]);
+            }
+        }
+
+        return netForceByX;
+    }
+
+    public double calcNetForceExertedByY(Planet[] arr){
+        double netForceByY=0;
+        for(int i=0;i<arr.length;i++){
+            if(this.equals(arr[i])){
+                continue;
+            }
+            else{
+                netForceByY += calcForceExertedByX(arr[i]);
+            }
+        }
+
+        return netForceByY;
     }
 }
