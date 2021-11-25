@@ -80,10 +80,19 @@ public class Planet {
                 continue;
             }
             else{
-                netForceByY += calcForceExertedByX(arr[i]);
+                netForceByY += calcForceExertedByY(arr[i]);
             }
         }
 
         return netForceByY;
+    }
+
+    public void update(double dt,double fx,double fy){
+        double ax=fx/this.mass;
+        double ay=fy/this.mass;
+        this.xxVel+=ax*dt;
+        this.yyVel+=ay*dt;
+        this.xxPos+=this.xxVel*dt;
+        this.yyPos+=this.yyVel*dt;
     }
 }
