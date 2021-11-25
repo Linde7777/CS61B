@@ -1,13 +1,22 @@
+import java.util.function.DoubleUnaryOperator;
+
 public class NBody {
-    public static double readRadius(String filePath){
-        In in=new In(filePath);
+    public static void main(String[] args) {
+        double T=Double.parseDouble(args[0]);
+        double dt=Double.parseDouble(args[1]);
+        String filename=args[2];
+        readRadius(filename);
+        readPlanets(filename);
+    }
+    public static double readRadius(String filename){
+        In in=new In(filename);
         int planetsNumber=in.readInt();
         double radius=in.readDouble();
         return radius;
     }
     
-    public static Planet[] readPlanets(String filePath){
-        In in=new In(filePath);
+    public static Planet[] readPlanets(String filename){
+        In in=new In(filename);
         int planetsNumber=in.readInt();
         double radius=in.readDouble();
         Planet[] allPlanets=new Planet[planetsNumber];
@@ -15,10 +24,8 @@ public class NBody {
         for(int i=0;i<planetsNumber;i++){
         allPlanets[i]=new Planet(in.readDouble(),in.readDouble(),
         in.readDouble(),in.readDouble(),in.readDouble(),in.readString());
-
         }
 
         return allPlanets;
-
     }
 }
