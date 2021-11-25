@@ -2,11 +2,20 @@ import java.util.function.DoubleUnaryOperator;
 
 public class NBody {
     public static void main(String[] args) {
+        /*
         double T=Double.parseDouble(args[0]);
         double dt=Double.parseDouble(args[1]);
         String filename=args[2];
         double radius = readRadius(filename);
         Planet[] aPlanets = readPlanets(filename);
+        */
+
+        StdDraw.setScale(-10000, 10000);
+        //StdDraw.setCanvasSize(500,500);
+        StdDraw.clear();
+        String starfieldPath="images/starfield.jpg";
+        StdDraw.picture(0,0,starfieldPath);
+        StdDraw.show();
     }
 
     public static double readRadius(String filename){
