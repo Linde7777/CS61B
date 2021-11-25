@@ -5,13 +5,15 @@ public class NBody {
         double T=Double.parseDouble(args[0]);
         double dt=Double.parseDouble(args[1]);
         String filename=args[2];
-        readRadius(filename);
-        readPlanets(filename);
+        double radius = readRadius(filename);
+        Planet[] aPlanets = readPlanets(filename);
     }
+
     public static double readRadius(String filename){
         In in=new In(filename);
         int planetsNumber=in.readInt();
         double radius=in.readDouble();
+
         return radius;
     }
     

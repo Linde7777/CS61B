@@ -96,8 +96,10 @@ public class StdDrawDemo {
 
 	public static void main(String[] args) {
 		
+		/*
 		drawThree();
 		drawRandom();
 		drawZoom();
+		*/
 	}
 } 
