@@ -95,4 +95,11 @@ public class Planet {
         this.xxPos+=this.xxVel*dt;
         this.yyPos+=this.yyVel*dt;
     }
+
+    public void draw(){
+        //StdDraw.setScale(-100, 100);
+        StdDraw.picture(this.xxPos,this.yyPos,imgFileName);
+        StdDraw.show();
+ //       StdDraw.pause(200);
+    }
 }
