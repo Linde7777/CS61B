@@ -68,7 +68,7 @@ public class NBody {
         
         for(int i=0;i<planetsNumber;i++){
         allPlanets[i]=new Planet(in.readDouble(),in.readDouble(),
-        in.readDouble(),in.readDouble(),in.readDouble(),in.readString());
+        in.readDouble(),in.readDouble(),in.readDouble(),"images/"+in.readString());
         }
 
         return allPlanets;
