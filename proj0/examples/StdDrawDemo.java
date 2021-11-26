@@ -75,7 +75,6 @@ public class StdDrawDemo {
 		  * what happens!). */
 		StdDraw.enableDoubleBuffering();
 
-
 		double size = 100;
 		while (size < 500) {
 			StdDraw.clear();

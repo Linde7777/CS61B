@@ -5,7 +5,6 @@ public class NBody {
         double T=Double.parseDouble(args[0]);
         double dt=Double.parseDouble(args[1]);
         String filename=args[2];
-
         double radius = readRadius(filename);
         Planet[] allPlanets = readPlanets(filename);
 
@@ -15,11 +14,33 @@ public class NBody {
         StdDraw.picture(0,0,starfieldPath);
         StdDraw.show();
 
-        for(int i=0;i<allPlanets.length;i++){
+        int planetsNumber=allPlanets.length;
+        for(int i=0;i<planetsNumber;i++){
             allPlanets[i].draw();
         }
 
-        //StdDraw.pause(200);
+
+        StdDraw.enableDoubleBuffering();
+        int time=0;
+        for(time=0;time<T;time+=dt){
+            //may have problems, planetsNumber or the number of forces?
+            for(int i=0;i<planetsNumber;i++){
+                double[] xForces = new double[planetsNumber];
+                double[] yForces = new double[planetsNumber];
+                xForces[i] = allPlanets[i].calcNetForceExertedByX(allPlanets);
+                yForces[i] = allPlanets[i].calcNetForceExertedByY(allPlanets);
+                allPlanets[i].update(dt, xForces[i], yForces[i]);
+
+            }
+
+            StdDraw.picture(0, 0, starfieldPath);
+            for (int i = 0; i < planetsNumber; i++) {
+                allPlanets[i].draw();
+            }
+            StdDraw.show();
+            StdDraw.pause(10);
+        }
+
     }
 
     public static double readRadius(String filename){
