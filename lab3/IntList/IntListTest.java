@@ -9,6 +9,19 @@ public class IntListTest {
      * method. The main point of this is to convince you that
      * assertEquals knows how to handle IntLists just fine.
      */
+    @Test
+    public void testReverse() {
+        IntList input = new IntList(3, null);
+        input = new IntList(2, input);
+        input = new IntList(1, input);
+
+        IntList expected = new IntList();
+        expected = new IntList(1, null);
+        expected = new IntList(2, expected);
+        expected = new IntList(3, expected);
+
+        reverse
+    }
 
     @Test
     public void testList() {
@@ -67,7 +80,7 @@ public class IntListTest {
     }
 
     /** If you're running this from the command line, you'll need
-      * to add a main method. See ArithmeticTest.java for an
-      * example. */
+     * to add a main method. See ArithmeticTest.java for an
+     * example. */
 
 }
