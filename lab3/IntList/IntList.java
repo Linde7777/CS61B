@@ -11,11 +11,11 @@ public class IntList {
     /**
      * First element of list.
      */
-    public int first;
+    protected int first;
     /**
      * Remaining elements of list.
      */
-    public IntList rest;
+    protected IntList rest;
 
     /**
      * A List with first FIRST0 and rest REST0.

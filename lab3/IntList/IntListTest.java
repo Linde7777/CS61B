@@ -46,8 +46,10 @@ public class IntListTest {
         p4 = expected;
         while (p4 != null) {
             if (p3.first != p4.first) {
-                System.out.println("Mismatch, input: " + p3.first +
-                        " expected: " + p4.first);
+                System.out.println("Mismatch, input: "
+                        + p3.first
+                        + " expected: "
+                        + p4.first);
                 isPass = false;
             }
             p3 = p3.rest;
@@ -66,8 +68,10 @@ public class IntListTest {
         if (input1.first == expected1.first) {
             System.out.println("Test2 pass");
         } else {
-            System.out.println("Mismatch, input: " + input1.first +
-                    " expected: " + expected1.first);
+            System.out.println("Mismatch, input: "
+                    + input1.first
+                    + " expected: "
+                    + expected1.first);
         }
 
 
@@ -78,8 +82,10 @@ public class IntListTest {
         if (input2.first == expected2.first) {
             System.out.println("Test3 pass");
         } else {
-            System.out.println("Mismatch, input: " + input2.first +
-                    " expected: " + expected2.first);
+            System.out.println("Mismatch, input: "
+                    + input2.first
+                    + " expected: "
+                    + expected2.first);
         }
     }
 
