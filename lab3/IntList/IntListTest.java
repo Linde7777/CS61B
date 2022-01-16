@@ -20,7 +20,67 @@ public class IntListTest {
         expected = new IntList(2, expected);
         expected = new IntList(3, expected);
 
-        reverse
+        input = IntList.reverse(input);
+
+        IntList p1, p2;
+        p1 = input;
+        p2 = expected;
+
+        System.out.println("Input: ");
+        while (p1 != null) {
+            System.out.print(" " + p1.first);
+            p1 = p1.rest;
+        }
+        System.out.println();
+
+        System.out.println("Expected: ");
+        while (p2 != null) {
+            System.out.print(" " + p2.first);
+            p2 = p2.rest;
+        }
+        System.out.println();
+
+        boolean isPass = true;
+        IntList p3, p4;
+        p3 = input;
+        p4 = expected;
+        while (p4 != null) {
+            if (p3.first != p4.first) {
+                System.out.println("Mismatch, input: " + p3.first +
+                        " expected: " + p4.first);
+                isPass = false;
+            }
+            p3 = p3.rest;
+            p4 = p4.rest;
+        }
+
+        if (isPass) {
+            System.out.println("Test1 pass");
+        }
+
+
+        IntList input1 = new IntList();
+        IntList expected1 = new IntList();
+
+        IntList.reverse(input1);
+        if (input1.first == expected1.first) {
+            System.out.println("Test2 pass");
+        } else {
+            System.out.println("Mismatch, input: " + input1.first +
+                    " expected: " + expected1.first);
+        }
+
+
+        IntList input2 = new IntList(1, null);
+        IntList expected2 = new IntList(1, null);
+
+        IntList.reverse(input2);
+        if (input2.first == expected2.first) {
+            System.out.println("Test3 pass");
+        } else {
+            System.out.println("Mismatch, input: " + input2.first +
+                    " expected: " + expected2.first);
+        }
     }
 
     @Test

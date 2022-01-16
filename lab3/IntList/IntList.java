@@ -34,7 +34,27 @@ public class IntList {
     }
 
     public static IntList reverse(IntList A) {
-        return null;
+        if (A == null) {
+            return null;
+        }
+
+        IntList prev, curr, currNext;
+        prev = null;
+        curr = A;
+        currNext = A.rest;
+
+        while (curr != null) {
+            curr.rest = prev;
+            prev = curr;
+            curr = currNext;
+
+            if (currNext != null) {
+                currNext = currNext.rest;
+            }
+
+        }
+
+        return prev;
     }
 
     /**
