@@ -2,7 +2,9 @@
  * An Integer tester created by Flik Enterprises.
  */
 public class Flik {
-    public static boolean isSameNumber(Integer a, Integer b) {
+
+    //bug fixed: the parameter should be int, not Integer
+    public static boolean isSameNumber(int a, int b) {
         return a == b;
     }
 }
