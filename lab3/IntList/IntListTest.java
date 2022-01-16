@@ -57,7 +57,7 @@ public class IntListTest {
         }
 
         if (isPass) {
-            System.out.println("Test1 pass");
+            System.out.println("Test1 passed");
         }
 
 
@@ -66,7 +66,7 @@ public class IntListTest {
 
         IntList.reverse(input1);
         if (input1.first == expected1.first) {
-            System.out.println("Test2 pass");
+            System.out.println("Test2 passed");
         } else {
             System.out.println("Mismatch, input: "
                     + input1.first
@@ -80,7 +80,7 @@ public class IntListTest {
 
         IntList.reverse(input2);
         if (input2.first == expected2.first) {
-            System.out.println("Test3 pass");
+            System.out.println("Test3 passed");
         } else {
             System.out.println("Mismatch, input: "
                     + input2.first

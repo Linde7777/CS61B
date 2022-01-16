@@ -11,9 +11,9 @@ public class FilkTest {
 
         input = Flik.isSameNumber(a, b);
         if (input == expected) {
-            System.out.println("Test1 pass");
+            System.out.println("Test1 passed");
         } else {
-            System.out.println("Test1 fail");
+            System.out.println("Test1 failed");
         }
 
 
@@ -24,9 +24,9 @@ public class FilkTest {
 
         input1 = Flik.isSameNumber(c, d);
         if (input1 == expected1) {
-            System.out.println("Test2 pass");
+            System.out.println("Test2 passed");
         } else {
-            System.out.println("Test2 fail");
+            System.out.println("Test2 failed");
         }
     }
 
