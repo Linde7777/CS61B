@@ -43,9 +43,6 @@ public class ArrayDeque<T> {
     public void printDeque() {
         int i = nextFirst + 1;
         int count = size;
-        if (i > items.length - 1) {
-            i = 0;
-        }
 
         while (count>0) {
             if (i > items.length - 1) {
