@@ -2,8 +2,8 @@ public class LinkedListDeque<T> {
     DoublyLinkedList sentinal;
     int size = 0;
 
-    public LinkedListDeque(){
-        sentinal=new DoublyLinkedList(null,null,null);
+    public LinkedListDeque() {
+        sentinal = new DoublyLinkedList(null, null, null);
     }
 
     class DoublyLinkedList {
@@ -32,8 +32,8 @@ public class LinkedListDeque<T> {
         } else {
             sentinal.next = list;
             list.prev = sentinal;
-            list.next=sentinal;
-            sentinal.prev=list;
+            list.next = sentinal;
+            sentinal.prev = list;
 
             size += 1;
         }
@@ -42,16 +42,16 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         var list = new DoublyLinkedList(null, item, null);
         if (sentinal.next != null) {
-            list.prev=sentinal.prev;
-            sentinal.prev.next=list;
-            sentinal.prev=list;
-            list.next=sentinal;
+            list.prev = sentinal.prev;
+            sentinal.prev.next = list;
+            sentinal.prev = list;
+            list.next = sentinal;
             size += 1;
         } else {
             sentinal.next = list;
             list.prev = sentinal;
-            list.next=sentinal;
-            sentinal.prev=list;
+            list.next = sentinal;
+            sentinal.prev = list;
 
             size += 1;
         }
@@ -94,10 +94,10 @@ public class LinkedListDeque<T> {
     public T removeLast() {
         if (sentinal.next != null) {
             T temp = sentinal.prev.item;
-            sentinal.prev.next=null;
-            sentinal.prev=sentinal.prev.prev;
-            (sentinal.prev).next=sentinal;
-            size-=1;
+            sentinal.prev.next = null;
+            sentinal.prev = sentinal.prev.prev;
+            (sentinal.prev).next = sentinal;
+            size -= 1;
             return temp;
         } else {
             System.out.println("The deque is empty, removeLast() failed");
@@ -105,19 +105,30 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T get(int index){
-        if(index>size){
+    public T get(int index) {
+        if (index > size) {
             System.out.println("Index is greater than size," +
                     "please enter a suitable index");
             return null;
         }
 
-        DoublyLinkedList p=sentinal.next;
-        for(int i=0;i<index;i++){
-            p=p.next;
+        DoublyLinkedList p = sentinal.next;
+        for (int i = 0; i < index; i++) {
+            p = p.next;
         }
         return p.item;
 
+    }
+
+    //TO DO: need to be implemented
+    public T getRecursive(int index) {
+        if (index == 0) {
+            return sentinal.next.item;
+        } else {
+
+            index -= 1;
+            return getRecursive(index);
+        }
     }
 
 }
