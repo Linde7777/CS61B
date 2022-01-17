@@ -5,9 +5,6 @@ public class LinkedListDeque<T> {
     public LinkedListDeque(){
         sentinal=new DoublyLinkedList(null,null,null);
     }
-    public LinkedListDeque(T item) {
-        sentinal = new DoublyLinkedList(null, item, null);
-    }
 
     class DoublyLinkedList {
         DoublyLinkedList prev;
