@@ -44,6 +44,7 @@ public class ArrayDeque<T> {
         int i = nextFirst + 1;
         int count = size;
 
+
         while (count>0) {
             if (i > items.length - 1) {
                 i = 0;
@@ -89,13 +90,29 @@ public class ArrayDeque<T> {
     I didn't use it because I was worried that
     it would affect my score
     */
+
+    //needed to be fixed, the value of nextFirst and nextLast
+    //the data position after extending
     public void arrayExtend(T[] items) {
         int extendedLength = items.length * 2;
         T[] extendedArray = (T[]) new Object[extendedLength];
+        if(nextLast+1==nextFirst){
+            for(int i=0;i<nextLast;i++){
+                extendedArray[i]=items[i];
+            }
+
+            int numberBetweenNextFirstAndTheEndOfArray=items.length-2-nextLast;
+            nextFirst+=items.length;
+            for(int i=0;i<numberBetweenNextFirstAndTheEndOfArray;i++){
+                extendedArray[nextFirst+1+i]=items[nextFirst- items.length+1+i];
+            }
+        }
+
         for (int i = 0; i < items.length; i++) {
             extendedArray[i] = items[i];
         }
         items = extendedArray;
+        //bug? return extendedArray?
     }
 
 

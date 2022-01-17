@@ -2,15 +2,13 @@ public class ArrayDequeTest {
 
     public static void testAdd(){
         ArrayDeque<Integer> ad=new ArrayDeque<Integer>();
-        ad.addFirst(3);
-        ad.addFirst(2);
-        ad.addLast(4);
-        ad.addFirst(9);
-        ad.addFirst(8);
-        ad.addLast(5);
-        ad.addLast(1);
-        ad.addLast(4);
-        ad.addLast(2);
+
+        for(int i=1;i<9;i++){
+            ad.addFirst(i);
+        }
+        for(int i=1;i<9;i++){
+            ad.addLast(i);
+        }
         ad.printDeque();
     }
 
