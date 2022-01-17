@@ -61,7 +61,7 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty() {
-        return sentinal.next == null;
+        return size == 0;
     }
 
     public int size() {
