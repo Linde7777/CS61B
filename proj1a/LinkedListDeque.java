@@ -35,6 +35,9 @@ public class LinkedListDeque<T> {
         } else {
             sentinal.next = list;
             list.prev = sentinal;
+            list.next=sentinal;
+            sentinal.prev=list;
+
             size += 1;
         }
     }
@@ -42,13 +45,6 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         var list = new DoublyLinkedList(null, item, null);
         if (sentinal.next != null) {
-            /* bug:
-            list.next = sentinal;
-            (sentinal.prev).next = list;
-            list.prev = sentinal.prev;
-            sentinal.prev = list;
-
-             */
             list.prev=sentinal.prev;
             sentinal.prev.next=list;
             sentinal.prev=list;
@@ -57,6 +53,9 @@ public class LinkedListDeque<T> {
         } else {
             sentinal.next = list;
             list.prev = sentinal;
+            list.next=sentinal;
+            sentinal.prev=list;
+
             size += 1;
         }
     }
