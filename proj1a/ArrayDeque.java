@@ -44,20 +44,23 @@ public class ArrayDeque<T> {
         int i = nextFirst + 1;
         int count = size;
 
-
-        while (count>0) {
+        while (count > 0) {
             if (i > items.length - 1) {
                 i = 0;
             }
             System.out.print(" " + items[i]);
-            i+=1;
-            count-=1;
+            i += 1;
+            count -= 1;
         }
 
     }
 
     public T removeFirst() {
-        T temp = items[nextFirst + 1];
+        int index = nextFirst + 1;
+        if (index > items.length - 1) {
+            index = 0;
+        }
+        T temp = items[index];
         nextFirst += 1;
         size -= 1;
         resize();
@@ -65,7 +68,11 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        T temp = items[nextLast - 1];
+        int index = nextLast - 1;
+        if (index == 0) {
+            index = items.length - 1;
+        }
+        T temp = items[index];
         nextLast -= 1;
         size -= 1;
         resize();
@@ -93,51 +100,71 @@ public class ArrayDeque<T> {
 
     //needed to be fixed, the value of nextFirst and nextLast
     //the data position after extending
-    public void arrayExtend(T[] items) {
-        int extendedLength = items.length * 2;
-        T[] extendedArray = (T[]) new Object[extendedLength];
-        if(nextLast+1==nextFirst){
-            for(int i=0;i<nextLast;i++){
-                extendedArray[i]=items[i];
-            }
+    public T[] arrayExtend(T[] items) {
+        int newLength = items.length * 2;
+        T[] newArr = (T[]) new Object[newLength];
+        int newNextFirst = nextFirst + items.length;
+        int newIndex = newNextFirst + 1;
+        int originalIndex = nextFirst + 1;
+        int count = size;
 
-            int numberBetweenNextFirstAndTheEndOfArray=items.length-2-nextLast;
-            nextFirst+=items.length;
-            for(int i=0;i<numberBetweenNextFirstAndTheEndOfArray;i++){
-                extendedArray[nextFirst+1+i]=items[nextFirst- items.length+1+i];
+        while (count > 0) {
+            if (newIndex > newArr.length - 1) {
+                newIndex = 0;
             }
+            if (originalIndex > items.length - 1) {
+                originalIndex = 0;
+            }
+            newArr[newIndex] = items[originalIndex];
+            newIndex += 1;
+            originalIndex += 1;
+            count -= 1;
         }
 
-        for (int i = 0; i < items.length; i++) {
-            extendedArray[i] = items[i];
-        }
-        items = extendedArray;
+        nextFirst = newNextFirst;
+        return newArr;
         //bug? return extendedArray?
     }
 
 
-    public void arrayReduce(T[] items) {
-        int reduceLength = items.length / 2;
-        T[] reducedArray = (T[]) new Object[reduceLength];
-        for (int i = 0; i < reducedArray.length; i++) {
-            reducedArray[i] = items[i];
+    public T[] arrayReduce(T[] items) {
+        int newLength = items.length / 2;
+        T[] newArr = (T[]) new Object[newLength];
+        int newNextFirst = nextFirst - items.length / 2;
+        int newIndex = newNextFirst + 1;
+        int originalIndex = nextFirst + 1;
+        int count = size;
+
+        while (count > 0) {
+            if (newIndex > newLength - 1) {
+                newIndex = 0;
+            }
+            if (originalIndex > items.length - 1) {
+                originalIndex = 0;
+            }
+            newArr[newIndex] = items[originalIndex];
+            newIndex += 1;
+            originalIndex += 1;
+            count -= 1;
         }
-        items = reducedArray;
+
+        nextFirst = newNextFirst;
+        return newArr;
     }
 
     public void resize() {
         if (items.length >= 16) {
 
             if (needExtend()) {
-                arrayExtend(items);
+                items = arrayExtend(items);
             }
             if (needReduce()) {
-                arrayReduce(items);
+                items = arrayReduce(items);
             }
 
         } else {
             if (needExtend()) {
-                arrayExtend(items);
+                items = arrayExtend(items);
             }
         }
 

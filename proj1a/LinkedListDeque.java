@@ -1,9 +1,9 @@
 public class LinkedListDeque<T> {
-    DoublyLinkedList sentinal;
+    DoublyLinkedList sentinel;
     int size = 0;
 
     public LinkedListDeque() {
-        sentinal = new DoublyLinkedList(null, null, null);
+        sentinel = new DoublyLinkedList(null, null, null);
     }
 
     class DoublyLinkedList {
@@ -23,17 +23,17 @@ public class LinkedListDeque<T> {
 
     public void addFirst(T item) {
         var list = new DoublyLinkedList(null, item, null);
-        if (sentinal.next != null) {
-            list.next = sentinal.next;
-            (sentinal.next).prev = list;
-            sentinal.next = list;
-            list.prev = sentinal;
+        if (sentinel.next != null) {
+            list.next = sentinel.next;
+            (sentinel.next).prev = list;
+            sentinel.next = list;
+            list.prev = sentinel;
             size += 1;
         } else {
-            sentinal.next = list;
-            list.prev = sentinal;
-            list.next = sentinal;
-            sentinal.prev = list;
+            sentinel.next = list;
+            list.prev = sentinel;
+            list.next = sentinel;
+            sentinel.prev = list;
 
             size += 1;
         }
@@ -41,17 +41,17 @@ public class LinkedListDeque<T> {
 
     public void addLast(T item) {
         var list = new DoublyLinkedList(null, item, null);
-        if (sentinal.next != null) {
-            list.prev = sentinal.prev;
-            sentinal.prev.next = list;
-            sentinal.prev = list;
-            list.next = sentinal;
+        if (sentinel.next != null) {
+            list.prev = sentinel.prev;
+            sentinel.prev.next = list;
+            sentinel.prev = list;
+            list.next = sentinel;
             size += 1;
         } else {
-            sentinal.next = list;
-            list.prev = sentinal;
-            list.next = sentinal;
-            sentinal.prev = list;
+            sentinel.next = list;
+            list.prev = sentinel;
+            list.next = sentinel;
+            sentinel.prev = list;
 
             size += 1;
         }
@@ -69,7 +69,7 @@ public class LinkedListDeque<T> {
         if (isEmpty()) {
             System.out.println("The deque is empty");
         } else {
-            DoublyLinkedList p = sentinal.next;
+            DoublyLinkedList p = sentinel.next;
             for (int i = 0; i < size; i++) {
                 System.out.print(" " + p.item);
                 p = p.next;
@@ -78,10 +78,10 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if (sentinal.next != null) {
-            T temp = sentinal.next.item;
-            sentinal.next = sentinal.next.next;
-            (sentinal.next).prev = sentinal;
+        if (sentinel.next != null) {
+            T temp = sentinel.next.item;
+            sentinel.next = sentinel.next.next;
+            (sentinel.next).prev = sentinel;
             size -= 1;
             return temp;
         } else {
@@ -92,11 +92,11 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (sentinal.next != null) {
-            T temp = sentinal.prev.item;
-            sentinal.prev.next = null;
-            sentinal.prev = sentinal.prev.prev;
-            (sentinal.prev).next = sentinal;
+        if (sentinel.next != null) {
+            T temp = sentinel.prev.item;
+            sentinel.prev.next = null;
+            sentinel.prev = sentinel.prev.prev;
+            (sentinel.prev).next = sentinel;
             size -= 1;
             return temp;
         } else {
@@ -112,7 +112,7 @@ public class LinkedListDeque<T> {
             return null;
         }
 
-        DoublyLinkedList p = sentinal.next;
+        DoublyLinkedList p = sentinel.next;
         for (int i = 0; i < index; i++) {
             p = p.next;
         }
@@ -123,7 +123,7 @@ public class LinkedListDeque<T> {
     //TO DO: need to be implemented
     public T getRecursive(int index) {
         if (index == 0) {
-            return sentinal.next.item;
+            return sentinel.next.item;
         } else {
 
             index -= 1;
