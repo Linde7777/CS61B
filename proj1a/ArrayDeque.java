@@ -15,14 +15,33 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         items[nextFirst] = item;
 
-        if (nextFirst != 0) {
+        if (nextFirst != 0 ) {
             nextFirst -= 1;
         } else {
             nextFirst = items.length - 1;
         }
 
+
         size += 1;
-        resize();
+        //resize();
+
+    }
+
+    public T removeFirst() {
+        int index = nextFirst + 1;
+        if (index > items.length - 1) {
+            index = 0;
+        }
+        T temp = items[index];
+        if (nextFirst == items.length - 1) {
+            nextFirst = 0;
+        } else {
+            nextFirst += 1;
+        }
+        size -= 1;
+        //resize();
+        return temp;
+
     }
 
     public void addLast(T item) {
@@ -33,7 +52,7 @@ public class ArrayDeque<T> {
             nextLast = 0;
         }
         size += 1;
-        resize();
+        //resize();
     }
 
     public boolean isEmpty() {
@@ -55,18 +74,6 @@ public class ArrayDeque<T> {
 
     }
 
-    public T removeFirst() {
-        int index = nextFirst + 1;
-        if (index > items.length - 1) {
-            index = 0;
-        }
-        T temp = items[index];
-        nextFirst += 1;
-        size -= 1;
-        resize();
-        return temp;
-    }
-
     public T removeLast() {
         int index = nextLast - 1;
         if (index == 0) {
@@ -75,7 +82,7 @@ public class ArrayDeque<T> {
         T temp = items[index];
         nextLast -= 1;
         size -= 1;
-        resize();
+        //resize();
         return temp;
     }
 
@@ -103,9 +110,19 @@ public class ArrayDeque<T> {
     public T[] arrayExtend(T[] items) {
         int newLength = items.length * 2;
         T[] newArr = (T[]) new Object[newLength];
-        int newNextFirst = nextFirst + items.length;
-        int newIndex = newNextFirst + 1;
-        int originalIndex = nextFirst + 1;
+
+        if (nextFirst > nextLast) {
+            int newNextFirst = nextFirst + items.length;
+            int newIndex = newNextFirst + 1;
+            int originalIndex = nextFirst + 1;
+            nextFirst = newNextFirst;
+        }
+
+        int newNextLast = nextLast + items.length;
+        int newIndex = newNextLast - 1;
+        int originalIndex = nextLast - 1;
+        nextLast = newNextLast;
+
         int count = size;
 
         while (count > 0) {
@@ -121,7 +138,6 @@ public class ArrayDeque<T> {
             count -= 1;
         }
 
-        nextFirst = newNextFirst;
         return newArr;
         //bug? return extendedArray?
     }
