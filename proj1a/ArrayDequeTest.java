@@ -121,6 +121,18 @@ public class ArrayDequeTest {
         ad.printDeque();
     }
 
+    public static void testArrReduce2(){
+        //When nextFirst < nextLast
+        ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
+        for(int i=1;i<20;i++){
+            ad.addLast(i);
+        }
+        for(int i=1;i<18;i++){
+            ad.removeLast();
+        }
+
+        ad.printDeque();
+    }
     public static void main(String[] args) {
         /*
         Please test along with Java Visualizer
@@ -133,6 +145,7 @@ public class ArrayDequeTest {
         //testAddRemove();
         //testArrExtend1();
         //testArrExtend2();
-        testArrReduce1();
+        //testArrReduce1();
+        testArrReduce2();
     }
 }
