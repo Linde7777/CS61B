@@ -89,6 +89,7 @@ public class ArrayDeque<T> {
         return items[index];
     }
 
+
     public boolean needExtend() {
         return size + 2 == items.length;
         //size+2 refer to the data and two pointer
@@ -98,7 +99,7 @@ public class ArrayDeque<T> {
         return size + 2 < items.length * USAGE_FACTOR;
     }
 
-    public T[] arrayExtend(T[] items) {
+    public T[] arrayExtend() {
         int newLength = items.length * 2;
         T[] newArr = (T[]) new Object[newLength];
 
@@ -139,7 +140,7 @@ public class ArrayDeque<T> {
         return newArr;
     }
 
-    public T[] arrayReduce(T[] items) {
+    public T[] arrayReduce() {
         int newLength = items.length / 2;
         T[] newArr = (T[]) new Object[newLength];
 
@@ -180,15 +181,15 @@ public class ArrayDeque<T> {
         if (items.length >= 16) {
 
             if (needExtend()) {
-                items = arrayExtend(items);
+                items = arrayExtend();
             }
             if (needReduce()) {
-                items = arrayReduce(items);
+                items = arrayReduce();
             }
 
         } else {
             if (needExtend()) {
-                items = arrayExtend(items);
+                items = arrayExtend();
             }
         }
 

@@ -107,8 +107,8 @@ public class LinkedListDeque<T> {
 
     public T get(int index) {
         if (index > size) {
-            System.out.println("Index is greater than size," +
-                    "please enter a suitable index");
+            System.out.println("Index is greater than size,"
+                    + "please enter a suitable index");
             return null;
         }
 
