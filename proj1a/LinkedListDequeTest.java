@@ -78,9 +78,25 @@ public class LinkedListDequeTest {
 		printTestStatus(passed);
 	}
 
+	public static void testNegativeSize(){
+		LinkedListDeque<Integer> lld=new LinkedListDeque<>();
+		for(int i=1;i<5;i++){
+			lld.addFirst(i);
+		}
+		for(int i=1;i<6;i++){
+			lld.removeFirst();
+		}
+
+		System.out.println(lld.size());
+		lld.printDeque();
+	}
 	public static void main(String[] args) {
+		/*
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
 		addRemoveTest();
+		*/
+
+		testNegativeSize();
 	}
 } 

@@ -125,7 +125,6 @@ public class LinkedListDeque<T> {
         if (index == 0) {
             return sentinel.next.item;
         } else {
-
             index -= 1;
             return getRecursive(index);
         }
