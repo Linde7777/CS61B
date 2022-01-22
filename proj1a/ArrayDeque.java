@@ -1,5 +1,5 @@
 public class ArrayDeque<T> {
-    int size;
+    private int size;
     int nextFirst;
     T[] items;
     int nextLast;
@@ -53,25 +53,6 @@ public class ArrayDeque<T> {
         resize();
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public void printDeque() {
-        int i = nextFirst + 1;
-        int count = size;
-
-        while (count > 0) {
-            if (i > items.length - 1) {
-                i = 0;
-            }
-
-            System.out.print(" " + items[i]);
-            i += 1;
-            count -= 1;
-        }
-
-    }
 
     public T removeLast() {
         int index = nextLast - 1;
@@ -195,4 +176,27 @@ public class ArrayDeque<T> {
 
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public void printDeque() {
+        int i = nextFirst + 1;
+        int count = size;
+
+        while (count > 0) {
+            if (i > items.length - 1) {
+                i = 0;
+            }
+
+            System.out.print(" " + items[i]);
+            i += 1;
+            count -= 1;
+        }
+
+    }
 }

@@ -1,12 +1,12 @@
 public class LinkedListDeque<T> {
-    DoublyLinkedList sentinel;
-    int size = 0;
+    private DoublyLinkedList sentinel;
+    private int size = 0;
 
     public LinkedListDeque() {
         sentinel = new DoublyLinkedList(null, null, null);
     }
 
-    class DoublyLinkedList {
+    private class DoublyLinkedList {
         DoublyLinkedList prev;
         T item;
         DoublyLinkedList next;
