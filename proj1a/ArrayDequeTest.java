@@ -50,19 +50,15 @@ public class ArrayDequeTest {
 
     public static void testAddRemove() {
         ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
-
         for (int i = 1; i < 3; i++) {
             ad.addFirst(i);
         }
-
         for (int i = 1; i < 3; i++) {
             ad.addLast(i);
         }
-
         for (int i = 1; i < 3; i++) {
             ad.removeFirst();
         }
-
         for (int i = 1; i < 3; i++) {
             ad.removeLast();
         }
@@ -83,15 +79,39 @@ public class ArrayDequeTest {
 
     }
 
+    public static void testArrExtend1(){
+        //when nextFirst>nextLast
+        ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
+        for(int i=0;i<4;i++){
+            ad.addFirst(i);
+        }
+        for(int i=0;i<4;i++){
+            ad.addLast(i);
+        }
+
+        ad.printDeque();
+    }
+
+    public static void testArrExtend2(){
+        //when nextFirst<nextLast
+        ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
+        for(int i=0;i<10;i++){
+            ad.addLast(i);
+        }
+
+        ad.printDeque();
+    }
     public static void main(String[] args) {
         /*
         Please test along with Java Visualizer
-         */
+        */
 
         //testAddFirst();
         //testRemoveFirst();
         //testAddLast();
         //testRemoveLast();
-        testAddRemove();
+        //testAddRemove();
+        //testArrExtend1();
+        testArrExtend2();
     }
 }

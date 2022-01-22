@@ -15,7 +15,7 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         items[nextFirst] = item;
 
-        if (nextFirst != 0 ) {
+        if (nextFirst != 0) {
             nextFirst -= 1;
         } else {
             nextFirst = items.length - 1;
@@ -23,7 +23,7 @@ public class ArrayDeque<T> {
 
 
         size += 1;
-        //resize();
+        resize();
 
     }
 
@@ -39,7 +39,7 @@ public class ArrayDeque<T> {
             nextFirst += 1;
         }
         size -= 1;
-        //resize();
+        resize();
         return temp;
 
     }
@@ -52,7 +52,7 @@ public class ArrayDeque<T> {
             nextLast = 0;
         }
         size += 1;
-        //resize();
+        resize();
     }
 
     public boolean isEmpty() {
@@ -67,6 +67,7 @@ public class ArrayDeque<T> {
             if (i > items.length - 1) {
                 i = 0;
             }
+
             System.out.print(" " + items[i]);
             i += 1;
             count -= 1;
@@ -82,7 +83,7 @@ public class ArrayDeque<T> {
         T temp = items[index];
         nextLast -= 1;
         size -= 1;
-        //resize();
+        resize();
         return temp;
     }
 
@@ -99,72 +100,52 @@ public class ArrayDeque<T> {
         return size + 2 < items.length * USAGE_FACTOR;
     }
 
-    /*
-    Java itself comes with a function to copy an array,
-    I didn't use it because I was worried that
-    it would affect my score
-    */
-
-    //needed to be fixed, the value of nextFirst and nextLast
-    //the data position after extending
     public T[] arrayExtend(T[] items) {
         int newLength = items.length * 2;
         T[] newArr = (T[]) new Object[newLength];
 
-        if (nextFirst > nextLast) {
+        if (nextLast < nextFirst) {
+            for (int i = 0; i < nextLast; i++) {
+                newArr[i] = items[i];
+            }
+
             int newNextFirst = nextFirst + items.length;
-            int newIndex = newNextFirst + 1;
-            int originalIndex = nextFirst + 1;
+            int newArrIndex = newNextFirst + 1;
+            int itemsIndex = nextFirst + 1;
+            while (newArrIndex < newArr.length) {
+                newArr[newArrIndex] = items[itemsIndex];
+                newArrIndex += 1;
+                itemsIndex += 1;
+            }
             nextFirst = newNextFirst;
         }
 
-        int newNextLast = nextLast + items.length;
-        int newIndex = newNextLast - 1;
-        int originalIndex = nextLast - 1;
-        nextLast = newNextLast;
-
-        int count = size;
-
-        while (count > 0) {
-            if (newIndex > newArr.length - 1) {
-                newIndex = 0;
+        if (nextFirst < nextLast) {
+            //NF and NL are initialized as 0 and 1 respectively
+            //So when nextFirst<nextLast, items[0] always is nextFirst
+            //the next 3 lines can be deleted
+            for (int i = 0; i < nextFirst; i++) {
+                newArr[i] = items[i];
             }
-            if (originalIndex > items.length - 1) {
-                originalIndex = 0;
+
+            int newArrIndex = nextFirst + 1;
+            int itemsIndex = nextFirst + 1;
+            while(newArrIndex<nextLast){
+                newArr[newArrIndex]=items[itemsIndex];
+                newArrIndex+=1;
+                itemsIndex+=1;
             }
-            newArr[newIndex] = items[originalIndex];
-            newIndex += 1;
-            originalIndex += 1;
-            count -= 1;
+
+            //nextFirst and nextLast needn't be change
         }
 
         return newArr;
-        //bug? return extendedArray?
     }
-
 
     public T[] arrayReduce(T[] items) {
         int newLength = items.length / 2;
         T[] newArr = (T[]) new Object[newLength];
-        int newNextFirst = nextFirst - items.length / 2;
-        int newIndex = newNextFirst + 1;
-        int originalIndex = nextFirst + 1;
-        int count = size;
 
-        while (count > 0) {
-            if (newIndex > newLength - 1) {
-                newIndex = 0;
-            }
-            if (originalIndex > items.length - 1) {
-                originalIndex = 0;
-            }
-            newArr[newIndex] = items[originalIndex];
-            newIndex += 1;
-            originalIndex += 1;
-            count -= 1;
-        }
-
-        nextFirst = newNextFirst;
         return newArr;
     }
 
