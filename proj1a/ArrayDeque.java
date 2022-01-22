@@ -21,7 +21,6 @@ public class ArrayDeque<T> {
             nextFirst = items.length - 1;
         }
 
-
         size += 1;
         resize();
 
@@ -41,7 +40,6 @@ public class ArrayDeque<T> {
         size -= 1;
         resize();
         return temp;
-
     }
 
     public void addLast(T item) {
@@ -130,12 +128,11 @@ public class ArrayDeque<T> {
 
             int newArrIndex = nextFirst + 1;
             int itemsIndex = nextFirst + 1;
-            while(newArrIndex<nextLast){
-                newArr[newArrIndex]=items[itemsIndex];
-                newArrIndex+=1;
-                itemsIndex+=1;
+            while (newArrIndex < nextLast) {
+                newArr[newArrIndex] = items[itemsIndex];
+                newArrIndex += 1;
+                itemsIndex += 1;
             }
-
             //nextFirst and nextLast needn't be change
         }
 
@@ -146,6 +143,36 @@ public class ArrayDeque<T> {
         int newLength = items.length / 2;
         T[] newArr = (T[]) new Object[newLength];
 
+        if (nextLast < nextFirst) {
+            for (int i = 0; i < nextLast; i++) {
+                newArr[i] = items[i];
+            }
+
+            int newNextFirst = nextFirst - items.length / 2;
+            int newArrIndex = newNextFirst + 1;
+            int itemsIndex = nextFirst + 1;
+            while (newArrIndex < newArr.length) {
+                newArr[newArrIndex] = items[itemsIndex];
+                newArrIndex += 1;
+                itemsIndex += 1;
+            }
+        }
+
+        if (nextFirst < nextLast) {
+            int newNextFirst = 0;
+            //I do this for convenient,
+            //otherwise the position of newNextFirst will be complex
+
+            int newNextLast = newNextFirst + size + 1;
+            int newArrIndex = newNextFirst + 1;
+            int itemsIndex = nextFirst + 1;
+
+            while (newArrIndex < newNextLast) {
+                newArr[newArrIndex] = items[itemsIndex];
+                newArrIndex += 1;
+                itemsIndex += 1;
+            }
+        }
         return newArr;
     }
 

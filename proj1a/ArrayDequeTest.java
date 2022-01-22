@@ -4,7 +4,7 @@ public class ArrayDequeTest {
         System.out.println("\nTest addFirst()");
         ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
 
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i < 5; i++) {
             ad.addFirst(i);
         }
 
@@ -66,41 +66,61 @@ public class ArrayDequeTest {
         ad.printDeque();
     }
 
-    public static void testAddRemoveFirstOverlap(){
+    public static void testAddRemoveFirstOverlap() {
         ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
 
         for (int i = 1; i < 7; i++) {
             ad.addFirst(i);
         }
 
-        for(int i=1;i<10;i++){
+        for (int i = 1; i < 10; i++) {
             ad.removeFirst();
         }
 
     }
 
-    public static void testArrExtend1(){
-        //when nextFirst>nextLast
+    public static void testArrExtend1() {
+        //when nextFirst > nextLast
         ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
-        for(int i=0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
             ad.addFirst(i);
         }
-        for(int i=0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
             ad.addLast(i);
         }
 
         ad.printDeque();
     }
 
-    public static void testArrExtend2(){
-        //when nextFirst<nextLast
+    public static void testArrExtend2() {
+        //when nextFirst < nextLast
         ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             ad.addLast(i);
         }
 
         ad.printDeque();
     }
+
+    public static void testArrReduce1() {
+        //When nextLast < nextFirst
+        ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
+        for (int i = 1; i < 10; i++) {
+            ad.addFirst(i);
+        }
+        for (int i = 10; i < 19; i++) {
+            ad.addLast(i);
+        }
+        for(int i=1;i<9;i++){
+            ad.removeFirst();
+        }
+        for(int i=1;i<9;i++){
+            ad.removeLast();
+        }
+
+        ad.printDeque();
+    }
+
     public static void main(String[] args) {
         /*
         Please test along with Java Visualizer
@@ -112,6 +132,7 @@ public class ArrayDequeTest {
         //testRemoveLast();
         //testAddRemove();
         //testArrExtend1();
-        testArrExtend2();
+        //testArrExtend2();
+        testArrReduce1();
     }
 }
