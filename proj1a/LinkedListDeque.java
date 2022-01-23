@@ -78,16 +78,16 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if (sentinel.next != null) {
-            T temp = sentinel.next.item;
-            sentinel.next = sentinel.next.next;
-            (sentinel.next).prev = sentinel;
-            size -= 1;
-            return temp;
-        } else {
-            System.out.println("The deque is empty, removeFirst() failed");
+        if(sentinel.next==sentinel){
+            System.out.println("The Deque is empty");
+            size=0;
             return null;
         }
+        T temp = sentinel.next.item;
+        sentinel.next = sentinel.next.next;
+        (sentinel.next).prev = sentinel;
+        size -= 1;
+        return temp;
 
     }
 

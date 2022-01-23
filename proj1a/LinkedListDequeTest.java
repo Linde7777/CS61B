@@ -83,7 +83,7 @@ public class LinkedListDequeTest {
 		for(int i=1;i<5;i++){
 			lld.addFirst(i);
 		}
-		for(int i=1;i<6;i++){
+		for(int i=1;i<8;i++){
 			lld.removeFirst();
 		}
 
@@ -91,12 +91,10 @@ public class LinkedListDequeTest {
 		lld.printDeque();
 	}
 	public static void main(String[] args) {
-		/*
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
 		addRemoveTest();
-		*/
 
-		testNegativeSize();
+		//testNegativeSize();
 	}
 } 
