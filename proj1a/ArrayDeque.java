@@ -67,7 +67,11 @@ public class ArrayDeque<T> {
                 index = items.length - 1;
             }
             T temp = items[index];
-            nextLast -= 1;
+            if (nextLast == 0) {
+                nextLast = items.length - 1;
+            } else {
+                nextLast -= 1;
+            }
             size -= 1;
             resize();
             return temp;
