@@ -27,19 +27,25 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        int index = nextFirst + 1;
-        if (index > items.length - 1) {
-            index = 0;
-        }
-        T temp = items[index];
-        if (nextFirst >= items.length - 1) {
-            nextFirst = 0;
+        if (size > 0) {
+            int index = nextFirst + 1;
+            if (index > items.length - 1) {
+                index = 0;
+            }
+            T temp = items[index];
+            if (nextFirst >= items.length - 1) {
+                nextFirst = 0;
+            } else {
+                nextFirst += 1;
+            }
+            size -= 1;
+            resize();
+            return temp;
         } else {
-            nextFirst += 1;
+            System.out.println("removeFirst() failed, deque is empty");
+            return null;
         }
-        size -= 1;
-        resize();
-        return temp;
+
     }
 
     public void addLast(T item) {
@@ -55,15 +61,21 @@ public class ArrayDeque<T> {
 
 
     public T removeLast() {
-        int index = nextLast - 1;
-        if (index < 0) {
-            index = items.length - 1;
+        if (size > 0) {
+            int index = nextLast - 1;
+            if (index < 0) {
+                index = items.length - 1;
+            }
+            T temp = items[index];
+            nextLast -= 1;
+            size -= 1;
+            resize();
+            return temp;
+        } else {
+            System.out.println("removeLast() failed, deque is empty");
+            return null;
         }
-        T temp = items[index];
-        nextLast -= 1;
-        size -= 1;
-        resize();
-        return temp;
+
     }
 
     public T get(int index) {
