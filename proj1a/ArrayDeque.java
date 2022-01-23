@@ -56,7 +56,7 @@ public class ArrayDeque<T> {
 
     public T removeLast() {
         int index = nextLast - 1;
-        if (index == 0) {
+        if (index < 0) {
             index = items.length - 1;
         }
         T temp = items[index];

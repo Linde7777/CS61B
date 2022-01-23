@@ -134,6 +134,21 @@ public class ArrayDequeTest {
         ad.printDeque();
     }
 
+    public static void testGet(){
+        ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
+        for (int i = 1; i < 20; i++) {
+            ad.addLast(i);
+        }
+        System.out.println(ad.get(0));
+    }
+
+    public static void testRemoveLast2(){
+        ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
+        ad.addFirst(0);
+        ad.addFirst(1);
+        System.out.println(ad.removeLast());
+    }
+
     public static void main(String[] args) {
         /*
         Please test along with Java Visualizer
@@ -147,6 +162,8 @@ public class ArrayDequeTest {
         //testArrExtend1();
         //testArrExtend2();
         //testArrReduce1();
-        testArrReduce2();
+        //testArrReduce2();
+        //testGet();
+        testRemoveLast2();
     }
 }
