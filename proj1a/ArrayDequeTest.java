@@ -111,28 +111,29 @@ public class ArrayDequeTest {
         for (int i = 10; i < 19; i++) {
             ad.addLast(i);
         }
-        for(int i=1;i<9;i++){
+        for (int i = 1; i < 9; i++) {
             ad.removeFirst();
         }
-        for(int i=1;i<9;i++){
+        for (int i = 1; i < 9; i++) {
             ad.removeLast();
         }
 
         ad.printDeque();
     }
 
-    public static void testArrReduce2(){
+    public static void testArrReduce2() {
         //When nextFirst < nextLast
         ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
-        for(int i=1;i<20;i++){
+        for (int i = 1; i < 20; i++) {
             ad.addLast(i);
         }
-        for(int i=1;i<18;i++){
+        for (int i = 1; i < 18; i++) {
             ad.removeLast();
         }
 
         ad.printDeque();
     }
+
     public static void main(String[] args) {
         /*
         Please test along with Java Visualizer

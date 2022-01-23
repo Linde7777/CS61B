@@ -1,9 +1,9 @@
 public class ArrayDeque<T> {
     private int size;
-    int nextFirst;
-    T[] items;
-    int nextLast;
-    final double USAGE_FACTOR = 0.25;
+    private int nextFirst;
+    private T[] items;
+    private int nextLast;
+    private final double USAGE_FACTOR = 0.25;
 
     public ArrayDeque() {
         size = 0;
@@ -71,16 +71,16 @@ public class ArrayDeque<T> {
     }
 
 
-    public boolean needExtend() {
+    private boolean needExtend() {
         return size + 2 == items.length;
         //size+2 refer to the data and two pointer
     }
 
-    public boolean needReduce() {
+    private boolean needReduce() {
         return size + 2 < items.length * USAGE_FACTOR;
     }
 
-    public T[] arrayExtend() {
+    private T[] arrayExtend() {
         int newLength = items.length * 2;
         T[] newArr = (T[]) new Object[newLength];
 
@@ -121,7 +121,7 @@ public class ArrayDeque<T> {
         return newArr;
     }
 
-    public T[] arrayReduce() {
+    private T[] arrayReduce() {
         int newLength = items.length / 2;
         T[] newArr = (T[]) new Object[newLength];
 
@@ -158,7 +158,7 @@ public class ArrayDeque<T> {
         return newArr;
     }
 
-    public void resize() {
+    private void resize() {
         if (items.length >= 16) {
 
             if (needExtend()) {
