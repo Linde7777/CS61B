@@ -32,7 +32,7 @@ public class ArrayDeque<T> {
             index = 0;
         }
         T temp = items[index];
-        if (nextFirst == items.length - 1) {
+        if (nextFirst >= items.length - 1) {
             nextFirst = 0;
         } else {
             nextFirst += 1;
