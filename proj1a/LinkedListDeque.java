@@ -58,7 +58,10 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        if (sentinel.next == sentinel || sentinel.next == null) {
+            return true;
+        }
+        return false;
     }
 
     public int size() {
@@ -66,8 +69,9 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque() {
+        System.out.println("Print the Deque:");
         if (isEmpty()) {
-            System.out.println("The deque is empty");
+            System.out.println("The Deque is empty");
         } else {
             DoublyLinkedList p = sentinel.next;
             for (int i = 0; i < size; i++) {
@@ -78,9 +82,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if(sentinel.next==sentinel){
-            System.out.println("The Deque is empty");
-            size=0;
+        if (isEmpty()) {
+            System.out.println("removeFirst failed, the Deque is empty");
+            size = 0;
             return null;
         }
         T temp = sentinel.next.item;
@@ -92,17 +96,17 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (sentinel.next != null) {
-            T temp = sentinel.prev.item;
-            sentinel.prev.next = null;
-            sentinel.prev = sentinel.prev.prev;
-            (sentinel.prev).next = sentinel;
-            size -= 1;
-            return temp;
-        } else {
-            System.out.println("The deque is empty, removeLast() failed");
+        if (isEmpty()) {
+            System.out.println("removeLast failed, the Deque is empty");
+            size = 0;
             return null;
         }
+        T temp = sentinel.prev.item;
+        sentinel.prev.next = null;
+        sentinel.prev = sentinel.prev.prev;
+        (sentinel.prev).next = sentinel;
+        size -= 1;
+        return temp;
     }
 
     public T get(int index) {
@@ -120,13 +124,23 @@ public class LinkedListDeque<T> {
 
     }
 
-    //TO DO: need to be implemented
-    public T getRecursive(int index) {
+    private T getRecursiveHelper(int index, DoublyLinkedList p) {
         if (index == 0) {
-            return sentinel.next.item;
+            return p.item;
         } else {
-            index -= 1;
-            return getRecursive(index);
+            return getRecursiveHelper(--index, p.next);
+        }
+    }
+
+    public T getRecursive(int index) {
+        if (index < 0 || index > size) {
+            System.out.println("Please enter non-negative number");
+            return null;
+        }
+        if (index == 0) {
+            return getRecursiveHelper(index, sentinel.next);
+        } else {
+            return getRecursiveHelper(index, sentinel.next);
         }
     }
 
