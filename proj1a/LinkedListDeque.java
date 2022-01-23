@@ -11,7 +11,7 @@ public class LinkedListDeque<T> {
         T item;
         DoublyLinkedList next;
 
-        public DoublyLinkedList(DoublyLinkedList prev,
+        DoublyLinkedList(DoublyLinkedList prev,
                                 T item,
                                 DoublyLinkedList next) {
             this.prev = prev;
