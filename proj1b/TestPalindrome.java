@@ -33,6 +33,6 @@ public class TestPalindrome {
         OffByOne obo = new OffByOne();
         assertFalse(palindrome.isPalindrome("fgkcd", obo));
         assertTrue(palindrome.isPalindrome("fdbeg", obo));
-        assertFalse(palindrome.isPalindrome("",obo));
+        assertFalse(palindrome.isPalindrome("", obo));
     }
 }
