@@ -1,8 +1,9 @@
-public class OffByN implements CharacterComparator{
+public class OffByN implements CharacterComparator {
 
-    int N;
-    public OffByN(int N){
-        this.N=N;
+    private int N;
+
+    public OffByN(int N) {
+        this.N = N;
     }
 
     @Override

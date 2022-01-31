@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T> {
     private DoublyLinkedList sentinel;
     private int size = 0;
 
@@ -12,8 +12,8 @@ public class LinkedListDeque<T> implements Deque<T>{
         DoublyLinkedList next;
 
         DoublyLinkedList(DoublyLinkedList prev,
-                                T item,
-                                DoublyLinkedList next) {
+                         T item,
+                         DoublyLinkedList next) {
             this.prev = prev;
             this.next = next;
             this.item = item;

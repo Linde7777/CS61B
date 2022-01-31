@@ -23,7 +23,7 @@ public class Palindrome {
         Deque<Character> deque = wordToDeque(word);
         int lenOfScan = deque.size() / 2;
         for (int i = 0; i < lenOfScan; i++) {
-            if (!cc.equalChars(deque.removeFirst(),deque.removeLast())) {
+            if (!cc.equalChars(deque.removeFirst(), deque.removeLast())) {
                 return false;
             }
         }
