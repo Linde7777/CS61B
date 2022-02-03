@@ -44,22 +44,14 @@ public class ArrayMap<K, V> implements Map61B<K, V> {
 
 
     public boolean containsKey(K key) {
-        if(keys.contains(key)){
-            return true;
-        }
-
-        return false;
+        return keys.contains(key);
     }
 
     public void put(K key, V value) {
-        if (index < capacity) {
-            keys.add(index, key);
-            values.add(index, value);
-            index += 1;
-            size += 1;
-        } else {
-            //TODO: array resize
-        }
+        keys.add(index, key);
+        values.add(index, value);
+        index += 1;
+        size += 1;
     }
 
     public V get(K key) {
