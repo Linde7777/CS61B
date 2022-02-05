@@ -1,8 +1,11 @@
+/*
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
+
+ */
 
 /**
  * This code does some stuff. Run it (with sound on!) to find out what stuff it does!
@@ -10,6 +13,9 @@ import java.util.zip.GZIPInputStream;
  *
  * @author Eli Lipsitz
  */
+
+
+/*
 public class TTFAF {
     public static void main(String[] args) {
         try {
@@ -183,3 +189,5 @@ public class TTFAF {
                     + "8wUeQqcz27kPJxu43Hxw06TZAE7u4PLOParlZEg8gv6CqnAAZQmXyw9nVEgRopMcLnNTqKj9wwb0"
                     + "6zR/5Bb/AT7+4c9/APjxG/j/XQ2yXpqSAA==";
 }
+
+ */

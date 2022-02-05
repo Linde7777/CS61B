@@ -1,7 +1,5 @@
 package synthesizer;
 
-import org.junit.Test;
-
 public class GuitarString {
     private static final int SR = 44100;      // Sampling Rate
     private static final double DECAY = .996; // energy decay factor
@@ -35,9 +33,6 @@ public class GuitarString {
      * the Karplus-Strong algorithm.
      */
     public void tic() {
-        // TODO: Dequeue the front sample and enqueue a new sample that is
-        //       the average of the two multiplied by the DECAY factor.
-        //       Do not call StdAudio.play().
         double newSample = ((buffer.dequeue() + buffer.peek()) / 2) * DECAY;
         buffer.enqueue(newSample);
     }
