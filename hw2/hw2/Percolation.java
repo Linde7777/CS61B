@@ -95,8 +95,7 @@ public class Percolation {
         // is the site (row, col) open?
         checkRowAndCol(row, col);
 
-        //TODO
-        return false;
+        return openHelper[row][col]==isOpened;
     }
 
     public boolean isFull(int row, int col) {
