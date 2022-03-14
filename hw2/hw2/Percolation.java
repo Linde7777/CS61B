@@ -5,9 +5,10 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
     private int N;
     WeightedQuickUnionUF wqu;
-    int[][] openHelper;
+    private int[][] openHelper;
     final int isBlocked = 0;
     final int isOpened = 1;
+    private int openedCount=0;
 
 
     public Percolation(int N) {// create N-by-N grid, with all sites initially blocked
@@ -24,6 +25,19 @@ public class Percolation {
             }
         }
 
+    }
+
+    public void testXyTo1D(){
+        //when N==4
+        if(xyTo1D(2,1)==6){
+            System.out.println("test 1 passed");
+        }
+        if(xyTo1D(0,0)==0){
+            System.out.println("test 2 passed");
+        }
+        if(xyTo1D(3,3)==15){
+            System.out.println("test 3 passed");
+        }
     }
 
     private int xyTo1D(int x, int y) {
@@ -56,6 +70,7 @@ public class Percolation {
         // open the site (row, col) if it is not open already
         checkRowAndCol(row, col);
         openHelper[row][col] = isOpened;
+        openedCount+=1;
 
         /*
         Using a 2D array to store the info of opened component
@@ -116,6 +131,7 @@ public class Percolation {
             System.out.println("test 3 passed");
         }
     }
+
     public boolean isFull(int row, int col) {
         // is the site (row, col) full?
         checkRowAndCol(row, col);
@@ -129,11 +145,23 @@ public class Percolation {
         return false;
     }
 
+    public void testNumberOfOpenSites(){
+        if(numberOfOpenSites()==0){
+            System.out.println("test 1 passed");
+        }
+        open(2,2);
+        open(1,2);
+        open(3,1);
+        open(1,1);
+        if(numberOfOpenSites()==4){
+            System.out.println("test 2 passed");
+        }
+    }
+
     public int numberOfOpenSites() {
         // number of open sites
 
-
-        return 0;
+        return openedCount;
     }
 
     public boolean percolates() {
@@ -145,7 +173,9 @@ public class Percolation {
 
     public static void main(String[] args) {
         Percolation percolation = new Percolation(4);
+        //percolation.testXyTo1D();
         //percolation.testOpen();
-        percolation.testIsFull();
+        //percolation.testIsFull();
+        percolation.testNumberOfOpenSites();
     }
 }
