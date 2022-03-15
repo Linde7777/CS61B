@@ -26,7 +26,7 @@ public class Percolation {
 
     }
 
-    public void testXyTo1D() {
+    private void testXyTo1D() {
         //when N==4
         if (xyTo1D(2, 1) == 6) {
             System.out.println("test 1 passed");
@@ -59,7 +59,7 @@ public class Percolation {
         }
     }
 
-    public void testOpen() {
+    private void testOpen() {
         //when N == 4
 
         open(0, 2);
@@ -126,7 +126,7 @@ public class Percolation {
         return openHelper[row][col] == isOpened;
     }
 
-    public void testIsFull() {
+    private void testIsFull() {
         System.out.println("There are 5 tests");
         open(2, 2);
         open(3, 2);
@@ -172,7 +172,7 @@ public class Percolation {
         return false;
     }
 
-    public void testNumberOfOpenSites() {
+    private void testNumberOfOpenSites() {
         if (numberOfOpenSites() == 0) {
             System.out.println("test 1 passed");
         }
@@ -190,7 +190,7 @@ public class Percolation {
         return openedCount;
     }
 
-    public void testPercolates() {
+    private void testPercolates() {
         //when N==4
         open(0, 2);
         open(1, 2);
@@ -223,8 +223,8 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        Percolation percolation = new Percolation(10);
-        percolation.testXyTo1D();
+        //Percolation percolation = new Percolation(10);
+        //percolation.testXyTo1D();
         //percolation.testOpen();
         //percolation.testIsFull();
         //percolation.testNumberOfOpenSites();
