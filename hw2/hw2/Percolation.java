@@ -162,8 +162,9 @@ public class Percolation {
         // is the site (row, col) full?
         checkRowAndCol(row, col);
 
-        for (int i = 0; i < N - 1; i++) {//i refer to the first row element
-            if (wqu.connected(i, xyTo1D(row, col))) {
+        for (int i = 0; i < N; i++) {//i refer to the first row element
+            if (openHelper[0][i]==isOpened
+                    &&wqu.connected(i, xyTo1D(row, col))) {
                 return true;
             }
         }
@@ -222,8 +223,8 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        //Percolation percolation = new Percolation(4);
-        //percolation.testXyTo1D();
+        Percolation percolation = new Percolation(10);
+        percolation.testXyTo1D();
         //percolation.testOpen();
         //percolation.testIsFull();
         //percolation.testNumberOfOpenSites();
