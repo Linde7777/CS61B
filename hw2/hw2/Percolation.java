@@ -41,7 +41,7 @@ public class Percolation {
     }
 
     private int xyTo1D(int x, int y) {
-        if (x <= N - 1 && y <= N - 1) {
+        if (y <= N - 1) {
             return y;
         }
         return x + y * this.N;
