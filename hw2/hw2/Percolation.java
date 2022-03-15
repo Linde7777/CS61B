@@ -41,6 +41,9 @@ public class Percolation {
     }
 
     private int xyTo1D(int x, int y) {
+        if (x <= N - 1 && y <= N - 1) {
+            return y;
+        }
         return x + y * this.N;
     }
 
@@ -59,7 +62,7 @@ public class Percolation {
         open(2, 3);
         open(2, 0);
         open(3, 3);
-        if(wqu.connected(xyTo1D(0,2),xyTo1D(3,3))==true){
+        if (wqu.connected(xyTo1D(0, 2), xyTo1D(3, 3)) == true) {
             System.out.println("test 1 passed");
         }
 
@@ -198,9 +201,9 @@ public class Percolation {
     public static void main(String[] args) {
         Percolation percolation = new Percolation(4);
         //percolation.testXyTo1D();
-        percolation.testOpen();
+        //percolation.testOpen();
         //percolation.testIsFull();
         //percolation.testNumberOfOpenSites();
-        //percolation.testPercolates();
+        percolation.testPercolates();
     }
 }
