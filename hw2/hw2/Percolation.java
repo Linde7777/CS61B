@@ -8,7 +8,7 @@ public class Percolation {
     private int[][] openHelper;
     final int isBlocked = 0;
     final int isOpened = 1;
-    private int openedCount=0;
+    private int openedCount = 0;
 
 
     public Percolation(int N) {// create N-by-N grid, with all sites initially blocked
@@ -27,15 +27,15 @@ public class Percolation {
 
     }
 
-    public void testXyTo1D(){
+    public void testXyTo1D() {
         //when N==4
-        if(xyTo1D(2,1)==6){
+        if (xyTo1D(2, 1) == 6) {
             System.out.println("test 1 passed");
         }
-        if(xyTo1D(0,0)==0){
+        if (xyTo1D(0, 0) == 0) {
             System.out.println("test 2 passed");
         }
-        if(xyTo1D(3,3)==15){
+        if (xyTo1D(3, 3) == 15) {
             System.out.println("test 3 passed");
         }
     }
@@ -53,24 +53,23 @@ public class Percolation {
 
     public void testOpen() {
         //when N == 4
-        open(0, 1);
-        open(3, 2);
-        open(2, 3);
+        open(0, 2);
+        open(1, 2);
         open(2, 2);
-
-        if (wqu.connected(xyTo1D(0, 1), xyTo1D(3, 2)) == false) {
+        open(2, 3);
+        open(2, 0);
+        open(3, 3);
+        if(wqu.connected(xyTo1D(0,2),xyTo1D(3,3))==true){
             System.out.println("test 1 passed");
         }
-        if (wqu.connected(xyTo1D(3, 2), xyTo1D(2, 3)) == true) {
-            System.out.println("test 2 passed");
-        }
+
     }
 
     public void open(int row, int col) {
         // open the site (row, col) if it is not open already
         checkRowAndCol(row, col);
         openHelper[row][col] = isOpened;
-        openedCount+=1;
+        openedCount += 1;
 
         /*
         Using a 2D array to store the info of opened component
@@ -112,22 +111,22 @@ public class Percolation {
         return openHelper[row][col] == isOpened;
     }
 
-    public void testIsFull(){
-        open(2,2);
-        open(3,2);
-        open(2,3);
-        if(isFull(2,2)==false){
+    public void testIsFull() {
+        open(2, 2);
+        open(3, 2);
+        open(2, 3);
+        if (isFull(2, 2) == false) {
             System.out.println("test 1 passed");
         }
 
-        open(2,0);
-        open(2,1);
-        if(isFull(2,2)==true){
+        open(2, 0);
+        open(2, 1);
+        if (isFull(2, 2) == true) {
             System.out.println("test 2 passed");
         }
 
-        open(0,0);
-        if(isFull(0,0)==true){
+        open(0, 0);
+        if (isFull(0, 0) == true) {
             System.out.println("test 3 passed");
         }
     }
@@ -136,8 +135,8 @@ public class Percolation {
         // is the site (row, col) full?
         checkRowAndCol(row, col);
 
-        for(int i=0;i<N-1;i++){//i refer to the first row element
-            if(wqu.connected(i,xyTo1D(row,col))){
+        for (int i = 0; i < N - 1; i++) {//i refer to the first row element
+            if (wqu.connected(i, xyTo1D(row, col))) {
                 return true;
             }
         }
@@ -145,15 +144,15 @@ public class Percolation {
         return false;
     }
 
-    public void testNumberOfOpenSites(){
-        if(numberOfOpenSites()==0){
+    public void testNumberOfOpenSites() {
+        if (numberOfOpenSites() == 0) {
             System.out.println("test 1 passed");
         }
-        open(2,2);
-        open(1,2);
-        open(3,1);
-        open(1,1);
-        if(numberOfOpenSites()==4){
+        open(2, 2);
+        open(1, 2);
+        open(3, 1);
+        open(1, 1);
+        if (numberOfOpenSites() == 4) {
             System.out.println("test 2 passed");
         }
     }
@@ -164,18 +163,44 @@ public class Percolation {
         return openedCount;
     }
 
+    public void testPercolates() {
+        //when N==4
+        open(0, 2);
+        open(1, 2);
+        open(2, 2);
+        open(2, 3);
+        open(2, 0);
+        if (percolates() == false) {
+            System.out.println("test 1 passed");
+        }
+
+        open(3, 3);
+        if (percolates() == true) {
+            System.out.println("test 2 passed");
+        }
+
+    }
+
     public boolean percolates() {
         // does the system percolate?
 
-        //TODO
+        for (int i = 0; i <= N - 1; i++) {//the first row
+            for (int j = 0 + (N - 1) * N; j <= (N - 1) + (N - 1) * N; j++) {//the last row
+                if (wqu.connected(i, j) == true) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
     public static void main(String[] args) {
         Percolation percolation = new Percolation(4);
         //percolation.testXyTo1D();
-        //percolation.testOpen();
+        percolation.testOpen();
         //percolation.testIsFull();
-        percolation.testNumberOfOpenSites();
+        //percolation.testNumberOfOpenSites();
+        //percolation.testPercolates();
     }
 }
