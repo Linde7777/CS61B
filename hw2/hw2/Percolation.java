@@ -38,13 +38,19 @@ public class Percolation {
         if (xyTo1D(3, 3) == 15) {
             System.out.println("test 3 passed");
         }
+        if (xyTo1D(0, 1) == 1) {
+            System.out.println("test 4 passed");
+        }
+        if (xyTo1D(0, 3) == 3) {
+            System.out.println("test 5 passed");
+        }
+        if (xyTo1D(1, 3) == 7) {
+            System.out.println("test 6 passed");
+        }
     }
 
     private int xyTo1D(int x, int y) {
-        if (y <= N - 1) {
-            return y;
-        }
-        return x + y * this.N;
+        return x*this.N+y;
     }
 
     private void checkRowAndCol(int row, int col) {
@@ -56,6 +62,7 @@ public class Percolation {
 
     public void testOpen() {
         //when N == 4
+
         open(0, 2);
         open(1, 2);
         open(2, 2);
@@ -65,7 +72,15 @@ public class Percolation {
         if (wqu.connected(xyTo1D(0, 2), xyTo1D(3, 3)) == true) {
             System.out.println("test 1 passed");
         }
-
+        if (wqu.connected(xyTo1D(2, 2), xyTo1D(3, 3)) == true) {
+            System.out.println("test 2 passed");
+        }
+        if (wqu.connected(xyTo1D(2, 0), xyTo1D(3, 3)) == false) {
+            System.out.println("test 3 passed");
+        }
+        if (wqu.connected(xyTo1D(1, 2), xyTo1D(2, 2)) == false) {
+            System.out.println("test 4 passed");
+        }
     }
 
     public void open(int row, int col) {
@@ -201,9 +216,9 @@ public class Percolation {
     public static void main(String[] args) {
         Percolation percolation = new Percolation(4);
         //percolation.testXyTo1D();
-        //percolation.testOpen();
+        percolation.testOpen();
         //percolation.testIsFull();
         //percolation.testNumberOfOpenSites();
-        percolation.testPercolates();
+        //percolation.testPercolates();
     }
 }
