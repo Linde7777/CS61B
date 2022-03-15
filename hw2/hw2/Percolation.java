@@ -85,8 +85,10 @@ public class Percolation {
     public void open(int row, int col) {
         // open the site (row, col) if it is not open already
         checkRowAndCol(row, col);
-        openHelper[row][col] = isOpened;
-        openedCount += 1;
+        if (openHelper[row][col] == isBlocked) {
+            openHelper[row][col] = isOpened;
+            openedCount += 1;
+        }
 
         /*
         Using a 2D array to store the info of opened component
@@ -220,10 +222,10 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        Percolation percolation = new Percolation(4);
+        //Percolation percolation = new Percolation(4);
         //percolation.testXyTo1D();
         //percolation.testOpen();
-        percolation.testIsFull();
+        //percolation.testIsFull();
         //percolation.testNumberOfOpenSites();
         //percolation.testPercolates();
     }
