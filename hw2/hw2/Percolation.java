@@ -4,12 +4,11 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     private int N;
-    WeightedQuickUnionUF wqu;
+    private WeightedQuickUnionUF wqu;
     private int[][] openHelper;
-    final int isBlocked = 0;
-    final int isOpened = 1;
+    private final int isBlocked = 0;
+    private final int isOpened = 1;
     private int openedCount = 0;
-
 
     public Percolation(int N) {// create N-by-N grid, with all sites initially blocked
         if (N <= 0) {
@@ -112,7 +111,7 @@ public class Percolation {
             for (int j = 0; j < N; j++) {
                 if (openHelper[i][j] == isOpened &&
                         openHelper[i + 1][j] == isOpened) {
-                   wqu.union(xyTo1D(i,j),xyTo1D(i+1,j));
+                    wqu.union(xyTo1D(i, j), xyTo1D(i + 1, j));
                 }
             }
         }
@@ -145,13 +144,13 @@ public class Percolation {
             System.out.println("test 3 passed");
         }
 
-        open(1,0);
-        if(isFull(2,2)==true){
+        open(1, 0);
+        if (isFull(2, 2) == true) {
             System.out.println("test 4 passed");
         }
 
-        open(1,3);
-        if(isFull(1,3)==true){
+        open(1, 3);
+        if (isFull(1, 3) == true) {
             System.out.println("test 5 passed");
         }
 
@@ -185,7 +184,6 @@ public class Percolation {
 
     public int numberOfOpenSites() {
         // number of open sites
-
         return openedCount;
     }
 
