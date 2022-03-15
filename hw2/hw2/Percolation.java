@@ -126,6 +126,7 @@ public class Percolation {
     }
 
     public void testIsFull() {
+        System.out.println("There are 5 tests");
         open(2, 2);
         open(3, 2);
         open(2, 3);
@@ -135,7 +136,7 @@ public class Percolation {
 
         open(2, 0);
         open(2, 1);
-        if (isFull(2, 2) == true) {
+        if (isFull(2, 2) == false) {
             System.out.println("test 2 passed");
         }
 
@@ -143,6 +144,17 @@ public class Percolation {
         if (isFull(0, 0) == true) {
             System.out.println("test 3 passed");
         }
+
+        open(1,0);
+        if(isFull(2,2)==true){
+            System.out.println("test 4 passed");
+        }
+
+        open(1,3);
+        if(isFull(1,3)==true){
+            System.out.println("test 5 passed");
+        }
+
     }
 
     public boolean isFull(int row, int col) {
@@ -213,8 +225,8 @@ public class Percolation {
         Percolation percolation = new Percolation(4);
         //percolation.testXyTo1D();
         //percolation.testOpen();
-        //percolation.testIsFull();
+        percolation.testIsFull();
         //percolation.testNumberOfOpenSites();
-        percolation.testPercolates();
+        //percolation.testPercolates();
     }
 }
