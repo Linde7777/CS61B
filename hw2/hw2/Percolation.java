@@ -50,7 +50,7 @@ public class Percolation {
     }
 
     private int xyTo1D(int x, int y) {
-        return x*this.N+y;
+        return x * this.N + y;
     }
 
     private void checkRowAndCol(int row, int col) {
@@ -78,7 +78,7 @@ public class Percolation {
         if (wqu.connected(xyTo1D(2, 0), xyTo1D(3, 3)) == false) {
             System.out.println("test 3 passed");
         }
-        if (wqu.connected(xyTo1D(1, 2), xyTo1D(2, 2)) == false) {
+        if (wqu.connected(xyTo1D(1, 2), xyTo1D(2, 2)) == true) {
             System.out.println("test 4 passed");
         }
     }
@@ -93,30 +93,26 @@ public class Percolation {
         Using a 2D array to store the info of opened component
         if there are two adjacent component, union them
         */
-        for (int i = 0; i < N - 1; i++) {
+
+        /*
+        Do not scan the 2D array in parallel and vertical direction
+        at the same time. Watch the boundary of i and j in the for loop,
+        you will know why.
+         */
+        for (int i = 0; i < N; i++) {//scan in the parallel direction
             for (int j = 0; j < N - 1; j++) {
+                if (openHelper[i][j] == isOpened &&
+                        openHelper[i][j + 1] == isOpened) {
+                    wqu.union(xyTo1D(i, j), xyTo1D(i, j + 1));
+                }
+            }
+        }
 
-                if (openHelper[i][j] == isOpened) {
-                    int index1 = xyTo1D(i, j);
-
-                    if (openHelper[i + 1][j] == isOpened) {
-                        int index2 = xyTo1D(i + 1, j);
-                        wqu.union(index1, index2);
-                    }
-
-                    if (openHelper[i][j + 1] == isOpened) {
-                        int index2 = xyTo1D(i, j + 1);
-                        wqu.union(index1, index2);
-                    }
-                    /*
-                    since we scan the array from left to right
-                    then scan the array from up to down
-                    we only need to care about the right and down direction
-
-                    for example, if arr[1][2] and arr[1][3] are both 'opened'
-                    after we scan arr[1][2], we have union arr[1][2] and arr[1][3]
-                    so when we scan arr[1][3], we don't need to care about arr[1][2]
-                    */
+        for (int i = 0; i < N - 1; i++) {//scan in the vertical direction
+            for (int j = 0; j < N; j++) {
+                if (openHelper[i][j] == isOpened &&
+                        openHelper[i + 1][j] == isOpened) {
+                   wqu.union(xyTo1D(i,j),xyTo1D(i+1,j));
                 }
             }
         }
@@ -216,9 +212,9 @@ public class Percolation {
     public static void main(String[] args) {
         Percolation percolation = new Percolation(4);
         //percolation.testXyTo1D();
-        percolation.testOpen();
+        //percolation.testOpen();
         //percolation.testIsFull();
         //percolation.testNumberOfOpenSites();
-        //percolation.testPercolates();
+        percolation.testPercolates();
     }
 }
