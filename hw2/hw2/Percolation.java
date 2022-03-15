@@ -163,8 +163,8 @@ public class Percolation {
         checkRowAndCol(row, col);
 
         for (int i = 0; i < N; i++) {//i refer to the first row element
-            if (openHelper[0][i]==isOpened
-                    &&wqu.connected(i, xyTo1D(row, col))) {
+            if (openHelper[0][i] == isOpened
+                    && wqu.connected(i, xyTo1D(row, col))) {
                 return true;
             }
         }
