@@ -5,9 +5,9 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
     private final int N;
     private final WeightedQuickUnionUF wqu;
-    private final int[] openHelper;
-    private final int isBlocked = 0;
-    private final int isOpened = 1;
+    private final boolean[] openHelper;
+    private final boolean isBlocked = false;
+    private final boolean isOpened = true;
     private int openedCount = 0;
     private final int virtualTop;
     private final int virtualBottom;
@@ -19,7 +19,7 @@ public class Percolation {
         }
         this.N = N;
         wqu = new WeightedQuickUnionUF(N * N + 2);
-        openHelper = new int[N * N + 2];
+        openHelper = new boolean[N * N + 2];
         for (int i = 0; i < openHelper.length; i++) {
             openHelper[i] = isBlocked;
         }
