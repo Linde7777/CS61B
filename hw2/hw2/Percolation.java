@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
     private final int N;
     private final WeightedQuickUnionUF wqu;
-    private final int[][] openHelper;
+    private final int[] openHelper;
     private final int isBlocked = 0;
     private final int isOpened = 1;
     private int openedCount = 0;
@@ -18,10 +18,10 @@ public class Percolation {
         this.N = N;
         wqu = new WeightedQuickUnionUF(N * N);
 
-        openHelper = new int[N][N];
+        openHelper = new int[N * N];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                openHelper[i][j] = isBlocked;
+                openHelper[xyTo1D(i, j)] = isBlocked;
             }
         }
 
@@ -93,8 +93,8 @@ public class Percolation {
         Using a 2D array to store the info of opened component
         if there are two adjacent component, union them
         */
-        if (openHelper[row][col] == isBlocked) {
-            openHelper[row][col] = isOpened;
+        if (openHelper[xyTo1D(row, col)] == isBlocked) {
+            openHelper[xyTo1D(row, col)] = isOpened;
             openedCount += 1;
         }
 
@@ -108,8 +108,8 @@ public class Percolation {
         //scan in the parallel direction
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N - 1; j++) {
-                if (openHelper[i][j] == isOpened
-                        && openHelper[i][j + 1] == isOpened) {
+                if (openHelper[xyTo1D(i, j)] == isOpened
+                        && openHelper[xyTo1D(i, j + 1)] == isOpened) {
                     wqu.union(xyTo1D(i, j), xyTo1D(i, j + 1));
                 }
             }
@@ -118,8 +118,8 @@ public class Percolation {
         //scan in the vertical direction
         for (int i = 0; i < N - 1; i++) {
             for (int j = 0; j < N; j++) {
-                if (openHelper[i][j] == isOpened
-                        && openHelper[i + 1][j] == isOpened) {
+                if (openHelper[xyTo1D(i, j)] == isOpened
+                        && openHelper[xyTo1D(i + 1, j)] == isOpened) {
                     wqu.union(xyTo1D(i, j), xyTo1D(i + 1, j));
                 }
             }
@@ -130,7 +130,7 @@ public class Percolation {
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
         checkRowAndCol(row, col);
-        return openHelper[row][col] == isOpened;
+        return openHelper[xyTo1D(row, col)] == isOpened;
     }
 
     private void testIsFull() {
@@ -170,7 +170,7 @@ public class Percolation {
 
         for (int i = 0; i < N; i++) {
             //i refer to the first row element
-            if (openHelper[0][i] == isOpened
+            if (openHelper[xyTo1D(0, i)] == isOpened
                     && wqu.connected(i, xyTo1D(row, col))) {
                 return true;
             }
