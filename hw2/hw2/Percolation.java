@@ -126,14 +126,6 @@ public class Percolation {
             wqu.union(xyTo1D(row, col), virtualTop);
         }
 
-        if (row == N - 1) {
-
-            //prevent backwash
-            if (wqu.connected(xyTo1D(row, col), virtualTop)) {
-                wqu.union(xyTo1D(row, col), virtualBottom);
-            }
-        }
-
         /*
         If you do not implement the following line,
         there will be an issue in percolate().
