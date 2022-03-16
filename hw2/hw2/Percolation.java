@@ -96,13 +96,6 @@ public class Percolation {
         }
 
         /*
-        Scanning the (virtual)2D array in parallel and vertical direction
-        at the same for loop will cause issues.
-        Read the boundary of i and j in the following two for loop,
-        you will know why.
-         */
-
-        //scan in the parallel direction
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N - 1; j++) {
                 if (openHelper[xyTo1D(i, j)] == isOpened
@@ -112,7 +105,32 @@ public class Percolation {
             }
         }
 
-        //scan in the vertical direction
+         */
+        if (col + 1 <= N - 1
+                && isOpen(row, col + 1)
+                && !wqu.connected(xyTo1D(row, col), xyTo1D(row, col + 1))) {
+            wqu.union(xyTo1D(row, col), xyTo1D(row, col + 1));
+        }
+
+        if (col - 1 >= 0
+                && isOpen(row, col - 1)
+                && !wqu.connected(xyTo1D(row, col), xyTo1D(row, col - 1))) {
+            wqu.union(xyTo1D(row, col), xyTo1D(row, col - 1));
+        }
+
+        if (row - 1 >= 0
+                && isOpen(row - 1, col)
+                && !wqu.connected(xyTo1D(row, col), xyTo1D(row - 1, col))) {
+            wqu.union(xyTo1D(row, col), xyTo1D(row - 1, col));
+        }
+
+        if (row + 1 <= N - 1
+                && isOpen(row + 1, col)
+                && !wqu.connected(xyTo1D(row, col), xyTo1D(row + 1, col))) {
+            wqu.union(xyTo1D(row, col), xyTo1D(row + 1, col));
+        }
+
+        /*
         for (int i = 0; i < N - 1; i++) {
             for (int j = 0; j < N; j++) {
                 if (openHelper[xyTo1D(i, j)] == isOpened
@@ -121,6 +139,7 @@ public class Percolation {
                 }
             }
         }
+         */
 
         if (row == 0) {
             wqu.union(xyTo1D(row, col), virtualTop);
@@ -186,16 +205,6 @@ public class Percolation {
     public boolean isFull(int row, int col) {
         checkRowAndCol(row, col);
         return wqu.connected(xyTo1D(row, col), virtualTop);
-        /*
-        for (int i = 0; i < N; i++) {
-            //i refer to the first row element
-            if (openHelper[xyTo1D(0, i)] == isOpened
-                    && wqu.connected(i, xyTo1D(row, col))) {
-                return true;
-            }
-        }
-        return false;
-         */
     }
 
     private void testNumberOfOpenSites() {
@@ -237,20 +246,6 @@ public class Percolation {
     // does the system percolate?
     public boolean percolates() {
         return wqu.connected(virtualTop, virtualBottom);
-        /*
-        //the first row
-        for (int i = 0; i <= N - 1; i++) {
-
-            //the last row
-            for (int j = (N - 1) * N; j <= (N - 1) + (N - 1) * N; j++) {
-                if (wqu.connected(i, j)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-         */
     }
 
     private void test() {
@@ -261,8 +256,8 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        Percolation percolation = new Percolation(4);
-        percolation.test();
+        //Percolation percolation = new Percolation(4);
+        //percolation.test();
         //percolation.testXyTo1D();
         //percolation.testOpen();
         //percolation.testIsFull();
