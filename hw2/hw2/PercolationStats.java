@@ -6,8 +6,8 @@ import edu.princeton.cs.introcs.StdStats;
 public class PercolationStats {
     private int N;
     private int T;
-    private Percolation percolation;
-    private double[] totalThreshold;
+    private final Percolation percolation;
+    private final double[] totalThreshold;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
         // perform T independent experiments on an N-by-N grid
@@ -17,25 +17,26 @@ public class PercolationStats {
         this.N = N;
         this.T = T;
         percolation = pf.make(N);
-        performExperiments(percolation);
+        totalThreshold = new double[T];
+        performExperiments();
     }
 
-    public void performExperiments(Percolation percolation) {
+    public void performExperiments() {
         final int numberOfPossibleIntegers = N - 1;
-        double[] totalThreshold = new double[T];
 
+        //perform T times experiments
         for (int i = 0; i < T; i++) {
+
             //perform one time experiment
             while (!percolation.percolates()) {
-                percolation.open(StdRandom.uniform(numberOfPossibleIntegers)
-                        , StdRandom.uniform(numberOfPossibleIntegers));
+                percolation.open(StdRandom.uniform(numberOfPossibleIntegers),
+                        StdRandom.uniform(numberOfPossibleIntegers));
             }
             int openedSites = percolation.numberOfOpenSites();
             double threshold = (double) openedSites / (N * N);
             totalThreshold[i] = threshold;
         }
 
-        this.totalThreshold = totalThreshold;
     }
 
     public double mean() {
