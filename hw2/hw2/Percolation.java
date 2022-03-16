@@ -3,9 +3,9 @@ package hw2;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private int N;
-    private WeightedQuickUnionUF wqu;
-    private int[][] openHelper;
+    private final int N;
+    private final WeightedQuickUnionUF wqu;
+    private final int[][] openHelper;
     private final int isBlocked = 0;
     private final int isOpened = 1;
     private int openedCount = 0;
