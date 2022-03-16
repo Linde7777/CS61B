@@ -105,7 +105,11 @@ public class Percolation {
         }
 
         if (row == N - 1) {
-            wqu.union(xyTo1D(row, col), virtualBottom);
+
+            //prevent backwash
+            if(wqu.connected(xyTo1D(row,col),virtualTop)){
+                wqu.union(xyTo1D(row, col), virtualBottom);
+            }
         }
 
         /*
