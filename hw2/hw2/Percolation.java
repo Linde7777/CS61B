@@ -9,8 +9,8 @@ public class Percolation {
     private final int isBlocked = 0;
     private final int isOpened = 1;
     private int openedCount = 0;
-    private int virtualTop;
-    private int virtualBottom;
+    private final int virtualTop;
+    private final int virtualBottom;
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
@@ -107,7 +107,7 @@ public class Percolation {
         if (row == N - 1) {
 
             //prevent backwash
-            if(wqu.connected(xyTo1D(row,col),virtualTop)){
+            if (wqu.connected(xyTo1D(row, col), virtualTop)) {
                 wqu.union(xyTo1D(row, col), virtualBottom);
             }
         }
@@ -115,13 +115,8 @@ public class Percolation {
         /*
         Scanning the 2D array in parallel and vertical direction
         at the same for loop will cause issues.
-        Watch the boundary of i and j in the following two for loop,
+        Read the boundary of i and j in the following two for loop,
         you will know why.
-         */
-
-        /*TODO
-            can 2 for loop transform into 1 for loop?
-
          */
 
         //scan in the parallel direction
