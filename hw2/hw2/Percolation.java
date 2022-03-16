@@ -9,6 +9,8 @@ public class Percolation {
     private final int isBlocked = 0;
     private final int isOpened = 1;
     private int openedCount = 0;
+    private int virtualTop;
+    private int virtualBottom;
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
@@ -16,14 +18,13 @@ public class Percolation {
             throw new java.lang.IllegalArgumentException();
         }
         this.N = N;
-        wqu = new WeightedQuickUnionUF(N * N);
-
-        openHelper = new int[N * N];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                openHelper[xyTo1D(i, j)] = isBlocked;
-            }
+        wqu = new WeightedQuickUnionUF(N * N + 2);
+        openHelper = new int[N * N + 2];
+        for (int i = 0; i < openHelper.length; i++) {
+            openHelper[i] = isBlocked;
         }
+        virtualTop = N * N;
+        virtualBottom = N * N + 1;
 
     }
 
@@ -90,7 +91,7 @@ public class Percolation {
         checkRowAndCol(row, col);
 
         /*
-        Using a 2D array to store the info of opened component
+        Using an array to store the info of opened component
         if there are two adjacent component, union them
         */
         if (openHelper[xyTo1D(row, col)] == isBlocked) {
@@ -98,11 +99,25 @@ public class Percolation {
             openedCount += 1;
         }
 
+        //connect the opened site in first row with virtual top site
+        if (row == 0) {
+            wqu.union(xyTo1D(row, col), virtualTop);
+        }
+
+        if (row == N - 1) {
+            wqu.union(xyTo1D(row, col), virtualBottom);
+        }
+
         /*
         Scanning the 2D array in parallel and vertical direction
         at the same for loop will cause issues.
         Watch the boundary of i and j in the following two for loop,
         you will know why.
+         */
+
+        /*TODO
+            can 2 for loop transform into 1 for loop?
+
          */
 
         //scan in the parallel direction
@@ -167,7 +182,8 @@ public class Percolation {
     // is the site (row, col) full?
     public boolean isFull(int row, int col) {
         checkRowAndCol(row, col);
-
+        return wqu.connected(xyTo1D(row, col), virtualTop);
+        /*
         for (int i = 0; i < N; i++) {
             //i refer to the first row element
             if (openHelper[xyTo1D(0, i)] == isOpened
@@ -175,8 +191,8 @@ public class Percolation {
                 return true;
             }
         }
-
         return false;
+         */
     }
 
     private void testNumberOfOpenSites() {
@@ -217,7 +233,8 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-
+        return wqu.connected(virtualTop, virtualBottom);
+        /*
         //the first row
         for (int i = 0; i <= N - 1; i++) {
 
@@ -229,7 +246,10 @@ public class Percolation {
             }
         }
 
+
         return false;
+
+         */
     }
 
     public static void main(String[] args) {
