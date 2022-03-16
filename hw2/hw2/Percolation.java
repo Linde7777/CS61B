@@ -90,30 +90,13 @@ public class Percolation {
     public void open(int row, int col) {
         checkRowAndCol(row, col);
 
-        /*
-        Using an array to store the info of opened component
-        if there are two adjacent component, union them
-        */
-        if (openHelper[xyTo1D(row, col)] == isBlocked) {
+        if (!isOpen(row, col)) {
             openHelper[xyTo1D(row, col)] = isOpened;
             openedCount += 1;
         }
 
-        //connect the opened site in first row with virtual top site
-        if (row == 0) {
-            wqu.union(xyTo1D(row, col), virtualTop);
-        }
-
-        if (row == N - 1) {
-
-            //prevent backwash
-            if (wqu.connected(xyTo1D(row, col), virtualTop)) {
-                wqu.union(xyTo1D(row, col), virtualBottom);
-            }
-        }
-
         /*
-        Scanning the 2D array in parallel and vertical direction
+        Scanning the (virtual)2D array in parallel and vertical direction
         at the same for loop will cause issues.
         Read the boundary of i and j in the following two for loop,
         you will know why.
@@ -136,6 +119,35 @@ public class Percolation {
                         && openHelper[xyTo1D(i + 1, j)] == isOpened) {
                     wqu.union(xyTo1D(i, j), xyTo1D(i + 1, j));
                 }
+            }
+        }
+
+        if (row == 0) {
+            wqu.union(xyTo1D(row, col), virtualTop);
+        }
+
+        if (row == N - 1) {
+
+            //prevent backwash
+            if (wqu.connected(xyTo1D(row, col), virtualTop)) {
+                wqu.union(xyTo1D(row, col), virtualBottom);
+            }
+        }
+
+        /*
+        If you do not implement the following line,
+        there will be an issue in percolate().
+        For example do the operation in a 5*5 grid:
+        open(4,1)
+        open(3,1)
+        open(0,1)
+        open(1,1)
+        open(2,1)
+        the result of percolate() will be false
+        */
+        for (int j = 0; j < N; j++) {
+            if (wqu.connected(xyTo1D(N - 1, j), virtualTop)) {
+                wqu.union(xyTo1D(N - 1, j), virtualBottom);
             }
         }
 
@@ -245,14 +257,20 @@ public class Percolation {
             }
         }
 
-
         return false;
-
          */
     }
 
+    private void test() {
+        open(3, 1);
+        open(2, 1);
+        open(0, 1);
+        open(1, 1);
+    }
+
     public static void main(String[] args) {
-        //Percolation percolation = new Percolation(10);
+        Percolation percolation = new Percolation(4);
+        percolation.test();
         //percolation.testXyTo1D();
         //percolation.testOpen();
         //percolation.testIsFull();
