@@ -100,7 +100,7 @@ public class Percolation {
 
         /*
         Scanning the 2D array in parallel and vertical direction
-        at the same time will cause issues.
+        at the same for loop will cause issues.
         Watch the boundary of i and j in the following two for loop,
         you will know why.
          */
