@@ -25,7 +25,6 @@ public class Percolation {
         }
         virtualTop = N * N;
         virtualBottom = N * N + 1;
-
     }
 
     private void testXyTo1D() {
