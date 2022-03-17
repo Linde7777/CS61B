@@ -9,8 +9,8 @@ public class PercolationStats {
     private Percolation percolation;
     private final double[] totalThreshold;
 
+    // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        // perform T independent experiments on an N-by-N grid
         if (N <= 0 || T <= 0) {
             throw new java.lang.IllegalArgumentException();
         }
@@ -21,11 +21,13 @@ public class PercolationStats {
         //perform T times experiments
         for (int i = 0; i < T; i++) {
             percolation = pf.make(N);
+
             //perform one time experiment
             while (!percolation.percolates()) {
                 int randomNumber = getRandomNumber();
                 percolation.open(randomNumber / N, randomNumber % N);
             }
+
             int openedSites = percolation.numberOfOpenSites();
             double threshold = (double) openedSites / (N * N);
             totalThreshold[i] = threshold;
