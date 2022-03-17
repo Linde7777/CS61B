@@ -99,15 +99,18 @@ public class Percolation {
                 && isOpen(row, col + 1)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row, col + 1))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row, col + 1));
-        } else if (col - 1 >= 0
+        }
+        if (col - 1 >= 0
                 && isOpen(row, col - 1)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row, col - 1))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row, col - 1));
-        } else if (row - 1 >= 0
+        }
+        if (row - 1 >= 0
                 && isOpen(row - 1, col)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row - 1, col))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row - 1, col));
-        } else if (row + 1 <= N - 1
+        }
+        if (row + 1 <= N - 1
                 && isOpen(row + 1, col)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row + 1, col))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row + 1, col));
