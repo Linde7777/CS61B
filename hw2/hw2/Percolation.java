@@ -95,51 +95,26 @@ public class Percolation {
             openedCount += 1;
         }
 
-        /*
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N - 1; j++) {
-                if (openHelper[xyTo1D(i, j)] == isOpened
-                        && openHelper[xyTo1D(i, j + 1)] == isOpened) {
-                    wqu.union(xyTo1D(i, j), xyTo1D(i, j + 1));
-                }
-            }
-        }
-
-         */
         if (col + 1 <= N - 1
                 && isOpen(row, col + 1)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row, col + 1))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row, col + 1));
         }
-
-        if (col - 1 >= 0
+        else if (col - 1 >= 0
                 && isOpen(row, col - 1)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row, col - 1))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row, col - 1));
         }
-
-        if (row - 1 >= 0
+        else if (row - 1 >= 0
                 && isOpen(row - 1, col)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row - 1, col))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row - 1, col));
         }
-
-        if (row + 1 <= N - 1
+        else if (row + 1 <= N - 1
                 && isOpen(row + 1, col)
                 && !wqu.connected(xyTo1D(row, col), xyTo1D(row + 1, col))) {
             wqu.union(xyTo1D(row, col), xyTo1D(row + 1, col));
         }
-
-        /*
-        for (int i = 0; i < N - 1; i++) {
-            for (int j = 0; j < N; j++) {
-                if (openHelper[xyTo1D(i, j)] == isOpened
-                        && openHelper[xyTo1D(i + 1, j)] == isOpened) {
-                    wqu.union(xyTo1D(i, j), xyTo1D(i + 1, j));
-                }
-            }
-        }
-         */
 
         if (row == 0) {
             wqu.union(xyTo1D(row, col), virtualTop);
