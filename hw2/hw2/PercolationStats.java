@@ -34,7 +34,7 @@ public class PercolationStats {
 
     public double mean() {
         // sample mean of percolation threshold
-        return StdStats.mean(totalThreshold) / T;
+        return StdStats.mean(totalThreshold);
     }
 
     public double stddev() {
