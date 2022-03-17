@@ -1,5 +1,6 @@
 package hw2;
 
+import edu.princeton.cs.algs4.ST;
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
@@ -23,13 +24,21 @@ public class PercolationStats {
             percolation = pf.make(N);
             //perform one time experiment
             while (!percolation.percolates()) {
-                percolation.open(StdRandom.uniform(N - 1),
-                        StdRandom.uniform(N - 1));
+                int randomNumber = getRandomNumber();
+                percolation.open(randomNumber / N, randomNumber % N);
             }
             int openedSites = percolation.numberOfOpenSites();
             double threshold = (double) openedSites / (N * N);
             totalThreshold[i] = threshold;
         }
+    }
+
+    private int getRandomNumber() {
+        int num = StdRandom.uniform(N * N);
+        while (percolation.isOpen(num / N, num % N)) {
+            num = StdRandom.uniform(N * N);
+        }
+        return num;
     }
 
     public double mean() {
