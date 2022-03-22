@@ -19,13 +19,9 @@ public class SimpleOomage implements Oomage {
         if (o == null) return false;
         if (this.getClass() != o.getClass()) return false;
 
-        if (this.red == ((SimpleOomage) o).red
+        return this.red == ((SimpleOomage) o).red
                 && this.green == ((SimpleOomage) o).green
-                && this.blue == ((SimpleOomage) o).blue) {
-            return true;
-        } else {
-            return false;
-        }
+                && this.blue == ((SimpleOomage) o).blue;
     }
 
     /* Uncomment this method after you've written
