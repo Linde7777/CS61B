@@ -28,6 +28,13 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     private Node root;  /* Root node of the tree. */
     private int size; /* The number of key-value pairs in the tree */
 
+    public static void main(String[] args) {
+        BSTMap<String, Integer> bstmap = new BSTMap<>();
+        bstmap.put("hello", 5);
+        bstmap.put("cat", 10);
+        bstmap.put("fish", 22);
+        bstmap.put("zebra", 90);
+    }
     /* Creates an empty BSTMap. */
     public BSTMap() {
         this.clear();
