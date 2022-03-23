@@ -14,7 +14,6 @@ public class ComplexOomage implements Oomage {
     private static final double WIDTH = 0.05;
 
 
-
     @Override
     public int hashCode() {
         int total = 0;

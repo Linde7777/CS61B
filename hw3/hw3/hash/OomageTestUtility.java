@@ -16,8 +16,8 @@ public class OomageTestUtility {
 
         int[] buckets = new int[M];
         for (Oomage o : oomages) {
-            int num1=o.hashCode();
-            int num2=num1&0x7FFFFFFF;
+            int num1 = o.hashCode();
+            int num2 = num1 & 0x7FFFFFFF;
             int bucketNum = (num2) % M;
             buckets[bucketNum] += 1;
         }

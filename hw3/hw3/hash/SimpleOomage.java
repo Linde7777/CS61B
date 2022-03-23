@@ -30,7 +30,7 @@ public class SimpleOomage implements Oomage {
             return red + green + blue;
         } else {
             int hashCode = 0;
-            hashCode = red/5 * 31 + green/5 * 77 + blue/5 * 13;
+            hashCode = red / 5 * 31 + green / 5 * 77 + blue / 5 * 13;
             return hashCode;
         }
     }
