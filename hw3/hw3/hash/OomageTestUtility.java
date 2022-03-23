@@ -15,14 +15,14 @@ public class OomageTestUtility {
          */
 
         int[] buckets = new int[M];
-        for (int i = 0; i < oomages.size(); i++) {
-            int bucketNum = (oomages.get(i).hashCode() & 0x7FFFFFFF) % M;
+        for (Oomage o : oomages) {
+            int bucketNum = (o.hashCode() & 0x7FFFFFFF) % M;
             buckets[bucketNum] += 1;
         }
         int low = oomages.size() / 50;
         int high = (int) (oomages.size() / 2.5);
-        for(int i=0;i<buckets.length;i++){
-            if(buckets[i]<low||buckets[i]>high){
+        for (int bucket : buckets) {
+            if (bucket < low || bucket > high) {
                 return false;
             }
         }
