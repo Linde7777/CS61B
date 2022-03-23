@@ -34,10 +34,6 @@ public class TestComplexOomage {
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(oomages, 10));
     }
 
-    /* TODO: Create a list of Complex Oomages called deadlyList
-     * that shows the flaw in the hashCode function.
-     */
-
     private ArrayList<Integer> randomList() {
         int N = StdRandom.uniform(1, 10);
         ArrayList<Integer> params = new ArrayList<>(N);
@@ -65,9 +61,6 @@ public class TestComplexOomage {
             deadlyList.add(new ComplexOomage(params));
         }
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
-        /*
-        https://stackoverflow.com/questions/71584697/compute-the-hashcodes-of-multiple-different-integer-arrays-when-appending-sever
-         */
     }
 
     /** Calls tests for SimpleOomage. */
