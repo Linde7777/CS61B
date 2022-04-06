@@ -107,12 +107,18 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        if (index > 1 && getNode(index).myPriority
-                < getNode(parentIndex(index)).myPriority) {
+        if (index > 1) {
+            if (getNode(index).myPriority
+                    < getNode(parentIndex(index)).myPriority) {
 
-            swap(index, parentIndex(index));
-            swim(parentIndex(index));
+                //To avoid the affection of swap(),
+                //use a variable to store parentIndex(index)
+                int parentIndex=parentIndex(index);
+                swap(index, parentIndex);
+                swim(parentIndex);
+            }
         }
+
         return;
     }
 
@@ -123,7 +129,18 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
+        //Node can not sink if it is in the last line
+        if (index < size / 2 + 1) {
+            if (getNode(index).myPriority > getNode(leftIndex(index)).myPriority
+                    && getNode(index).myPriority > getNode(rightIndex(index)).myPriority) {
+
+                //To avoid the affection of swap()
+                //use a variable to store the min index
+                int minIndex=min(leftIndex(index), rightIndex(index));
+                swap(index, minIndex);
+                sink(minIndex);
+            }
+        }
         return;
     }
 
