@@ -132,7 +132,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         //Node can not sink if it is in the last line
         if (index < size / 2 + 1) {
             if (getNode(index).myPriority > getNode(leftIndex(index)).myPriority
-                    && getNode(index).myPriority > getNode(rightIndex(index)).myPriority) {
+                    || getNode(index).myPriority > getNode(rightIndex(index)).myPriority) {
 
                 //To avoid the affection of swap()
                 //use a variable to store the min index
@@ -190,8 +190,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
-        /* TODO: Your code here! */
-        return null;
+        if (size == 0) {
+            return null;
+        }
+        if (size == 1) {
+            T returnItem=peek();
+            size -= 1;
+            contents[1]=null;
+            return returnItem;
+        }
+
+        T returnItem = peek();
+        contents[1] = contents[size];
+        contents[size] = null;
+        size -= 1;
+
+        sink(1);
+
+        return returnItem;
     }
 
     /**
