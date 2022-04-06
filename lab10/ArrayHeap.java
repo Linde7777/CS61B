@@ -29,7 +29,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int leftIndex(int i) {
         /* TODO: Your code here! */
-        return i*2;
+        return i * 2;
     }
 
     /**
@@ -37,7 +37,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int rightIndex(int i) {
         /* TODO: Your code here! */
-        return i*2+1;
+        return i * 2 + 1;
     }
 
     /**
@@ -107,7 +107,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
+        if (index > 1 && getNode(index).myPriority
+                < getNode(parentIndex(index)).myPriority) {
+
+            swap(index, parentIndex(index));
+            swim(parentIndex(index));
+        }
         return;
     }
 
