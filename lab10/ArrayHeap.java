@@ -235,15 +235,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
                 break;
             }
         }
+        if(index==size+1){
+            throw new IllegalArgumentException("There is no such element in the heap");
+        }
 
         contents[index].myPriority = priority;
-        if (contents[index].myPriority
-                < contents[parentIndex(index)].myPriority) {
-            swim(index);
-        } else if (contents[index].myPriority
-                > contents[min(leftIndex(index),rightIndex(index))].myPriority) {
-            sink(index);
-        }
+        swim(index);
+        sink(index);
         return;
     }
 
