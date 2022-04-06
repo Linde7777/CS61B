@@ -229,7 +229,21 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /* TODO: Your code here! */
+        int index;
+        for (index = 1; index <= size; index++) {
+            if (contents[index].myItem.equals(item)) {
+                break;
+            }
+        }
+
+        contents[index].myPriority = priority;
+        if (contents[index].myPriority
+                < contents[parentIndex(index)].myPriority) {
+            swim(index);
+        } else if (contents[index].myPriority
+                > contents[parentIndex(index)].myPriority) {
+            sink(index);
+        }
         return;
     }
 
@@ -463,6 +477,42 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             assertEquals(expected[i], pq.removeMin());
             i += 1;
         }
+    }
+
+    @Test
+    public void testIncreasePriority() {
+        ArrayHeap<String> pq = new ArrayHeap<>();
+        pq.size = 7;
+        for (int i = 1; i <= 7; i += 1) {
+            pq.contents[i] = new ArrayHeap<String>.Node("x" + i, i);
+        }
+        pq.changePriority("x2", 9);
+
+        assertEquals("x1", pq.contents[1].myItem);
+        assertEquals("x4", pq.contents[2].myItem);
+        assertEquals("x3", pq.contents[3].myItem);
+        assertEquals("x2", pq.contents[4].myItem);
+        assertEquals("x5", pq.contents[5].myItem);
+        assertEquals("x6", pq.contents[6].myItem);
+        assertEquals("x7", pq.contents[7].myItem);
+    }
+
+    @Test
+    public void testDecreasePriority(){
+        ArrayHeap<String> pq = new ArrayHeap<>();
+        pq.size = 7;
+        for (int i = 1; i <= 7; i += 1) {
+            pq.contents[i] = new ArrayHeap<String>.Node("x" + i, i);
+        }
+
+        pq.changePriority("x4",0);
+        assertEquals("x4", pq.contents[1].myItem);
+        assertEquals("x1", pq.contents[2].myItem);
+        assertEquals("x3", pq.contents[3].myItem);
+        assertEquals("x2", pq.contents[4].myItem);
+        assertEquals("x5", pq.contents[5].myItem);
+        assertEquals("x6", pq.contents[6].myItem);
+        assertEquals("x7", pq.contents[7].myItem);
     }
 
 }
