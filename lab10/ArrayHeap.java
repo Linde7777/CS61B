@@ -113,7 +113,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
                 //To avoid the affection of swap(),
                 //use a variable to store parentIndex(index)
-                int parentIndex=parentIndex(index);
+                int parentIndex = parentIndex(index);
                 swap(index, parentIndex);
                 swim(parentIndex);
             }
@@ -136,7 +136,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
                 //To avoid the affection of swap()
                 //use a variable to store the min index
-                int minIndex=min(leftIndex(index), rightIndex(index));
+                int minIndex = min(leftIndex(index), rightIndex(index));
                 swap(index, minIndex);
                 sink(minIndex);
             }
@@ -155,7 +155,19 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             resize(contents.length * 2);
         }
 
-        /* TODO: Your code here! */
+        Node newNode = new Node(item, priority);
+        int newNodeIndex = size + 1;
+        contents[newNodeIndex] = newNode;
+        size += 1;
+
+        //if the heap before insert have at lease 1 node
+        if (size > 2) {
+            if (getNode(newNodeIndex).myPriority
+                    < getNode(parentIndex(newNodeIndex)).myPriority) {
+                swim(newNodeIndex);
+            }
+        }
+
     }
 
     /**
