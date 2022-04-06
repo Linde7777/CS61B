@@ -241,7 +241,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
                 < contents[parentIndex(index)].myPriority) {
             swim(index);
         } else if (contents[index].myPriority
-                > contents[parentIndex(index)].myPriority) {
+                > contents[min(leftIndex(index),rightIndex(index))].myPriority) {
             sink(index);
         }
         return;
