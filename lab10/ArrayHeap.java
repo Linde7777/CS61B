@@ -498,14 +498,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     }
 
     @Test
-    public void testDecreasePriority(){
+    public void testDecreasePriority() {
         ArrayHeap<String> pq = new ArrayHeap<>();
         pq.size = 7;
         for (int i = 1; i <= 7; i += 1) {
             pq.contents[i] = new ArrayHeap<String>.Node("x" + i, i);
         }
 
-        pq.changePriority("x4",0);
+        pq.changePriority("x4", 0);
         assertEquals("x4", pq.contents[1].myItem);
         assertEquals("x1", pq.contents[2].myItem);
         assertEquals("x3", pq.contents[3].myItem);
