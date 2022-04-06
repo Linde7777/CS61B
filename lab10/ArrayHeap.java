@@ -28,7 +28,6 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node to the left of the node at i.
      */
     private static int leftIndex(int i) {
-        /* TODO: Your code here! */
         return i * 2;
     }
 
@@ -36,7 +35,6 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node to the right of the node at i.
      */
     private static int rightIndex(int i) {
-        /* TODO: Your code here! */
         return i * 2 + 1;
     }
 
@@ -130,21 +128,23 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         //Node can not sink if it is in the last line
-        if (index < size / 2 + 1) {
-            if (getNode(index).myPriority > getNode(leftIndex(index)).myPriority
-                    || getNode(index).myPriority > getNode(rightIndex(index)).myPriority) {
-
-                //To avoid the affection of swap()
-                //use a variable to store the min index
-                int minIndex = min(leftIndex(index), rightIndex(index));
-                swap(index, minIndex);
-                sink(minIndex);
-            }
+        if (index >= size / 2 + 1) {
+            return;
         }
+        if (getNode(leftIndex(index)) == null && getNode(rightIndex(index)) == null) {
+            return;
+        }
+
+        int minIndex = min(leftIndex(index), rightIndex(index));
+        if (getNode(index).myPriority > getNode(minIndex).myPriority) {
+            swap(index, minIndex);
+            sink(minIndex);
+        }
+
         return;
     }
 
-    /**
+    /*
      * Inserts an item with the given priority value. This is enqueue, or offer.
      * To implement this method, add it to the end of the ArrayList, then swim it.
      */
@@ -194,9 +194,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             return null;
         }
         if (size == 1) {
-            T returnItem=peek();
+            T returnItem = peek();
             size -= 1;
-            contents[1]=null;
+            contents[1] = null;
             return returnItem;
         }
 
