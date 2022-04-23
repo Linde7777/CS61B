@@ -62,7 +62,8 @@ public class TestSolver {
         }
     }
 
-    @Test(timeout = 10000)
+    //add timeout 4 more zero
+    @Test(timeout = 100000000)
     public void testWordPuzzles() {
         In in = new In("input/word_puzzles.txt");
         while (!in.isEmpty()) {

@@ -1,96 +1,141 @@
+
 package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
-import edu.princeton.cs.algs4.Stack;
-import org.junit.Test;
+
+import java.util.ArrayList;
+
+
 
 public class Solver {
-    /*
-    Keep a priority queue of “move sequences”.
-
-    Each SearchNode represents one “move sequence”
-    as defined in the conceptual description of Best-First Search.
-    */
-    private MinPQ<String> pq;
-    private int moves;
-
-    public Solver(WorldState initial) {
-        pq = new MinPQ<>();
-        moves = 0;
-    }
+    private MinPQ<SearchNode> pq = new MinPQ<>();
+    private int totalmoves = 0;
+    private ArrayList<WorldState> path = new ArrayList<>();
 
     public Iterable<WorldState> solution() {
-        return null;
+        return path;
     }
 
     public int moves() {
-        return moves;
+        return totalmoves;
     }
 
-}
+    private class SearchNode implements Comparable<SearchNode> {
+        WorldState worldState;
+        int numMoves;
+        SearchNode prev;
+        int priority;
 
-class SearchNode {
-    State state;
-    //the number of moves made to reach this world state from the initial state.
-    private int numMoves = 0;
-    private SearchNode prev;
-
-    public SearchNode(String word, String goal) {
-        numMoves += prev.numMoves;
-        state = this.new State(word, goal);
-    }
-
-    class State implements WorldState {
-        private String word;
-        private String goal;
-        private int distance;
-
-        public State(String word, String goal) {
-            distance = estimatedDistanceToGoal();
-            this.word = word;
-            this.goal = goal;
+        public SearchNode(WorldState worldState, int numMoves, SearchNode prev) {
+            this.worldState = worldState;
+            this.prev = prev;
+            this.numMoves = numMoves;
+            priority = this.numMoves + this.worldState.estimatedDistanceToGoal();
         }
 
-
         @Override
-        public int estimatedDistanceToGoal() {
-            final char visited = '0';
-            char[] wordArray = new char[word.length()];
-            char[] goalArray = new char[goal.length()];
-            for (int i = 0; i < wordArray.length; i++) {
-                wordArray[i] = word.charAt(i);
-            }
-            for (int i = 0; i < goalArray.length; i++) {
-                goalArray[i] = goal.charAt(i);
+        public int compareTo(SearchNode searchNode) {
+            return this.priority - searchNode.priority;
+        }
+
+    }
+
+    public Solver(WorldState initial) {
+
+        pq.insert(new SearchNode(initial, 0, null));
+
+        while (true) {
+
+            SearchNode formerMinNode = pq.delMin();
+            if (formerMinNode.worldState.isGoal()) {
+                totalmoves = formerMinNode.numMoves;
+                return;
             }
 
-            int sameLetter = 0;
-            for (int i = 0; i < wordArray.length; i++) {
-                for (int j = 0; j < goalArray.length; j++) {
-                    if (wordArray[i] == goalArray[j]) {
-                        wordArray[i] = visited;
-                        goalArray[j] = visited;
-                        sameLetter += 1;
-                        break;
-                    }
+            for (WorldState neighborState : formerMinNode.worldState.neighbors()) {
+                if (!neighborState.equals(formerMinNode.worldState)) {
+                    pq.insert(new SearchNode(neighborState, formerMinNode.numMoves + 1, formerMinNode));
                 }
             }
-            distance = Math.max(wordArray.length-sameLetter,
-                    goalArray.length-sameLetter);
 
-            return distance;
-        }
+            path.add(formerMinNode.worldState);
 
-
-
-        @Override
-        public Iterable<WorldState> neighbors() {
-            return null;
-        }
-
-        @Override
-        public boolean isGoal() {
-            return word.equals(goal);
         }
     }
+
 }
+
+/*
+public class Solver {
+    private MinPQ<SearchNode> pq=new MinPQ<>();
+    private int totalMoves =0;
+    private ArrayList<WorldState> path=new ArrayList<>();
+
+    public Iterable<WorldState> solution() {
+        ArrayList<WorldState> ret = new ArrayList<>();
+        for (int i = totalMoves; i >= 0; i--) {
+            ret.add(path.get(i));
+        }
+        return ret;
+    }
+
+    private void getAnswer(SearchNode goal) {
+        totalMoves = goal.numMoves;
+        path = new ArrayList<>();
+        SearchNode p = goal;
+        while (p != null) {
+            path.add(p.worldState);
+            p = p.prev;
+        }
+    }
+
+    public int moves() {
+        return totalMoves;
+    }
+
+    private class SearchNode implements Comparable<SearchNode> {
+        WorldState worldState;
+        int numMoves;
+        SearchNode prev;
+        int priority;
+
+        public SearchNode(WorldState worldState, int numMoves, SearchNode prev) {
+            this.worldState = worldState;
+            this.prev = prev;
+            this.numMoves = numMoves;
+            priority = this.numMoves + this.worldState.estimatedDistanceToGoal();
+        }
+
+        @Override
+        public int compareTo(SearchNode searchNode) {
+            return this.priority - searchNode.priority;
+        }
+
+    }
+
+    public Solver(WorldState initial) {
+
+        pq.insert(new SearchNode(initial, 0, null));
+
+        while (true) {
+            SearchNode node = pq.delMin();
+            if (node.worldState.isGoal()) {
+                getAnswer(node);
+                return;
+            }
+
+            for (WorldState neighborState : node.worldState.neighbors()) {
+                if (node.prev == null
+                        || !neighborState.equals(node.prev.worldState)) {
+                    pq.insert(new SearchNode(neighborState, node.numMoves + 1, node));
+                }
+            }
+
+            int temp=1;
+        }
+    }
+
+}
+
+
+ */
