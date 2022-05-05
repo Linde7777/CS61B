@@ -32,6 +32,9 @@ public class TestBoard {
         int actual1=board.tileAt(2,1);
         assertEquals(expected1,actual1);
 
+        int expected2=5;
+        int actual2=board.tileAt(2,2);
+        assertEquals(expected2,actual2);
     }
 
     @Test

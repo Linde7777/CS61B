@@ -6,6 +6,7 @@ public class Board implements WorldState {
     private int[][] tiles;
     private int[][] goal;
     private int size;
+    private final int BLANK=0;
 
     public Board(int[][] aTiles) {
         this.tiles=new int[aTiles.length][aTiles[0].length];
@@ -41,7 +42,6 @@ public class Board implements WorldState {
     //copy from http://joshh.ug/neighbors.html
     @Override
     public Iterable<WorldState> neighbors() {
-        final int BLANK=0;
         Queue<WorldState> neighbors = new Queue<>();
         int hug = size();
         int bug = -1;
@@ -93,7 +93,7 @@ public class Board implements WorldState {
         int hammingCount = 0;
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (tiles[i][j] != 0 && tiles[i][j] != goal[i][j]) {
+                if (tiles[i][j] != BLANK && tiles[i][j] != goal[i][j]) {
                     hammingCount += 1;
                 }
             }
@@ -113,7 +113,7 @@ public class Board implements WorldState {
         int manhattanCount = 0;
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (tiles[i][j] != 0 && tiles[i][j] != goal[i][j]) {
+                if (tiles[i][j] != BLANK && tiles[i][j] != goal[i][j]) {
                     int currentRowIndex = i;
                     int currentColIndex = j;
                     int correctRowIndex = getCorrectRowIndex(tiles[i][j]);
