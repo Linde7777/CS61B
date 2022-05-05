@@ -3,13 +3,16 @@ package hw4.puzzle;
 public class Board implements WorldState {
     int[][] tiles;
     int[][] goal;
+    int size;
 
     public Board(int[][] tiles) {
         this.tiles = tiles;
         goal = goalInitializer();
+        size = size();
     }
 
     public int tileAt(int i, int j) {
+
         return tiles[i][j];
     }
 
@@ -36,7 +39,7 @@ public class Board implements WorldState {
         int[][] goal = new int[this.tiles.length][this.tiles[0].length];
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (number <= size()) {
+                if (number <= size) {
                     goal[i][j] = number;
                     number += 1;
                 }
@@ -49,7 +52,7 @@ public class Board implements WorldState {
         int hammingCount = 0;
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (tiles[i][j]!=0 &&tiles[i][j] != goal[i][j]) {
+                if (tiles[i][j] != 0 && tiles[i][j] != goal[i][j]) {
                     hammingCount += 1;
                 }
             }
@@ -69,7 +72,7 @@ public class Board implements WorldState {
         int manhattanCount = 0;
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (tiles[i][j]!=0 &&tiles[i][j] != goal[i][j]) {
+                if (tiles[i][j] != 0 && tiles[i][j] != goal[i][j]) {
                     int currentRowIndex = i;
                     int currentColIndex = j;
                     int correctRowIndex = getCorrectRowIndex(tiles[i][j]);
@@ -102,7 +105,7 @@ public class Board implements WorldState {
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        int N = size();
+        int N = size;
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
