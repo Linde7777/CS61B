@@ -5,14 +5,14 @@ import edu.princeton.cs.algs4.Queue;
 public class Board implements WorldState {
     private int[][] tiles;
     private int[][] goal;
-    private final int BLANK=0;
+    private final int BLANK = 0;
 
     public Board(int[][] aTiles) {
-        this.tiles=new int[aTiles.length][aTiles[0].length];
-        for(int i=0;i<aTiles.length;i++){
-            int[] tempArr1=aTiles[i];
-            int[] tempArr2=this.tiles[i];
-            System.arraycopy(tempArr1,0,tempArr2,0,aTiles[i].length);
+        this.tiles = new int[aTiles.length][aTiles[0].length];
+        for (int i = 0; i < aTiles.length; i++) {
+            int[] tempArr1 = aTiles[i];
+            int[] tempArr2 = this.tiles[i];
+            System.arraycopy(tempArr1, 0, tempArr2, 0, aTiles[i].length);
         }
         goal = goalInitializer();
     }
