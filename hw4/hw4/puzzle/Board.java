@@ -5,7 +5,6 @@ import edu.princeton.cs.algs4.Queue;
 public class Board implements WorldState {
     private int[][] tiles;
     private int[][] goal;
-    private int size;
     private final int BLANK=0;
 
     public Board(int[][] aTiles) {
@@ -16,7 +15,6 @@ public class Board implements WorldState {
             System.arraycopy(tempArr1,0,tempArr2,0,aTiles[i].length);
         }
         goal = goalInitializer();
-        size = size();
     }
 
     public int tileAt(int i, int j) {
@@ -28,15 +26,7 @@ public class Board implements WorldState {
     }
 
     public int size() {
-        int size = 0;
-        for (int i = 0; i < this.tiles.length; i++) {
-            for (int j = 0; j < this.tiles[0].length; j++) {
-                if (tiles[i][j] != 0) {
-                    size += 1;
-                }
-            }
-        }
-        return size;
+        return tiles.length;
     }
 
     //copy from http://joshh.ug/neighbors.html
@@ -80,7 +70,7 @@ public class Board implements WorldState {
         int[][] goal = new int[this.tiles.length][this.tiles[0].length];
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (number <= size) {
+                if (number <= size()) {
                     goal[i][j] = number;
                     number += 1;
                 }
@@ -114,12 +104,10 @@ public class Board implements WorldState {
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
                 if (tiles[i][j] != BLANK && tiles[i][j] != goal[i][j]) {
-                    int currentRowIndex = i;
-                    int currentColIndex = j;
                     int correctRowIndex = getCorrectRowIndex(tiles[i][j]);
                     int correctColIndex = getCorrectColIndex(tiles[i][j]);
-                    manhattanCount += Math.abs(correctRowIndex - currentRowIndex) +
-                            Math.abs(correctColIndex - currentColIndex);
+                    manhattanCount += Math.abs(correctRowIndex - i) +
+                            Math.abs(correctColIndex - j);
                 }
             }
         }
@@ -151,7 +139,7 @@ public class Board implements WorldState {
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        int N = size;
+        int N = size();
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {

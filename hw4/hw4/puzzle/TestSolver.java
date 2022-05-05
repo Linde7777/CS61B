@@ -62,8 +62,7 @@ public class TestSolver {
         }
     }
 
-    //add timeout 4 more zero
-    @Test(timeout = 100000000)
+    @Test(timeout = 10000)
     public void testWordPuzzles() {
         In in = new In("input/word_puzzles.txt");
         while (!in.isEmpty()) {
@@ -81,7 +80,6 @@ public class TestSolver {
     }
 
 
- /* Uncomment everything in this block once you've written Board.
      public static Board readBoard(String filename) {
         In in = new In(filename);
         int N = in.readInt();
@@ -108,7 +106,8 @@ public class TestSolver {
         }
     }
 
-    @Test(timeout = 40000)
+    //add one more 0
+    @Test(timeout = 400000)
     public void test3x3BoardPuzzles() {
         for (int i = 0; i <= 30; i += 1) {
             String pnum = String.format("%02d", i);
@@ -145,5 +144,5 @@ public class TestSolver {
             Solver s = new Solver(b);
             assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
         }
-    }*/
+    }
 }
