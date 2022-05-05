@@ -88,6 +88,11 @@ public class Board implements WorldState {
         return manhattanCount;
     }
 
+    @Override
+    public int estimatedDistanceToGoal() {
+        return manhattan();
+    }
+
     public boolean equal(Object y) {
         Board anotherBoard = (Board) y;
 
@@ -120,9 +125,5 @@ public class Board implements WorldState {
         return s.toString();
     }
 
-    @Override
-    public int estimatedDistanceToGoal() {
-        return 0;
-    }
 
 }
