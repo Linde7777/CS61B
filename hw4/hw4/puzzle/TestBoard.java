@@ -59,6 +59,26 @@ public class TestBoard {
         int except = 5;
         int actual = board.hamming();
         assertEquals(except, actual);
+
+        int[][] tiles1 = new int[3][3];
+        tiles1[0][0] = 0;
+        tiles1[0][1] = 1;
+        tiles1[0][2] = 3;
+        tiles1[1][0] = 4;
+        tiles1[1][1] = 2;
+        tiles1[1][2] = 5;
+        tiles1[2][0] = 7;
+        tiles1[2][1] = 8;
+        tiles1[2][2] = 6;
+        /*
+        0 1 3
+        4 2 5
+        7 8 5
+        */
+        Board board1 = new Board(tiles1);
+        int expected1 = 4;
+        int actual1 = board1.hamming();
+        assertEquals(expected1, actual1);
     }
 
     @Test

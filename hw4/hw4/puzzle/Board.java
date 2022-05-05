@@ -22,7 +22,7 @@ public class Board implements WorldState {
         goal = new int[this.tiles.length][this.tiles[0].length];
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (number <= size()) {
+                if (number <= size() * size() - 1) {
                     goal[i][j] = number;
                     number += 1;
                 }
