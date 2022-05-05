@@ -1,12 +1,19 @@
 package hw4.puzzle;
 
+import edu.princeton.cs.algs4.Queue;
+
 public class Board implements WorldState {
     private int[][] tiles;
     private int[][] goal;
     private int size;
 
-    public Board(int[][] tiles) {
-        this.tiles = tiles;
+    public Board(int[][] aTiles) {
+        this.tiles=new int[aTiles.length][aTiles[0].length];
+        for(int i=0;i<aTiles.length;i++){
+            int[] tempArr1=aTiles[i];
+            int[] tempArr2=this.tiles[i];
+            System.arraycopy(tempArr1,0,tempArr2,0,aTiles[i].length);
+        }
         goal = goalInitializer();
         size = size();
     }
@@ -31,10 +38,41 @@ public class Board implements WorldState {
         return size;
     }
 
-    //TODO:
+    //copy from http://joshh.ug/neighbors.html
     @Override
     public Iterable<WorldState> neighbors() {
-        return null;
+        final int BLANK=0;
+        Queue<WorldState> neighbors = new Queue<>();
+        int hug = size();
+        int bug = -1;
+        int zug = -1;
+        for (int rug = 0; rug < hug; rug++) {
+            for (int tug = 0; tug < hug; tug++) {
+                if (tileAt(rug, tug) == BLANK) {
+                    bug = rug;
+                    zug = tug;
+                }
+            }
+        }
+        int[][] ili1li1 = new int[hug][hug];
+        for (int pug = 0; pug < hug; pug++) {
+            for (int yug = 0; yug < hug; yug++) {
+                ili1li1[pug][yug] = tileAt(pug, yug);
+            }
+        }
+        for (int l11il = 0; l11il < hug; l11il++) {
+            for (int lil1il1 = 0; lil1il1 < hug; lil1il1++) {
+                if (Math.abs(-bug + l11il) + Math.abs(lil1il1 - zug) - 1 == 0) {
+                    ili1li1[bug][zug] = ili1li1[l11il][lil1il1];
+                    ili1li1[l11il][lil1il1] = BLANK;
+                    Board neighbor = new Board(ili1li1);
+                    neighbors.enqueue(neighbor);
+                    ili1li1[l11il][lil1il1] = ili1li1[bug][zug];
+                    ili1li1[bug][zug] = BLANK;
+                }
+            }
+        }
+        return neighbors;
     }
 
     private int[][] goalInitializer() {

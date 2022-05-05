@@ -31,6 +31,7 @@ public class TestBoard {
         int expected1=6;
         int actual1=board.tileAt(2,1);
         assertEquals(expected1,actual1);
+
     }
 
     @Test
@@ -119,7 +120,6 @@ public class TestBoard {
         assertEquals(expected1,actual1);
     }
 
-    /*
     @Test
     public void verifyImmutability() {
         int r = 2;
@@ -142,5 +142,4 @@ public class TestBoard {
         assertEquals("Your Board class is mutable and you should be making a copy of the values in the passed tiles array. Please see the FAQ!", 3, b.tileAt(1, 1));
     }
 
-     */
-} 
+}
