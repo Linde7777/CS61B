@@ -4,8 +4,30 @@ import static org.junit.Assert.*;
 
 public class TestBoard {
     @Test
+    public void testHamming(){
+        int[][] tiles=new int[3][3];
+        tiles[0][0]=8;
+        tiles[0][1]=1;
+        tiles[0][2]=3;
+        tiles[1][0]=4;
+        tiles[1][1]=0;
+        tiles[1][2]=2;
+        tiles[2][0]=7;
+        tiles[2][1]=6;
+        tiles[2][2]=5;
+        /*
+        8 1 3
+        4   2
+        7 6 5
+        */
+        Board board=new Board(tiles);
+        int except=5;
+        int actual=board.hamming();
+        assertEquals(except,actual);
+    }
+
+    @Test
     public void testManhattan(){
-        int number=1;
         int[][] tiles=new int[3][3];
         tiles[0][0]=8;
         tiles[0][1]=1;
@@ -27,6 +49,8 @@ public class TestBoard {
         int actual=board.manhattan();
         assertEquals(expect,actual);
     }
+
+
     /*
     @Test
     public void verifyImmutability() {

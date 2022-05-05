@@ -49,7 +49,7 @@ public class Board implements WorldState {
         int hammingCount = 0;
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
-                if (tiles[i][j] != goal[i][j]) {
+                if (tiles[i][j]!=0 &&tiles[i][j] != goal[i][j]) {
                     hammingCount += 1;
                 }
             }
