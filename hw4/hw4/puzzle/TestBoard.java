@@ -142,4 +142,25 @@ public class TestBoard {
         assertEquals("Your Board class is mutable and you should be making a copy of the values in the passed tiles array. Please see the FAQ!", 3, b.tileAt(1, 1));
     }
 
+    @Test
+    public void testNeighbors(){
+        int[][] tiles=new int[3][3];
+        tiles[0][0]=8;
+        tiles[0][1]=1;
+        tiles[0][2]=3;
+        tiles[1][0]=4;
+        tiles[1][1]=0;
+        tiles[1][2]=2;
+        tiles[2][0]=7;
+        tiles[2][1]=6;
+        tiles[2][2]=5;
+        /*
+        8 1 3
+        4   2
+        7 6 5
+        */
+        Board board=new Board(tiles);
+        var res=board.neighbors();
+        System.out.println(res.toString());
+    }
 }

@@ -19,7 +19,7 @@ public class Board implements WorldState {
     }
 
     public int tileAt(int i, int j) {
-        int len = size / 2;
+        int len = tiles.length;
         if (i < 0 || j < 0 || i > len - 1 || j > len - 1) {
             throw new IndexOutOfBoundsException("row or col is out of bound");
         }
