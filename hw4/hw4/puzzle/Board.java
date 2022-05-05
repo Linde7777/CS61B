@@ -14,7 +14,20 @@ public class Board implements WorldState {
             int[] tempArr2 = this.tiles[i];
             System.arraycopy(tempArr1, 0, tempArr2, 0, aTiles[i].length);
         }
-        goal = goalInitializer();
+        goalInitializer();
+    }
+
+    private void goalInitializer() {
+        int number = 1;
+        goal = new int[this.tiles.length][this.tiles[0].length];
+        for (int i = 0; i < goal.length; i++) {
+            for (int j = 0; j < goal[0].length; j++) {
+                if (number <= size()) {
+                    goal[i][j] = number;
+                    number += 1;
+                }
+            }
+        }
     }
 
     public int tileAt(int i, int j) {
@@ -65,19 +78,6 @@ public class Board implements WorldState {
         return neighbors;
     }
 
-    private int[][] goalInitializer() {
-        int number = 1;
-        int[][] goal = new int[this.tiles.length][this.tiles[0].length];
-        for (int i = 0; i < goal.length; i++) {
-            for (int j = 0; j < goal[0].length; j++) {
-                if (number <= size()) {
-                    goal[i][j] = number;
-                    number += 1;
-                }
-            }
-        }
-        return goal;
-    }
 
     public int hamming() {
         int hammingCount = 0;
@@ -106,8 +106,8 @@ public class Board implements WorldState {
                 if (tiles[i][j] != BLANK && tiles[i][j] != goal[i][j]) {
                     int correctRowIndex = getCorrectRowIndex(tiles[i][j]);
                     int correctColIndex = getCorrectColIndex(tiles[i][j]);
-                    manhattanCount += Math.abs(correctRowIndex - i) +
-                            Math.abs(correctColIndex - j);
+                    manhattanCount += Math.abs(correctRowIndex - i)
+                            + Math.abs(correctColIndex - j);
                 }
             }
         }
