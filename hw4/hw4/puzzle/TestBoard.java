@@ -7,6 +7,33 @@ import static org.junit.Assert.*;
 
 public class TestBoard {
     @Test
+    public void testTileAt(){
+        int[][] tiles=new int[3][3];
+        tiles[0][0]=8;
+        tiles[0][1]=1;
+        tiles[0][2]=3;
+        tiles[1][0]=4;
+        tiles[1][1]=0;
+        tiles[1][2]=2;
+        tiles[2][0]=7;
+        tiles[2][1]=6;
+        tiles[2][2]=5;
+        /*
+        8 1 3
+        4   2
+        7 6 5
+        */
+        Board board=new Board(tiles);
+        int expected=8;
+        int actual=board.tileAt(0,0);
+        assertEquals(expected,actual);
+
+        int expected1=6;
+        int actual1=board.tileAt(2,1);
+        assertEquals(expected1,actual1);
+    }
+
+    @Test
     public void testHamming(){
         int[][] tiles=new int[3][3];
         tiles[0][0]=8;

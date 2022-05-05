@@ -1,9 +1,9 @@
 package hw4.puzzle;
 
 public class Board implements WorldState {
-    int[][] tiles;
-    int[][] goal;
-    int size;
+    private int[][] tiles;
+    private int[][] goal;
+    private int size;
 
     public Board(int[][] tiles) {
         this.tiles = tiles;
@@ -12,7 +12,10 @@ public class Board implements WorldState {
     }
 
     public int tileAt(int i, int j) {
-
+        int len = size / 2;
+        if (i < 0 || j < 0 || i > len - 1 || j > len - 1) {
+            throw new IndexOutOfBoundsException("row or col is out of bound");
+        }
         return tiles[i][j];
     }
 
