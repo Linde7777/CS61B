@@ -120,13 +120,12 @@ public class Board implements WorldState {
     }
 
     public boolean equal(Object y) {
+        if (y == this) return true;
+        if (y == null) return false;
+        if (y.getClass() != this.getClass()) return false;
+
         Board anotherBoard = (Board) y;
-
-        if (this.tiles.length != anotherBoard.tiles.length
-                || this.tiles[0].length != anotherBoard.tiles[0].length) {
-            return false;
-        }
-
+        if (this.size() != anotherBoard.size()) return false;
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[0].length; j++) {
                 if (tiles[i][j] != anotherBoard.tiles[i][j]) {

@@ -128,6 +128,7 @@ public class TestBoard {
         boolean actual = board1.equal(board2);
         assertEquals(expect, actual);
 
+
         int[][] tiles1 = new int[3][3];
         tiles1[0][0] = 1;
         tiles1[0][1] = 8;
@@ -142,6 +143,10 @@ public class TestBoard {
         boolean expected1 = false;
         boolean actual1 = board3.equal(board1);
         assertEquals(expected1, actual1);
+
+        boolean expected2 = true;
+        boolean actual2 = board3.equal(board3);
+        assertEquals(expected2, actual2);
     }
 
     @Test
