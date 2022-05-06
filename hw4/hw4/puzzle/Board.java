@@ -4,8 +4,8 @@ import edu.princeton.cs.algs4.Queue;
 
 public class Board implements WorldState {
     private int[][] tiles;
-    private int[][] goal;
     private final int BLANK = 0;
+
 
     public Board(int[][] aTiles) {
         this.tiles = new int[aTiles.length][aTiles[0].length];
@@ -13,20 +13,6 @@ public class Board implements WorldState {
             int[] tempArr1 = aTiles[i];
             int[] tempArr2 = this.tiles[i];
             System.arraycopy(tempArr1, 0, tempArr2, 0, aTiles[i].length);
-        }
-        goalInitializer();
-    }
-
-    private void goalInitializer() {
-        int number = 1;
-        goal = new int[this.tiles.length][this.tiles[0].length];
-        for (int i = 0; i < goal.length; i++) {
-            for (int j = 0; j < goal[0].length; j++) {
-                if (number <= size() * size() - 1) {
-                    goal[i][j] = number;
-                    number += 1;
-                }
-            }
         }
     }
 
@@ -78,12 +64,24 @@ public class Board implements WorldState {
         return neighbors;
     }
 
+    /*
+        1 2 3   00 01 02
+        4 5 6   10 11 12
+        7 8 0   20 21 22
 
+        col*i+j
+        3*i+j
+    */
     public int hamming() {
         int hammingCount = 0;
-        for (int i = 0; i < goal.length; i++) {
-            for (int j = 0; j < goal[0].length; j++) {
-                if (tiles[i][j] != BLANK && tiles[i][j] != goal[i][j]) {
+        for (int i = 0; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
+                //Do not compare the bottom right element
+                //because it is BLANK
+                if (i == size() - 1 && j == size() - 1) {
+                    break;
+                }
+                if (tiles[i][j] != i * size() + j + 1) {
                     hammingCount += 1;
                 }
             }
@@ -92,18 +90,19 @@ public class Board implements WorldState {
     }
 
     private int getCorrectRowIndex(int num) {
-        return (num - 1) / this.tiles[0].length;
+        return (num - 1) / size();
     }
 
     private int getCorrectColIndex(int num) {
-        return (num - 1) % this.tiles[0].length;
+        return (num - 1) % size();
     }
 
     public int manhattan() {
         int manhattanCount = 0;
-        for (int i = 0; i < goal.length; i++) {
-            for (int j = 0; j < goal[0].length; j++) {
-                if (tiles[i][j] != BLANK && tiles[i][j] != goal[i][j]) {
+        for (int i = 0; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
+
+                if (tiles[i][j] != BLANK && tiles[i][j] != i * size() + j + 1) {
                     int correctRowIndex = getCorrectRowIndex(tiles[i][j]);
                     int correctColIndex = getCorrectColIndex(tiles[i][j]);
                     manhattanCount += Math.abs(correctRowIndex - i)
