@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.MinPQ;
 import java.util.HashSet;
 
 public class Solver {
-    private final int totalmoves ;
+    private final int totalmoves;
     private final HashSet<WorldState> path = new HashSet<>();
 
     public Iterable<WorldState> solution() {
