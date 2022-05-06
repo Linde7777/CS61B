@@ -89,22 +89,14 @@ public class Board implements WorldState {
         return hammingCount;
     }
 
-    private int getCorrectRowIndex(int num) {
-        return (num - 1) / size();
-    }
-
-    private int getCorrectColIndex(int num) {
-        return (num - 1) % size();
-    }
-
     public int manhattan() {
         int manhattanCount = 0;
         for (int i = 0; i < size(); i++) {
             for (int j = 0; j < size(); j++) {
 
                 if (tiles[i][j] != BLANK && tiles[i][j] != i * size() + j + 1) {
-                    int correctRowIndex = getCorrectRowIndex(tiles[i][j]);
-                    int correctColIndex = getCorrectColIndex(tiles[i][j]);
+                    int correctRowIndex = (tiles[i][j] - 1) / size();
+                    int correctColIndex = (tiles[i][j] - 1) % size();
                     manhattanCount += Math.abs(correctRowIndex - i)
                             + Math.abs(correctColIndex - j);
                 }
