@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 public class Solver {
     private MinPQ<SearchNode> pq = new MinPQ<>();
-    private int totalmoves=0;
+    private int totalmoves = 0;
     private HashSet<WorldState> path = new HashSet<>();
     int debugIndex = 1;
 

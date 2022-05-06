@@ -114,6 +114,7 @@ public class Board implements WorldState {
         return estimatedDist;
     }
 
+    @Override
     public boolean equals(Object y) {
         if (y == this) {
             return true;
@@ -137,6 +138,11 @@ public class Board implements WorldState {
             }
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     public String toString() {
