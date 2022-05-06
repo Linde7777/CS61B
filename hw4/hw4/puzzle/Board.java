@@ -3,7 +3,7 @@ package hw4.puzzle;
 import edu.princeton.cs.algs4.Queue;
 
 public class Board implements WorldState {
-    private int[][] tiles;
+    private final int[][] tiles;
     private final int BLANK = 0;
     private int estimatedDist;
 

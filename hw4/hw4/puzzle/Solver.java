@@ -10,7 +10,7 @@ public class Solver {
     private final int totalmoves;
     MinPQ<SearchNode> pq = new MinPQ<>();
     private final HashSet<WorldState> path = new HashSet<>();
-    private final ArrayList<WorldState> solution=new ArrayList<>();
+    private final ArrayList<WorldState> solution = new ArrayList<>();
 
     public Iterable<WorldState> solution() {
         return solution;
@@ -69,15 +69,15 @@ public class Solver {
         }
     }
 
-    private void generateSolution(SearchNode goal){
-        ArrayList<WorldState> reservedSolution=new ArrayList<>();
-        while(goal!=null){
+    private void generateSolution(SearchNode goal) {
+        ArrayList<WorldState> reservedSolution = new ArrayList<>();
+        while (goal != null) {
             reservedSolution.add(goal.worldState);
-            goal=goal.prev;
+            goal = goal.prev;
         }
 
-        int i=0;
-        while(reservedSolution.size()>0){
+        int i = 0;
+        while (reservedSolution.size() > 0) {
             solution.add(reservedSolution.remove(i));
         }
 
