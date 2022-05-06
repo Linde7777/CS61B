@@ -3,7 +3,6 @@ package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -60,8 +59,8 @@ public class Solver {
             }
 
             path.add(formerMinNode.worldState);
-            System.out.println(debugIndex+" th "+formerMinNode.worldState.toString());
-            debugIndex+=1;
+            //System.out.println(debugIndex + " th " + formerMinNode.worldState.toString());
+            //debugIndex += 1;
 
         }
     }
