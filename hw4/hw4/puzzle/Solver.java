@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 public class Solver {
     private MinPQ<SearchNode> pq = new MinPQ<>();
-    private int totalmoves;
+    private int totalmoves=0;
     private HashSet<WorldState> path = new HashSet<>();
     int debugIndex = 1;
 
@@ -25,7 +25,7 @@ public class Solver {
         SearchNode prev;
         int priority;
 
-        public SearchNode(WorldState worldState, int numMoves, SearchNode prev) {
+        SearchNode(WorldState worldState, int numMoves, SearchNode prev) {
             this.worldState = worldState;
             this.prev = prev;
             this.numMoves = numMoves;
@@ -54,7 +54,8 @@ public class Solver {
             for (WorldState neighborState : formerMinNode.worldState.neighbors()) {
                 if (formerMinNode.prev == null
                         || !neighborState.equals(formerMinNode.prev.worldState)) {
-                    pq.insert(new SearchNode(neighborState, formerMinNode.numMoves + 1, formerMinNode));
+                    pq.insert(new SearchNode(neighborState,
+                            formerMinNode.numMoves + 1, formerMinNode));
                 }
             }
 

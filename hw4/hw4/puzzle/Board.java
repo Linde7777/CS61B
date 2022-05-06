@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.Queue;
 public class Board implements WorldState {
     private int[][] tiles;
     private final int BLANK = 0;
-
+    private int estimatedDist;
 
     public Board(int[][] aTiles) {
         this.tiles = new int[aTiles.length][aTiles[0].length];
@@ -14,6 +14,7 @@ public class Board implements WorldState {
             int[] tempArr2 = this.tiles[i];
             System.arraycopy(tempArr1, 0, tempArr2, 0, aTiles[i].length);
         }
+        estimatedDist = -1;
     }
 
     public int tileAt(int i, int j) {
@@ -107,10 +108,13 @@ public class Board implements WorldState {
 
     @Override
     public int estimatedDistanceToGoal() {
-        return manhattan();
+        if (estimatedDist == -1) {
+            estimatedDist = manhattan();
+        }
+        return estimatedDist;
     }
 
-    public boolean equal(Object y) {
+    public boolean equals(Object y) {
         if (y == this) {
             return true;
         }
