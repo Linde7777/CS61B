@@ -4,9 +4,8 @@ import edu.princeton.cs.algs4.Queue;
 
 public class Board implements WorldState {
     private final int[][] tiles;
-    private static final int BLANK = 0;
+    private final int BLANK = 0;
     private int estimatedDist;
-
 
     public Board(int[][] aTiles) {
         this.tiles = new int[aTiles.length][aTiles[0].length];
@@ -15,6 +14,7 @@ public class Board implements WorldState {
             int[] tempArr2 = this.tiles[i];
             System.arraycopy(tempArr1, 0, tempArr2, 0, aTiles[i].length);
         }
+        estimatedDist = -1;
     }
 
     public int tileAt(int i, int j) {
@@ -65,6 +65,14 @@ public class Board implements WorldState {
         return neighbors;
     }
 
+    /*
+        1 2 3   00 01 02
+        4 5 6   10 11 12
+        7 8 0   20 21 22
+
+        col*i+j
+        3*i+j
+    */
     public int hamming() {
         int hammingCount = 0;
         for (int i = 0; i < size(); i++) {
@@ -106,6 +114,7 @@ public class Board implements WorldState {
         return estimatedDist;
     }
 
+    @Override
     public boolean equals(Object y) {
         if (y == this) {
             return true;
@@ -131,6 +140,11 @@ public class Board implements WorldState {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     public String toString() {
         StringBuilder s = new StringBuilder();
         int N = size();
@@ -147,4 +161,3 @@ public class Board implements WorldState {
 
 
 }
-
