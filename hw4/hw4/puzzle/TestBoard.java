@@ -2,8 +2,6 @@ package hw4.puzzle;
 
 import org.junit.Test;
 
-import java.awt.image.PackedColorModel;
-
 import static org.junit.Assert.*;
 
 public class TestBoard {
@@ -117,17 +115,11 @@ public class TestBoard {
         tiles[2][0] = 7;
         tiles[2][1] = 6;
         tiles[2][2] = 5;
-        /*
-        8 1 3
-        4   2
-        7 6 5
-        */
         Board board1 = new Board(tiles);
         Board board2 = new Board(tiles);
         boolean expect = true;
         boolean actual = board1.equal(board2);
         assertEquals(expect, actual);
-
 
         int[][] tiles1 = new int[3][3];
         tiles1[0][0] = 1;
@@ -147,6 +139,24 @@ public class TestBoard {
         boolean expected2 = true;
         boolean actual2 = board3.equal(board3);
         assertEquals(expected2, actual2);
+
+        int[][] tiles2 = new int[2][2];
+        tiles2[0][0] = 2;
+        tiles2[0][1] = 3;
+        tiles2[1][0] = 0;
+        tiles2[1][1] = 1;
+        Board board4 = new Board(tiles2);
+
+        int[][] tiles3 = new int[2][2];
+        tiles3[0][0] = 2;
+        tiles3[0][1] = 3;
+        tiles3[1][0] = 0;
+        tiles3[1][1] = 1;
+        Board board5 = new Board(tiles3);
+        boolean expected3 = true;
+        boolean actual3 = board4.equal(board5);
+        assertEquals(expected3, actual3);
+
     }
 
     @Test
