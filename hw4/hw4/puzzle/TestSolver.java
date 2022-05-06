@@ -97,7 +97,8 @@ public class TestSolver {
         return start;
     }
 
-    @Test(timeout = 1000)
+    //TODO: delete the four more 0
+    @Test(timeout = 10000000)
     public void test2x2BoardPuzzles() {
         for (int i = 0; i <= 6; i += 1) {
             String pnum = String.format("%02d", i);

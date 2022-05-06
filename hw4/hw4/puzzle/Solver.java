@@ -3,14 +3,17 @@ package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Solver {
     private final int totalmoves;
+    MinPQ<SearchNode> pq = new MinPQ<>();
     private final HashSet<WorldState> path = new HashSet<>();
+    private final ArrayList<WorldState> solution=new ArrayList<>();
 
     public Iterable<WorldState> solution() {
-        return path;
+        return solution;
     }
 
     public int moves() {
@@ -39,7 +42,6 @@ public class Solver {
 
     public Solver(WorldState initial) {
 
-        MinPQ<SearchNode> pq = new MinPQ<>();
         pq.insert(new SearchNode(initial, 0, null));
         //int debugIndex = 1;
 
@@ -48,6 +50,7 @@ public class Solver {
             SearchNode formerMinNode = pq.delMin();
             if (formerMinNode.worldState.isGoal()) {
                 totalmoves = formerMinNode.numMoves;
+                generateSolution(formerMinNode);
                 return;
             }
 
@@ -66,4 +69,17 @@ public class Solver {
         }
     }
 
+    private void generateSolution(SearchNode goal){
+        ArrayList<WorldState> reservedSolution=new ArrayList<>();
+        while(goal!=null){
+            reservedSolution.add(goal.worldState);
+            goal=goal.prev;
+        }
+
+        int i=0;
+        while(reservedSolution.size()>0){
+            solution.add(reservedSolution.remove(i));
+        }
+
+    }
 }
