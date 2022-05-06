@@ -6,10 +6,8 @@ import edu.princeton.cs.algs4.MinPQ;
 import java.util.HashSet;
 
 public class Solver {
-    private MinPQ<SearchNode> pq = new MinPQ<>();
-    private int totalmoves = 0;
-    private HashSet<WorldState> path = new HashSet<>();
-    int debugIndex = 1;
+    private final int totalmoves ;
+    private final HashSet<WorldState> path = new HashSet<>();
 
     public Iterable<WorldState> solution() {
         return path;
@@ -19,7 +17,7 @@ public class Solver {
         return totalmoves;
     }
 
-    private class SearchNode implements Comparable<SearchNode> {
+    private static class SearchNode implements Comparable<SearchNode> {
         WorldState worldState;
         int numMoves;
         SearchNode prev;
@@ -41,7 +39,9 @@ public class Solver {
 
     public Solver(WorldState initial) {
 
+        MinPQ<SearchNode> pq = new MinPQ<>();
         pq.insert(new SearchNode(initial, 0, null));
+        //int debugIndex = 1;
 
         while (true) {
 
