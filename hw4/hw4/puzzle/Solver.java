@@ -10,8 +10,7 @@ import java.util.HashSet;
 public class Solver {
     private MinPQ<SearchNode> pq = new MinPQ<>();
     private int totalmoves = 0;
-    private ArrayList<WorldState> path = new ArrayList<>();
-    private HashSet<WorldState> hasInserted = new HashSet<>();
+    private HashSet<WorldState> path = new HashSet<>();
     int debugIndex = 1;
 
     public Iterable<WorldState> solution() {
@@ -55,16 +54,14 @@ public class Solver {
             }
 
             for (WorldState neighborState : formerMinNode.worldState.neighbors()) {
-                if (!neighborState.equals(formerMinNode.worldState)
-                        && hasInserted.add(neighborState)) {
-                    String debugMessage = neighborState.toString();
+                if (!neighborState.equals(formerMinNode.worldState)) {
                     pq.insert(new SearchNode(neighborState, formerMinNode.numMoves + 1, formerMinNode));
-                    System.out.println(debugIndex + " th" + " insert " + debugMessage);
-                    debugIndex += 1;
                 }
             }
 
             path.add(formerMinNode.worldState);
+            System.out.println(debugIndex+" th "+formerMinNode.worldState.toString());
+            debugIndex+=1;
 
         }
     }
