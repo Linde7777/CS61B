@@ -3,8 +3,9 @@ package hw4.puzzle;
 import edu.princeton.cs.algs4.Queue;
 
 public class Board implements WorldState {
-    private int[][] tiles;
-    private final int BLANK = 0;
+    private final int[][] tiles;
+    private static final int BLANK = 0;
+    private int estimatedDist;
 
 
     public Board(int[][] aTiles) {
@@ -64,14 +65,6 @@ public class Board implements WorldState {
         return neighbors;
     }
 
-    /*
-        1 2 3   00 01 02
-        4 5 6   10 11 12
-        7 8 0   20 21 22
-
-        col*i+j
-        3*i+j
-    */
     public int hamming() {
         int hammingCount = 0;
         for (int i = 0; i < size(); i++) {
@@ -107,10 +100,13 @@ public class Board implements WorldState {
 
     @Override
     public int estimatedDistanceToGoal() {
-        return manhattan();
+        if (estimatedDist == -1) {
+            estimatedDist = manhattan();
+        }
+        return estimatedDist;
     }
 
-    public boolean equal(Object y) {
+    public boolean equals(Object y) {
         if (y == this) {
             return true;
         }
@@ -151,3 +147,4 @@ public class Board implements WorldState {
 
 
 }
+

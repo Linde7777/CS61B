@@ -118,7 +118,7 @@ public class TestBoard {
         Board board1 = new Board(tiles);
         Board board2 = new Board(tiles);
         boolean expect = true;
-        boolean actual = board1.equal(board2);
+        boolean actual = board1.equals(board2);
         assertEquals(expect, actual);
 
         int[][] tiles1 = new int[3][3];
@@ -133,11 +133,11 @@ public class TestBoard {
         tiles1[2][2] = 5;
         Board board3 = new Board(tiles1);
         boolean expected1 = false;
-        boolean actual1 = board3.equal(board1);
+        boolean actual1 = board3.equals(board1);
         assertEquals(expected1, actual1);
 
         boolean expected2 = true;
-        boolean actual2 = board3.equal(board3);
+        boolean actual2 = board3.equals(board3);
         assertEquals(expected2, actual2);
 
         int[][] tiles2 = new int[2][2];
@@ -154,7 +154,7 @@ public class TestBoard {
         tiles3[1][1] = 1;
         Board board5 = new Board(tiles3);
         boolean expected3 = true;
-        boolean actual3 = board4.equal(board5);
+        boolean actual3 = board4.equals(board5);
         assertEquals(expected3, actual3);
 
     }
