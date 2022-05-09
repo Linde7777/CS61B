@@ -44,7 +44,9 @@ public class Rasterer {
     public Map<String, Object> getMapRaster(Map<String, Double> params) {
         //System.out.println(params);
         double paraLrlon = params.get("lrlon");
+        double paraLrlat = params.get("lrlat");
         double paraUllon = params.get("ullon");
+        double paraUllat = params.get("ullat");
         double paraWidth = params.get("w");
         double paraLonDPP = calculateLonDPP(paraLrlon, paraUllon, paraWidth);
 
@@ -66,27 +68,70 @@ public class Rasterer {
         double minLon = -122.29980468;
         double maxLon = -122.21191406;
         double midLon = (minLon + maxLon) / 2;
-        double depth1LonDPP = calculateLonDPP(minLon, midLon, size);
-        double depth2LonDPP = calculateLonDPP(minLon, midLon / 2, size);
+        //double depth1LonDPP = calculateLonDPP(minLon, midLon, size);
+        //double depth2LonDPP = calculateLonDPP(minLon, midLon / 2, size);
 
         int depth;
         double currentDepthLonDPP;
         //The largest depth is 7
-        for (depth = 1; depth < 7; depth++) {
+        for (depth = 1; depth <= 7; depth++) {
             currentDepthLonDPP = calculateLonDPP(minLon, midLon / depth, size);
-            if (currentDepthLonDPP < paraLonDPP) {
+            if (currentDepthLonDPP <= paraLonDPP) {
                 break;
             }
         }
 
+        /*
         int k = (int) Math.pow(2, depth) - 1;
-        String[][] array=new String[k][k+1];
-        for(int i=0;i<array.length;i++){
-            for(int j=0;j<array[0].length;j++){
-                int xIndex=j;
-                int yIndex=i+1;
-                array[i][j]="d"+depth+"_"+"x"+xIndex+"_"+"y"+yIndex+"_"+".png";
+        String[][] array = new String[k][k + 1];
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                int xIndex = j;
+                int yIndex = i + 1;
+                array[i][j] = "d" + depth + "_" + "x" + xIndex + "_" + "y" + yIndex + "_" + ".png";
                 System.out.println(array[i][j]);
+            }
+        }
+
+         */
+
+        /*
+        if depth==4
+        x0_leftBorder=minLon+(maxLon-minLon)*(0/4)
+        x1_leftBorder=minLon+(maxLon-minLon)*(1/4)
+        x2_leftBorder=minLon+(maxLon-minLon)*(2/4)
+        x3_leftBorder=minLon+(maxLon-minLon)*(3/4)
+        */
+        int len = (int) Math.sqrt(Math.pow(4, depth));
+
+        double[] leftBorders = new double[len];
+        for (int i = 0; i < len; i++) {
+            leftBorders[i] = minLon + (maxLon - minLon) * ((double) i / 4);
+        }
+        int theLeftBorderIndex=-1;
+        for (int i = 0; i < leftBorders.length - 1; i++) {
+            if (paraUllon >= leftBorders[i]
+                    && paraUllon < leftBorders[i + 1]) {
+                theLeftBorderIndex=i;
+                break;
+            }
+        }
+
+        /*
+        x0_rightBorder=x0_leftBorder+(maxLon-minLon)/4
+        x1_rightBorder=x1_leftBorder+(maxLon-minLon)/4
+        x2_rightBorder=x2_leftBorder+(maxLon-minLon)/4
+        x3_rightBorder=x3_leftBorder+(maxLon-minLon)/4
+         */
+        double[] rightBorders = new double[len];
+        for (int i = 0; i < len; i++) {
+            rightBorders[i] =leftBorders[i]+(maxLon-minLon)/4;
+        }
+        double theRightBorderIndex=-1;
+        for(int i=0;i<len-1;i++){
+            if(paraLrlon>=rightBorders[i]&&paraLrlon<rightBorders[i+1]){
+                theRightBorderIndex=i;
+                break;
             }
         }
 
