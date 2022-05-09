@@ -152,10 +152,10 @@ public class Rasterer {
             }
         }
 
-        boolean query_success = false;
-        if (raster_lr_lat != -1 || raster_ul_lat != -1
-                || raster_lr_lon != -1 || raster_ul_lon != -1) {
-            query_success = true;
+        boolean query_success = true;
+        if (raster_lr_lat == -1 || raster_ul_lat == -1
+                || raster_lr_lon == -1 || raster_ul_lon == -1) {
+            query_success = false;
         }
 /**
  * Takes a user query and finds the grid of images that best matches the query. These
