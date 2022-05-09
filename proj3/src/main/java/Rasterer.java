@@ -83,18 +83,9 @@ public class Rasterer {
             }
         }
 
-        /*
-        int k = (int) Math.pow(2, depth) - 1;
-        String[][] array = new String[k][k + 1];
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[0].length; j++) {
-                int xIndex = j;
-                int yIndex = i + 1;
-                array[i][j] = "d" + depth + "_" + "x" + xIndex + "_" + "y" + yIndex + "_" + ".png";
-                System.out.println(array[i][j]);
-            }
-        }
-         */
+
+        int len = (int) Math.sqrt(Math.pow(4, depth));
+        //TODO: seal calculating border into method
 
         /*
         if depth==4
@@ -103,8 +94,6 @@ public class Rasterer {
         x2_leftBorder=minLon+(maxLon-minLon)*(2/4)
         x3_leftBorder=minLon+(maxLon-minLon)*(3/4)
         */
-        int len = (int) Math.sqrt(Math.pow(4, depth));
-
         double[] leftBorders = new double[len];
         for (int i = 0; i < len; i++) {
             leftBorders[i] = minLon + (maxLon - minLon) * ((double) i / 4);
@@ -128,7 +117,7 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             rightBorders[i] = leftBorders[i] + (maxLon - minLon) / 4;
         }
-        double theRightBorderIndex = -1;
+        int theRightBorderIndex = -1;
         for (int i = 0; i < len - 1; i++) {
             if (paraLrlon >= rightBorders[i] && paraLrlon < rightBorders[i + 1]) {
                 theRightBorderIndex = i;
@@ -147,10 +136,10 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             upBorders[i] = minLat + (maxLat - minLat) * ((double) (i) / 4);
         }
-        double theUpBorder;
+        int theUpBorderIndex = -1;
         for (int i = 0; i < len - 1; i++) {
             if (paraUllat >= upBorders[i] && paraUllat < upBorders[i + 1]) {
-                theUpBorder = i;
+                theUpBorderIndex = i;
                 break;
             }
         }
@@ -165,11 +154,41 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             lowBorders[i] = upBorders[i] + (maxLat - minLat) / 4;
         }
-        double theLowBorder;
+        int theLowBorderIndex = -1;
         for (int i = 0; i < len - 1; i++) {
             if (paraLrlat >= lowBorders[i] && paraLrlat < lowBorders[i + 1]) {
-                theLowBorder = i;
+                theLowBorderIndex = i;
                 break;
+            }
+        }
+
+        /*
+        leftBorderIndex=0
+        rightBorderIndex=2
+        upBorderIndex=0
+        lowBorderIndex=2
+
+        x0
+         */
+        /*
+        int k = (int) Math.pow(2, depth) - 1;
+        String[][] array = new String[k][k + 1];
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                int xIndex = j;
+                int yIndex = i + 1;
+                array[i][j] = "d" + depth + "_" + "x" + xIndex + "_" + "y" + yIndex + "_" + ".png";
+                System.out.println(array[i][j]);
+            }
+        }
+         */
+
+        int numberOfRows = theUpBorderIndex - theLowBorderIndex + 1;
+        int numberOfCols = theRightBorderIndex - theLeftBorderIndex + 1;
+        String[][] array = new String[numberOfRows][numberOfCols];
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j < numberOfCols; j++) {
+                array[i][j] = "d" + depth + "_" + "x" + j + "_" + "y" + i + "_" + ".png";
             }
         }
 
