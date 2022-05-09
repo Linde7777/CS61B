@@ -14,33 +14,6 @@ public class Rasterer {
     }
 
 
-    /**
-     * Takes a user query and finds the grid of images that best matches the query. These
-     * images will be combined into one big image (rastered) by the front end. <br>
-     * <p>
-     * The grid of images must obey the following properties, where image in the
-     * grid is referred to as a "tile".
-     * <ul>
-     *     <li>The tiles collected must cover the most longitudinal distance per pixel
-     *     (LonDPP) possible, while still covering less than or equal to the amount of
-     *     longitudinal distanCe per pixel in the query box for the user viewport size. </li>
-     *     <li>Contains all tiles that intersect the query bounding box that fulfill the
-     *     above condition.</li>
-     *     <li>The tiles must be arranged in-order to reconstruct the full image.</li>
-     * </ul>
-     *
-     * @param params Map of the HTTP GET request's query parameters - the query box and
-     *               the user viewport width and height.
-     * @return A map of results for the front end as specified: <br>
-     * "render_grid"   : String[][], the files to display. <br>
-     * "raster_ul_lon" : Number, the bounding upper left longitude of the rastered image. <br>
-     * "raster_ul_lat" : Number, the bounding upper left latitude of the rastered image. <br>
-     * "raster_lr_lon" : Number, the bounding lower right longitude of the rastered image. <br>
-     * "raster_lr_lat" : Number, the bounding lower right latitude of the rastered image. <br>
-     * "depth"         : Number, the depth of the nodes of the rastered image <br>
-     * "query_success" : Boolean, whether the query was able to successfully complete; don't
-     * forget to set this to true on success! <br>
-     */
     public Map<String, Object> getMapRaster(Map<String, Double> params) {
         //System.out.println(params);
         double paraLrlon = params.get("lrlon");
@@ -70,12 +43,13 @@ public class Rasterer {
         double maxLon = -122.21191406;
         double maxLat = 37.892195547244356;
         double midLon = (minLon + maxLon) / 2;
-        //double depth1LonDPP = calculateLonDPP(minLon, midLon, size);
-        //double depth2LonDPP = calculateLonDPP(minLon, midLon / 2, size);
 
+        /*
+        double 1DepthLonDPP = calculateLonDPP(minLon, midLon, size);
+        double 2DepthLonDPP = calculateLonDPP(minLon, midLon / 2, size);
+        */
         int depth;
         double currentDepthLonDPP;
-        //The largest depth is 7
         for (depth = 1; depth <= 7; depth++) {
             currentDepthLonDPP = calculateLonDPP(minLon, midLon / depth, size);
             if (currentDepthLonDPP <= paraLonDPP) {
@@ -98,11 +72,11 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             leftBorders[i] = minLon + (maxLon - minLon) * ((double) i / 4);
         }
-        int theLeftBorderIndex = -1;
+        double raster_ul_lon = -1;
         for (int i = 0; i < leftBorders.length - 1; i++) {
             if (paraUllon >= leftBorders[i]
                     && paraUllon < leftBorders[i + 1]) {
-                theLeftBorderIndex = i;
+                raster_ul_lon = leftBorders[i];
                 break;
             }
         }
@@ -117,10 +91,10 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             rightBorders[i] = leftBorders[i] + (maxLon - minLon) / 4;
         }
-        int theRightBorderIndex = -1;
+        double raster_lr_lon = -1;
         for (int i = 0; i < len - 1; i++) {
             if (paraLrlon >= rightBorders[i] && paraLrlon < rightBorders[i + 1]) {
-                theRightBorderIndex = i;
+                raster_lr_lon = rightBorders[i + 1];
                 break;
             }
         }
@@ -136,10 +110,10 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             upBorders[i] = minLat + (maxLat - minLat) * ((double) (i) / 4);
         }
-        int theUpBorderIndex = -1;
+        double raster_ul_lat = -1;
         for (int i = 0; i < len - 1; i++) {
             if (paraUllat >= upBorders[i] && paraUllat < upBorders[i + 1]) {
-                theUpBorderIndex = i;
+                raster_ul_lat = upBorders[i];
                 break;
             }
         }
@@ -154,10 +128,10 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             lowBorders[i] = upBorders[i] + (maxLat - minLat) / 4;
         }
-        int theLowBorderIndex = -1;
+        double raster_lr_lat = -1;
         for (int i = 0; i < len - 1; i++) {
             if (paraLrlat >= lowBorders[i] && paraLrlat < lowBorders[i + 1]) {
-                theLowBorderIndex = i;
+                raster_lr_lat = lowBorders[i + 1];
                 break;
             }
         }
@@ -167,32 +141,58 @@ public class Rasterer {
         rightBorderIndex=2
         upBorderIndex=0
         lowBorderIndex=2
-
-        x0
-         */
-        /*
-        int k = (int) Math.pow(2, depth) - 1;
-        String[][] array = new String[k][k + 1];
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[0].length; j++) {
-                int xIndex = j;
-                int yIndex = i + 1;
-                array[i][j] = "d" + depth + "_" + "x" + xIndex + "_" + "y" + yIndex + "_" + ".png";
-                System.out.println(array[i][j]);
-            }
-        }
          */
 
-        int numberOfRows = theUpBorderIndex - theLowBorderIndex + 1;
-        int numberOfCols = theRightBorderIndex - theLeftBorderIndex + 1;
-        String[][] array = new String[numberOfRows][numberOfCols];
+        int numberOfRows = (int) (raster_ul_lat - raster_lr_lat + 1);
+        int numberOfCols = (int) (raster_lr_lon - raster_ul_lon + 1);
+        String[][] render_grid = new String[numberOfRows][numberOfCols];
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfCols; j++) {
-                array[i][j] = "d" + depth + "_" + "x" + j + "_" + "y" + i + "_" + ".png";
+                render_grid[i][j] = "d" + depth + "_" + "x" + j + "_" + "y" + i + "_" + ".png";
             }
         }
 
+        boolean query_success = false;
+        if (raster_lr_lat != -1 || raster_ul_lat != -1
+                || raster_lr_lon != -1 || raster_ul_lon != -1) {
+            query_success = true;
+        }
+/**
+ * Takes a user query and finds the grid of images that best matches the query. These
+ * images will be combined into one big image (rastered) by the front end. <br>
+ * <p>
+ * The grid of images must obey the following properties, where image in the
+ * grid is referred to as a "tile".
+ * <ul>
+ *     <li>The tiles collected must cover the most longitudinal distance per pixel
+ *     (LonDPP) possible, while still covering less than or equal to the amount of
+ *     longitudinal distanCe per pixel in the query box for the user viewport size. </li>
+ *     <li>Contains all tiles that intersect the query bounding box that fulfill the
+ *     above condition.</li>
+ *     <li>The tiles must be arranged in-order to reconstruct the full image.</li>
+ * </ul>
+ *
+ * @param params Map of the HTTP GET request's query parameters - the query box and
+ *               the user viewport width and height.
+ * @return A map of results for the front end as specified: <br>
+ * "render_grid"   : String[][], the files to display. <br>
+ * "raster_ul_lon" : Number, the bounding upper left longitude of the rastered image. <br>
+ * "raster_ul_lat" : Number, the bounding upper left latitude of the rastered image. <br>
+ * "raster_lr_lon" : Number, the bounding lower right longitude of the rastered image. <br>
+ * "raster_lr_lat" : Number, the bounding lower right latitude of the rastered image. <br>
+ * "depth"         : Number, the depth of the nodes of the rastered image <br>
+ * "query_success" : Boolean, whether the query was able to successfully complete; don't
+ * forget to set this to true on success! <br>
+ */
+
         Map<String, Object> results = new HashMap<>();
+        results.put("render_grid", render_grid);
+        results.put("raster_ul_lon", raster_ul_lon);
+        results.put("raster_ul_lat", raster_ul_lat);
+        results.put("raster_lr_lon", raster_lr_lon);
+        results.put("raster_lr_lat", raster_lr_lat);
+        results.put("depth", depth);
+        results.put("query_success", query_success);
         System.out.println("Since you haven't implemented getMapRaster, nothing is displayed in "
                 + "your browser.");
         return results;
