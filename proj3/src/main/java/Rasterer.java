@@ -66,7 +66,9 @@ public class Rasterer {
         */
         final double size = 256;
         double minLon = -122.29980468;
+        double minLat = 37.82280243352756;
         double maxLon = -122.21191406;
+        double maxLat = 37.892195547244356;
         double midLon = (minLon + maxLon) / 2;
         //double depth1LonDPP = calculateLonDPP(minLon, midLon, size);
         //double depth2LonDPP = calculateLonDPP(minLon, midLon / 2, size);
@@ -92,7 +94,6 @@ public class Rasterer {
                 System.out.println(array[i][j]);
             }
         }
-
          */
 
         /*
@@ -108,11 +109,11 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             leftBorders[i] = minLon + (maxLon - minLon) * ((double) i / 4);
         }
-        int theLeftBorderIndex=-1;
+        int theLeftBorderIndex = -1;
         for (int i = 0; i < leftBorders.length - 1; i++) {
             if (paraUllon >= leftBorders[i]
                     && paraUllon < leftBorders[i + 1]) {
-                theLeftBorderIndex=i;
+                theLeftBorderIndex = i;
                 break;
             }
         }
@@ -125,12 +126,49 @@ public class Rasterer {
          */
         double[] rightBorders = new double[len];
         for (int i = 0; i < len; i++) {
-            rightBorders[i] =leftBorders[i]+(maxLon-minLon)/4;
+            rightBorders[i] = leftBorders[i] + (maxLon - minLon) / 4;
         }
-        double theRightBorderIndex=-1;
-        for(int i=0;i<len-1;i++){
-            if(paraLrlon>=rightBorders[i]&&paraLrlon<rightBorders[i+1]){
-                theRightBorderIndex=i;
+        double theRightBorderIndex = -1;
+        for (int i = 0; i < len - 1; i++) {
+            if (paraLrlon >= rightBorders[i] && paraLrlon < rightBorders[i + 1]) {
+                theRightBorderIndex = i;
+                break;
+            }
+        }
+
+        /*
+        if depth==4
+        y0_upBorder=minLat+(maxLat-minLat)*(0/4)
+        y1_upBorder=minLat+(maxLat-minLat)*(1/4)
+        y2_upBorder=minLat+(maxLat-minLat)*(2/4)
+        y3_upBorder=minLat+(maxLat-minLat)*(3/4)
+        */
+        double[] upBorders = new double[len];
+        for (int i = 0; i < len; i++) {
+            upBorders[i] = minLat + (maxLat - minLat) * ((double) (i) / 4);
+        }
+        double theUpBorder;
+        for (int i = 0; i < len - 1; i++) {
+            if (paraUllat >= upBorders[i] && paraUllat < upBorders[i + 1]) {
+                theUpBorder = i;
+                break;
+            }
+        }
+
+        /*
+        y0_lowBorder=y0_upBorder+(maxLat-minLat)/4
+        y1_lowBorder=y1_upBorder+(maxLat-minLat)/4
+        y2_lowBorder=y2_upBorder+(maxLat-minLat)/4
+        y3_lowBorder=y3_upBorder+(maxLat-minLat)/4
+         */
+        double[] lowBorders = new double[len];
+        for (int i = 0; i < len; i++) {
+            lowBorders[i] = upBorders[i] + (maxLat - minLat) / 4;
+        }
+        double theLowBorder;
+        for (int i = 0; i < len - 1; i++) {
+            if (paraLrlat >= lowBorders[i] && paraLrlat < lowBorders[i + 1]) {
+                theLowBorder = i;
                 break;
             }
         }
