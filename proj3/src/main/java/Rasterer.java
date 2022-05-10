@@ -39,9 +39,9 @@ public class Rasterer {
          */
         int depth = -1;
         for (int i = 1; i < 7; i++) {
-            double singleTileLen = (ROOT_LRLON - ROOT_ULLON) / Math.pow(2, i);
-            double LonDPP = singleTileLen / size;
-            if (LonDPP < paraLonDPP) {
+            double ithDepthTileLength = (ROOT_LRLON - ROOT_ULLON) / Math.pow(2, i);
+            double ithDepthLonDPP = ithDepthTileLength / size;
+            if (ithDepthLonDPP < paraLonDPP) {
                 depth = i;
                 break;
             }
@@ -236,4 +236,5 @@ public class Rasterer {
             arr[arr.length - 1 - i] = temp;
         }
     }
+
 }
