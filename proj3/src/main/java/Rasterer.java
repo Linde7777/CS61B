@@ -38,21 +38,25 @@ public class Rasterer {
         d2LonDPP=cal(min,mid/2,256)
         */
         final double size = 256;
-        double minLon = -122.29980468;
-        double minLat = 37.82280243352756;
-        double maxLon = -122.21191406;
-        double maxLat = 37.892195547244356;
-        double midLon = (minLon + maxLon) / 2;
+        final double minLon = -122.29980468;
+        final double maxLat = 37.892195547244356;
+        final double maxLon = -122.21191406;
+        final double minLat = 37.82280243352756;
 
         /*
-        double 1DepthLonDPP = calculateLonDPP(minLon, midLon, size);
-        double 2DepthLonDPP = calculateLonDPP(minLon, midLon / 2, size);
-        */
-        int depth;
-        double currentDepthLonDPP;
-        for (depth = 1; depth <= 7; depth++) {
-            currentDepthLonDPP = calculateLonDPP(minLon, midLon / depth, size);
-            if (currentDepthLonDPP <= paraLonDPP) {
+        double len1 =(maxLon-minLon)/2;
+        double len2=(maxLon-minLon)/4;
+        double len3=(maxLon-minLon)/8;
+        double LonDPP1= len1/256;
+        double LonDPP2=len2/256;
+        double LonDPP3=len3/256;
+         */
+        int depth = -1;
+        for (int i = 1; i < 7; i++) {
+            double len = (maxLon - minLon) / Math.pow(2, i);
+            double LonDPP = len / size;
+            if (LonDPP < paraLonDPP) {
+                depth = i;
                 break;
             }
         }
@@ -153,7 +157,7 @@ public class Rasterer {
         }
 
         boolean query_success = true;
-        if (raster_lr_lat == -1 || raster_ul_lat == -1
+        if (depth == -1 || raster_lr_lat == -1 || raster_ul_lat == -1
                 || raster_lr_lon == -1 || raster_ul_lon == -1) {
             query_success = false;
         }
