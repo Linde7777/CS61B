@@ -91,6 +91,11 @@ public class Rasterer {
         for (int i = 0; i < len - 1; i++) {
             if (paraLrlon >= rightBorders[i]
                     && paraLrlon < rightBorders[i + 1]) {
+                /*
+                In logic, raster_lr_lon should be rightBorders[i+1]
+                and lrlonTileIndex= i+1
+                but the test result seems that change i+1 to i is correct
+                 */
                 raster_lr_lon = rightBorders[i + 1];
                 lrlonTileIndex = i + 1;
                 break;
@@ -121,8 +126,13 @@ public class Rasterer {
         for (int i = 0; i < len - 1; i++) {
             if (paraUllat <= upBorders[i]
                     && paraUllat > upBorders[i + 1]) {
+                /*
+                In my consideration, ullatTileIndex should be i;
+                but the solution is i+1
+                TODO: I don't understand
+                 */
                 raster_ul_lat = upBorders[i];
-                ullatTileIndex = i;
+                ullatTileIndex = i+1;
                 break;
             }
         }
@@ -144,8 +154,13 @@ public class Rasterer {
         for (int i = 0; i < len - 1; i++) {
             if (paraLrlat < lowBorders[i]
                     && paraLrlat >= lowBorders[i + 1]) {
-                raster_lr_lat = lowBorders[i + 1];
-                lrlatTileIndex = i + 1;
+                /*
+                In my consideration, lrlatTileIndex should be i + 1,
+                but the solution is the following code
+                TODO: I don't understand
+                 */
+                raster_lr_lat = lowBorders[i+1];
+                lrlatTileIndex = i;
                 break;
             }
         }
