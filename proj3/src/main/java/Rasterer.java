@@ -132,7 +132,7 @@ public class Rasterer {
                 TODO: I don't understand
                  */
                 raster_ul_lat = upBorders[i];
-                ullatTileIndex = i+1;
+                ullatTileIndex = i + 1;
                 break;
             }
         }
@@ -159,7 +159,7 @@ public class Rasterer {
                 but the solution is the following code
                 TODO: I don't understand
                  */
-                raster_lr_lat = lowBorders[i+1];
+                raster_lr_lat = lowBorders[i + 1];
                 lrlatTileIndex = i;
                 break;
             }
@@ -168,22 +168,23 @@ public class Rasterer {
         int numberOfRows = lrlonTileIndex - ullonTileIndex + 1;
         int numberOfCols = lrlatTileIndex - ullatTileIndex + 1;
         String[][] render_grid = new String[numberOfRows][numberOfCols];
-        int ullonTileIndexBackup=ullonTileIndex;
+        int ullonTileIndexBackup = ullonTileIndex;
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfCols; j++) {
                 render_grid[i][j] = "d" + depth + "_"
                         + "x" + ullonTileIndex + "_"
                         + "y" + ullatTileIndex + ".png";
-                ullonTileIndex+=1;
+                ullonTileIndex += 1;
             }
-            ullonTileIndex=ullonTileIndexBackup;
-            ullatTileIndex+=1;
+            ullonTileIndex = ullonTileIndexBackup;
+            ullatTileIndex += 1;
         }
 
         boolean query_success = true;
-        //TODO: add more situation
         if (depth == -1 || raster_lr_lat == -1 || raster_ul_lat == -1
-                || raster_lr_lon == -1 || raster_ul_lon == -1) {
+                || raster_lr_lon == -1 || raster_ul_lon == -1
+                || ullonTileIndex == -1 || ullatTileIndex == -1
+                || lrlonTileIndex == -1 || lrlatTileIndex == -1) {
             query_success = false;
         }
 /**
