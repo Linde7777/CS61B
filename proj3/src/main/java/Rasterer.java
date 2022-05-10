@@ -62,11 +62,12 @@ public class Rasterer {
         }
 
 
-        int len=(int)Math.pow(2,depth);
+        int len = (int) Math.pow(2, depth);
         //TODO: seal calculating border into method
 
         /*
         if depth==3
+        len=2^3=8
         x0_leftBorder=minLon+(maxLon-minLon)*(0/8)
         x1_leftBorder=minLon+(maxLon-minLon)*(1/8)
         x2_leftBorder=minLon+(maxLon-minLon)*(2/8)
@@ -77,16 +78,19 @@ public class Rasterer {
             leftBorders[i] = minLon + (maxLon - minLon) * ((double) i / len);
         }
         double raster_ul_lon = -1;
+        int ullonTileIndex = -1;
         for (int i = 0; i < leftBorders.length - 1; i++) {
             if (paraUllon >= leftBorders[i]
                     && paraUllon < leftBorders[i + 1]) {
                 raster_ul_lon = leftBorders[i];
+                ullonTileIndex = i;
                 break;
             }
         }
 
         /*
         if depth==3
+        len=2^3=8
         x0_rightBorder=x0_leftBorder+(maxLon-minLon)/8
         x1_rightBorder=x1_leftBorder+(maxLon-minLon)/8
         x2_rightBorder=x2_leftBorder+(maxLon-minLon)/8
@@ -97,15 +101,19 @@ public class Rasterer {
             rightBorders[i] = leftBorders[i] + (maxLon - minLon) / len;
         }
         double raster_lr_lon = -1;
+        int lrlonTileIndex = -1;
         for (int i = 0; i < len - 1; i++) {
-            if (paraLrlon >= rightBorders[i] && paraLrlon < rightBorders[i + 1]) {
+            if (paraLrlon >= rightBorders[i]
+                    && paraLrlon < rightBorders[i + 1]) {
                 raster_lr_lon = rightBorders[i + 1];
+                lrlonTileIndex = i + 1;
                 break;
             }
         }
 
         /*
-        if depth==4
+        if depth==3
+        len=2^3=8
         y0_upBorder=minLat+(maxLat-minLat)*(0/8)
         y1_upBorder=minLat+(maxLat-minLat)*(1/8)
         y2_upBorder=minLat+(maxLat-minLat)*(2/8)
@@ -116,14 +124,19 @@ public class Rasterer {
             upBorders[i] = minLat + (maxLat - minLat) * ((double) i / len);
         }
         double raster_ul_lat = -1;
+        int ullatTileIndex = -1;
         for (int i = 0; i < len - 1; i++) {
-            if (paraUllat >= upBorders[i] && paraUllat < upBorders[i + 1]) {
-                raster_ul_lat = upBorders[i];
+            if (paraUllat <= upBorders[i+1]
+                    && paraUllat > upBorders[i]) {
+                raster_ul_lat = upBorders[i+1];
+                ullatTileIndex = i+1;
                 break;
             }
         }
 
         /*
+        if len==3
+        len=2^3=8
         y0_lowBorder=y0_upBorder+(maxLat-minLat)/8
         y1_lowBorder=y1_upBorder+(maxLat-minLat)/8
         y2_lowBorder=y2_upBorder+(maxLat-minLat)/8
@@ -134,9 +147,12 @@ public class Rasterer {
             lowBorders[i] = upBorders[i] + (maxLat - minLat) / len;
         }
         double raster_lr_lat = -1;
+        int lrlatTileIndex = -1;
         for (int i = 0; i < len - 1; i++) {
-            if (paraLrlat >= lowBorders[i] && paraLrlat < lowBorders[i + 1]) {
-                raster_lr_lat = lowBorders[i + 1];
+            if (paraLrlat <= lowBorders[i+1]
+                    && paraLrlat > lowBorders[i]) {
+                raster_lr_lat = lowBorders[i];
+                lrlatTileIndex = i;
                 break;
             }
         }
@@ -148,8 +164,15 @@ public class Rasterer {
         lowBorderIndex=2
          */
 
-        int numberOfRows = (int) (raster_ul_lat - raster_lr_lat + 1);
-        int numberOfCols = (int) (raster_lr_lon - raster_ul_lon + 1);
+        /*
+        ullonIndex,ullatIndex
+        10           12
+
+                           lrlonIndex,lrlatIndex
+                           14         8???
+        */
+        int numberOfRows = lrlonTileIndex - ullonTileIndex + 1;
+        int numberOfCols = ullatTileIndex - lrlatTileIndex + 1;
         String[][] render_grid = new String[numberOfRows][numberOfCols];
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfCols; j++) {
