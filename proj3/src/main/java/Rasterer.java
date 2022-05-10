@@ -44,17 +44,17 @@ public class Rasterer {
         final double minLat = 37.82280243352756;
 
         /*
-        double len1 =(maxLon-minLon)/2;
-        double len2=(maxLon-minLon)/4;
-        double len3=(maxLon-minLon)/8;
-        double LonDPP1= len1/256;
-        double LonDPP2=len2/256;
-        double LonDPP3=len3/256;
+        double singleTileLen1 =(maxLon-minLon)/2;
+        double singleTileLen2=(maxLon-minLon)/4;
+        double singleTileLen3=(maxLon-minLon)/8;
+        double LonDPP1=singleTileLen1/256;
+        double LonDPP2=singleTileLen2/256;
+        double LonDPP3=singleTileLen3/256;
          */
         int depth = -1;
         for (int i = 1; i < 7; i++) {
-            double len = (maxLon - minLon) / Math.pow(2, i);
-            double LonDPP = len / size;
+            double singleTileLen = (maxLon - minLon) / Math.pow(2, i);
+            double LonDPP = singleTileLen / size;
             if (LonDPP < paraLonDPP) {
                 depth = i;
                 break;
@@ -62,19 +62,19 @@ public class Rasterer {
         }
 
 
-        int len = (int) Math.sqrt(Math.pow(4, depth));
+        int len=(int)Math.pow(2,depth);
         //TODO: seal calculating border into method
 
         /*
-        if depth==4
-        x0_leftBorder=minLon+(maxLon-minLon)*(0/4)
-        x1_leftBorder=minLon+(maxLon-minLon)*(1/4)
-        x2_leftBorder=minLon+(maxLon-minLon)*(2/4)
-        x3_leftBorder=minLon+(maxLon-minLon)*(3/4)
+        if depth==3
+        x0_leftBorder=minLon+(maxLon-minLon)*(0/8)
+        x1_leftBorder=minLon+(maxLon-minLon)*(1/8)
+        x2_leftBorder=minLon+(maxLon-minLon)*(2/8)
+        x3_leftBorder=minLon+(maxLon-minLon)*(3/8)
         */
         double[] leftBorders = new double[len];
         for (int i = 0; i < len; i++) {
-            leftBorders[i] = minLon + (maxLon - minLon) * ((double) i / 4);
+            leftBorders[i] = minLon + (maxLon - minLon) * ((double) i / len);
         }
         double raster_ul_lon = -1;
         for (int i = 0; i < leftBorders.length - 1; i++) {
@@ -86,14 +86,15 @@ public class Rasterer {
         }
 
         /*
-        x0_rightBorder=x0_leftBorder+(maxLon-minLon)/4
-        x1_rightBorder=x1_leftBorder+(maxLon-minLon)/4
-        x2_rightBorder=x2_leftBorder+(maxLon-minLon)/4
-        x3_rightBorder=x3_leftBorder+(maxLon-minLon)/4
+        if depth==3
+        x0_rightBorder=x0_leftBorder+(maxLon-minLon)/8
+        x1_rightBorder=x1_leftBorder+(maxLon-minLon)/8
+        x2_rightBorder=x2_leftBorder+(maxLon-minLon)/8
+        x3_rightBorder=x3_leftBorder+(maxLon-minLon)/8
          */
         double[] rightBorders = new double[len];
         for (int i = 0; i < len; i++) {
-            rightBorders[i] = leftBorders[i] + (maxLon - minLon) / 4;
+            rightBorders[i] = leftBorders[i] + (maxLon - minLon) / len;
         }
         double raster_lr_lon = -1;
         for (int i = 0; i < len - 1; i++) {
@@ -105,14 +106,14 @@ public class Rasterer {
 
         /*
         if depth==4
-        y0_upBorder=minLat+(maxLat-minLat)*(0/4)
-        y1_upBorder=minLat+(maxLat-minLat)*(1/4)
-        y2_upBorder=minLat+(maxLat-minLat)*(2/4)
-        y3_upBorder=minLat+(maxLat-minLat)*(3/4)
+        y0_upBorder=minLat+(maxLat-minLat)*(0/8)
+        y1_upBorder=minLat+(maxLat-minLat)*(1/8)
+        y2_upBorder=minLat+(maxLat-minLat)*(2/8)
+        y3_upBorder=minLat+(maxLat-minLat)*(3/8)
         */
         double[] upBorders = new double[len];
         for (int i = 0; i < len; i++) {
-            upBorders[i] = minLat + (maxLat - minLat) * ((double) (i) / 4);
+            upBorders[i] = minLat + (maxLat - minLat) * ((double) i / len);
         }
         double raster_ul_lat = -1;
         for (int i = 0; i < len - 1; i++) {
@@ -123,14 +124,14 @@ public class Rasterer {
         }
 
         /*
-        y0_lowBorder=y0_upBorder+(maxLat-minLat)/4
-        y1_lowBorder=y1_upBorder+(maxLat-minLat)/4
-        y2_lowBorder=y2_upBorder+(maxLat-minLat)/4
-        y3_lowBorder=y3_upBorder+(maxLat-minLat)/4
+        y0_lowBorder=y0_upBorder+(maxLat-minLat)/8
+        y1_lowBorder=y1_upBorder+(maxLat-minLat)/8
+        y2_lowBorder=y2_upBorder+(maxLat-minLat)/8
+        y3_lowBorder=y3_upBorder+(maxLat-minLat)/8
          */
         double[] lowBorders = new double[len];
         for (int i = 0; i < len; i++) {
-            lowBorders[i] = upBorders[i] + (maxLat - minLat) / 4;
+            lowBorders[i] = upBorders[i] + (maxLat - minLat) / len;
         }
         double raster_lr_lat = -1;
         for (int i = 0; i < len - 1; i++) {
