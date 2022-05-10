@@ -23,27 +23,6 @@ public class Rasterer {
         double paraWidth = params.get("w");
         double paraLonDPP = calculateLonDPP(paraLrlon, paraUllon, paraWidth);
 
-        /*
-        d0_x0_y0 longitudes -122.29980468 and -122.21191406
-        latitudes 37.82280243 and 37.89219554.
-
-        ROOT_ULLON=-122.29980468
-        midLon=(-122.29980468-122.21191406)/2
-        ROOT_LRLON=-122.21191406
-        d1 x0,y0 ROOT_ULLON and midLon
-        d1 x0,y1 midLon and ROOT_LRLON
-        d1 x1,yi
-
-        d1LonDPP=cal(min,mid/1,256)
-        d2LonDPP=cal(min,mid/2,256)
-        */
-        /*
-        public static final double
-        ROOT_ULLAT = 37.892195547244356,
-        ROOT_ULLON = -122.2998046875,
-        ROOT_LRLAT = 37.82280243352756,
-        ROOT_LRLON = -122.2119140625;
-         */
         final double size = 256;
         final double ROOT_ULLON = -122.2998046875;
         final double ROOT_ULLAT = 37.892195547244356;
@@ -51,12 +30,12 @@ public class Rasterer {
         final double ROOT_LRLAT = 37.82280243352756;
 
         /*
-        double singleTileLen1 =(ROOT_LRLON-ROOT_ULLON)/2;
-        double singleTileLen2=(ROOT_LRLON-ROOT_ULLON)/4;
-        double singleTileLen3=(ROOT_LRLON-ROOT_ULLON)/8;
-        double LonDPP1=singleTileLen1/256;
-        double LonDPP2=singleTileLen2/256;
-        double LonDPP3=singleTileLen3/256;
+        singleTileLen1=(ROOT_LRLON-ROOT_ULLON)/2;
+        singleTileLen2=(ROOT_LRLON-ROOT_ULLON)/4;
+        singleTileLen3=(ROOT_LRLON-ROOT_ULLON)/8;
+        LonDPP1=singleTileLen1/256;
+        LonDPP2=singleTileLen2/256;
+        LonDPP3=singleTileLen3/256;
          */
         int depth = -1;
         for (int i = 1; i < 7; i++) {
@@ -130,13 +109,20 @@ public class Rasterer {
         for (int i = 0; i < len; i++) {
             upBorders[i] = ROOT_LRLAT + (ROOT_ULLAT - ROOT_LRLAT) * ((double) i / len);
         }
+        /*
+        Notice that I reverse upBorders, upBorders[i] > upBorders[i+1].
+        Reason: As d3_x0_y0's latitude is greater than d3_x0_y1's latitude,
+        Making upBorders[i] and d3_x0_yi to have the same increase direction
+        can help you find the relative tile index easier.
+         */
+        reverseArray(upBorders);
         double raster_ul_lat = -1;
         int ullatTileIndex = -1;
         for (int i = 0; i < len - 1; i++) {
-            if (paraUllat <= upBorders[i + 1]
-                    && paraUllat > upBorders[i]) {
-                raster_ul_lat = upBorders[i + 1];
-                ullatTileIndex = i + 1;
+            if (paraUllat <= upBorders[i]
+                    && paraUllat > upBorders[i + 1]) {
+                raster_ul_lat = upBorders[i];
+                ullatTileIndex = i;
                 break;
             }
         }
@@ -156,30 +142,16 @@ public class Rasterer {
         double raster_lr_lat = -1;
         int lrlatTileIndex = -1;
         for (int i = 0; i < len - 1; i++) {
-            if (paraLrlat <= lowBorders[i + 1]
-                    && paraLrlat > lowBorders[i]) {
-                raster_lr_lat = lowBorders[i];
-                lrlatTileIndex = i;
+            if (paraLrlat < lowBorders[i]
+                    && paraLrlat >= lowBorders[i + 1]) {
+                raster_lr_lat = lowBorders[i + 1];
+                lrlatTileIndex = i + 1;
                 break;
             }
         }
 
-        /*
-        leftBorderIndex=0
-        rightBorderIndex=2
-        upBorderIndex=0
-        lowBorderIndex=2
-         */
-
-        /*
-        ullonIndex,ullatIndex
-        10           12
-
-                           lrlonIndex,lrlatIndex
-                           14         8???
-        */
         int numberOfRows = lrlonTileIndex - ullonTileIndex + 1;
-        int numberOfCols = ullatTileIndex - lrlatTileIndex + 1;
+        int numberOfCols = lrlatTileIndex - ullatTileIndex + 1;
         String[][] render_grid = new String[numberOfRows][numberOfCols];
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfCols; j++) {
@@ -237,4 +209,11 @@ public class Rasterer {
         return (lrlon - ullon) / width;
     }
 
+    private void reverseArray(double[] arr) {
+        for (int i = 0; i < arr.length / 2; i++) {
+            double temp = arr[i];
+            arr[i] = arr[arr.length - 1 - i];
+            arr[arr.length - 1 - i] = temp;
+        }
+    }
 }
