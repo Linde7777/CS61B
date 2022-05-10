@@ -15,7 +15,7 @@ public class Rasterer {
 
 
     public Map<String, Object> getMapRaster(Map<String, Double> params) {
-        //System.out.println(params);
+        System.out.println(params);
         double paraLrlon = params.get("lrlon");
         double paraLrlat = params.get("lrlat");
         double paraUllon = params.get("ullon");
@@ -164,9 +164,8 @@ public class Rasterer {
                 break;
             }
         }
-
-        int numberOfRows = lrlonTileIndex - ullonTileIndex + 1;
-        int numberOfCols = lrlatTileIndex - ullatTileIndex + 1;
+        int numberOfRows = lrlatTileIndex - ullatTileIndex + 1;
+        int numberOfCols = lrlonTileIndex - ullonTileIndex + 1;
         String[][] render_grid = new String[numberOfRows][numberOfCols];
         int ullonTileIndexBackup = ullonTileIndex;
         for (int i = 0; i < numberOfRows; i++) {
@@ -223,8 +222,6 @@ public class Rasterer {
         results.put("raster_lr_lat", raster_lr_lat);
         results.put("depth", depth);
         results.put("query_success", query_success);
-        System.out.println("Since you haven't implemented getMapRaster, nothing is displayed in "
-                + "your browser.");
         return results;
     }
 
