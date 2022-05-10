@@ -37,7 +37,7 @@ public class Rasterer {
         LonDPP2=singleTileLen2/256;
         LonDPP3=singleTileLen3/256;
          */
-        int depth = -1;
+        int depth = 7;
         for (int i = 1; i < 7; i++) {
             double ithDepthTileLength = (ROOT_LRLON - ROOT_ULLON) / Math.pow(2, i);
             double ithDepthLonDPP = ithDepthTileLength / size;
@@ -180,7 +180,7 @@ public class Rasterer {
         }
 
         boolean query_success = true;
-        if (depth == -1 || raster_lr_lat == -1 || raster_ul_lat == -1
+        if (raster_lr_lat == -1 || raster_ul_lat == -1
                 || raster_lr_lon == -1 || raster_ul_lon == -1
                 || ullonTileIndex == -1 || ullatTileIndex == -1
                 || lrlonTileIndex == -1 || lrlatTileIndex == -1) {
