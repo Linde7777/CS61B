@@ -176,7 +176,7 @@ public class Rasterer {
         String[][] render_grid = new String[numberOfRows][numberOfCols];
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfCols; j++) {
-                render_grid[i][j] = "d" + depth + "_" + "x" + j + "_" + "y" + i + "_" + ".png";
+                render_grid[i][j] = "d" + depth + "_" + "x" + j + "_" + "y" + i + ".png";
             }
         }
 
