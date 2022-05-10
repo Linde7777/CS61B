@@ -186,6 +186,7 @@ public class Rasterer {
                 || lrlonTileIndex == -1 || lrlatTileIndex == -1) {
             query_success = false;
         }
+
 /**
  * Takes a user query and finds the grid of images that best matches the query. These
  * images will be combined into one big image (rastered) by the front end. <br>
@@ -213,7 +214,6 @@ public class Rasterer {
  * "query_success" : Boolean, whether the query was able to successfully complete; don't
  * forget to set this to true on success! <br>
  */
-
         Map<String, Object> results = new HashMap<>();
         results.put("render_grid", render_grid);
         results.put("raster_ul_lon", raster_ul_lon);
