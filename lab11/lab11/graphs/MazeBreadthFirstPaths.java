@@ -28,11 +28,6 @@ public class MazeBreadthFirstPaths extends MazeExplorer {
      * Conducts a breadth first search of the maze starting at the source.
      */
     private void bfs(int s) {
-        if (s == t) {
-            targetFound = true;
-            return;
-        }
-
         Queue<Integer> q = new Queue<>();
         distTo[s] = 0;
         marked[s] = true;
@@ -41,6 +36,10 @@ public class MazeBreadthFirstPaths extends MazeExplorer {
 
         while (!q.isEmpty()) {
             int v = q.dequeue();
+            if (v == t) {
+                targetFound = true;
+                return;
+            }
             for (int w : maze.adj(v)) {
                 if (!marked[w]) {
                     edgeTo[w] = v;
