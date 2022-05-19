@@ -30,6 +30,7 @@ public class MazeBreadthFirstPaths extends MazeExplorer {
     private void bfs(int s) {
         Queue<Integer> q = new Queue<>();
         distTo[s] = 0;
+        edgeTo[s] = 0;
         marked[s] = true;
         q.enqueue(s);
         announce();
