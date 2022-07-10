@@ -50,13 +50,13 @@ public class QuickSort {
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
         // Your code here!
-        while(!unsorted.isEmpty()) {
-            int cmp=pivot.compareTo(unsorted.peek());
+        for (Item elem : unsorted) {
+            int cmp = pivot.compareTo(elem);
             if (cmp < 0) {
-                greater.enqueue(unsorted.dequeue());
+                greater.enqueue(elem);
             } else if (cmp > 0) {
-                less.enqueue(unsorted.dequeue());
-            } else equal.enqueue(unsorted.dequeue());
+                less.enqueue(elem);
+            } else equal.enqueue(elem);
         }
 
     }
@@ -72,13 +72,13 @@ public class QuickSort {
         Queue<Item> greater = new Queue<>();
         Queue<Item> equal = new Queue<>();
         partition(items, pivot, less, equal, greater);
-        if(!less.isEmpty()){
-            less=quickSort(less);
+        if (!less.isEmpty()) {
+            less = quickSort(less);
         }
-        if(!greater.isEmpty()){
-            greater=quickSort(greater);
+        if (!greater.isEmpty()) {
+            greater = quickSort(greater);
         }
-        catenate(catenate(less,equal),greater);
+        items=catenate(catenate(less, equal), greater);
         return items;
     }
 
@@ -89,12 +89,8 @@ public class QuickSort {
         items.enqueue(1);
         items.enqueue(4);
         items.enqueue(2);
-
-        System.out.println("original queue:");
-        System.out.println(items);
-
-        System.out.println("sorted queue:");
         Queue<Integer> res = quickSort(items);
+        System.out.println(items);
         System.out.println(res);
     }
 }
