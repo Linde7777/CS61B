@@ -90,7 +90,6 @@ public class MergeSort {
 
         return singleItemQueues.dequeue();
 
-
     }
 
     public static void main(String[] args) {
@@ -98,7 +97,7 @@ public class MergeSort {
         queue.enqueue("AAA");
         queue.enqueue("BBB");
         queue.enqueue("CCC");
-        queue.enqueue("PPP");
+        queue.enqueue("HHH");
         queue.enqueue("LLL");
 
         System.out.println("original queue:");
