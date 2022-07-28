@@ -20,6 +20,8 @@ public class RadixSort {
 
         // TODO: the case where elements in array are not in the same length
         // TODO: a fill element function?
+        String[] copy = new String[asciis.length];
+        System.arraycopy(asciis, 0, copy, 0, asciis.length);
         int maxLength = Integer.MIN_VALUE;
         for (String elem : asciis) {
             if (elem.length() > maxLength) {
@@ -34,14 +36,31 @@ public class RadixSort {
             }
         }
          */
+        // if the length of elements in array are not all the same,
+        // we fill the elements
+        // e.g. {"abc","john","m"} -> {"abc_","john","m___"}
+        fillElement(copy, maxLength);
 
-        String[] copy = new String[asciis.length];
-        System.arraycopy(asciis, 0, copy, 0, asciis.length);
         for (int i = 1; i <= maxLength; i++) {
             sortHelperLSD(copy, maxLength - i);
         }
 
         return copy;
+    }
+
+    private static void fillElement(String[] array, int maxLength) {
+        char spaceHolder = (char) 256;
+        for (int i = 0; i < array.length; i++) {
+            char[] element = array[i].toCharArray();
+            if (element.length < maxLength) {
+                char[] result = new char[maxLength];
+                for (int j = element.length; j < maxLength; j++) {
+                    System.arraycopy(element, 0, result, 0, element.length);
+                    result[j] = spaceHolder;
+                }
+                array[i] = String.valueOf(result);
+            }
+        }
     }
 
     /**
@@ -79,9 +98,17 @@ public class RadixSort {
     }
 
     public static void main(String[] args) {
-        String[] asciis = new String[]{"def", "ghi", "abc"};
+        String[] asciis = new String[]{"ab", "john"};
+        /*
         String[] res = sort(asciis);
         for (String elem : res) {
+            System.out.print(elem + " ");
+        }
+         */
+
+        fillElement(asciis, 4);
+
+        for (String elem : asciis) {
             System.out.print(elem + " ");
         }
     }
