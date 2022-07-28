@@ -35,10 +35,10 @@ public class RadixSort {
         }
          */
 
-        String[] copy=new String[asciis.length];
-        System.arraycopy(asciis,0,copy,0,asciis.length);
-        for(int i=1;i<=maxLength;i++){
-            sortHelperLSD(copy,maxLength-i);
+        String[] copy = new String[asciis.length];
+        System.arraycopy(asciis, 0, copy, 0, asciis.length);
+        for (int i = 1; i <= maxLength; i++) {
+            sortHelperLSD(copy, maxLength - i);
         }
 
         return copy;
@@ -71,18 +71,18 @@ public class RadixSort {
             int asciiInNumber = (int) asciis[i].charAt(index);
             int place = starts[asciiInNumber];
             sorted[place] = asciis[i];
-            starts[asciiInNumber]+=1;
+            starts[asciiInNumber] += 1;
         }
 
-        System.arraycopy(sorted,0,asciis,0,asciis.length);
+        System.arraycopy(sorted, 0, asciis, 0, asciis.length);
         return;
     }
 
     public static void main(String[] args) {
-        String[] asciis=new String[]{"abc","akf","qed"};
-        String[] res= sort(asciis);
-        for(String elem:res){
-            System.out.print(elem+" ");
+        String[] asciis = new String[]{"def", "ghi", "abc"};
+        String[] res = sort(asciis);
+        for (String elem : res) {
+            System.out.print(elem + " ");
         }
     }
 
