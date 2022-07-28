@@ -20,23 +20,28 @@ public class RadixSort {
 
         // TODO: the case where elements in array are not in the same length
         // TODO: a fill element function?
-        /*
         int maxLength = Integer.MIN_VALUE;
         for (String elem : asciis) {
             if (elem.length() > maxLength) {
                 maxLength = elem.length();
             }
         }
+
+        /*
         for (int i = 0; i < asciis.length; i++) {
             if (asciis[i].length() < maxLength) {
 
             }
         }
-
          */
 
+        String[] copy=new String[asciis.length];
+        System.arraycopy(asciis,0,copy,0,asciis.length);
+        for(int i=1;i<=maxLength;i++){
+            sortHelperLSD(copy,maxLength-i);
+        }
 
-        return null;
+        return copy;
     }
 
     /**
@@ -75,8 +80,8 @@ public class RadixSort {
 
     public static void main(String[] args) {
         String[] asciis=new String[]{"abc","akf","qed"};
-        sortHelperLSD(asciis,2);
-        for(String elem:asciis){
+        String[] res= sort(asciis);
+        for(String elem:res){
             System.out.print(elem+" ");
         }
     }
