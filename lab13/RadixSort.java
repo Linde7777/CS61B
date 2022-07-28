@@ -49,7 +49,7 @@ public class RadixSort {
     }
 
     private static void fillElement(String[] array, int maxLength) {
-        char spaceHolder = (char) 256;
+        char spaceHolder = (char) 255;
         for (int i = 0; i < array.length; i++) {
             char[] element = array[i].toCharArray();
             if (element.length < maxLength) {
@@ -99,18 +99,12 @@ public class RadixSort {
 
     public static void main(String[] args) {
         String[] asciis = new String[]{"ab", "john"};
-        /*
         String[] res = sort(asciis);
         for (String elem : res) {
             System.out.print(elem + " ");
         }
-         */
 
-        fillElement(asciis, 4);
 
-        for (String elem : asciis) {
-            System.out.print(elem + " ");
-        }
     }
 
     /**
