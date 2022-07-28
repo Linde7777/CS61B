@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  * Class for doing Radix sort
  *
@@ -15,17 +17,23 @@ public class RadixSort {
      */
     public static String[] sort(String[] asciis) {
         // TODO: Implement LSD Sort
+
+        // TODO: the case where elements in array are not in the same length
+        // TODO: a fill element function?
+        /*
         int maxLength = Integer.MIN_VALUE;
         for (String elem : asciis) {
             if (elem.length() > maxLength) {
                 maxLength = elem.length();
             }
         }
-        for(int i=0;i<asciis.length;i++){
-            if(asciis[i].length()<maxLength){
+        for (int i = 0; i < asciis.length; i++) {
+            if (asciis[i].length() < maxLength) {
 
             }
         }
+
+         */
 
 
         return null;
@@ -41,15 +49,36 @@ public class RadixSort {
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
         int[] counts = new int[256];
-        for(int i=0;i<asciis.length;i++){
-            int asciiInNumber= (int)asciis[i].charAt(index);
-            counts[asciiInNumber]+=1;
+        for (int i = 0; i < asciis.length; i++) {
+            int asciiInNumber = (int) asciis[i].charAt(index);
+            counts[asciiInNumber] += 1;
         }
-        System.out.println(counts[(int)'c']);
+
+        int[] starts = new int[counts.length];
+        int pos = 0;
+        for (int i = 0; i < starts.length; i++) {
+            starts[i] = pos;
+            pos += counts[i];
+        }
+
+        String[] sorted = new String[counts.length];
+        for (int i = 0; i < asciis.length; i++) {
+            int asciiInNumber = (int) asciis[i].charAt(index);
+            int place = starts[asciiInNumber];
+            sorted[place] = asciis[i];
+            starts[asciiInNumber]+=1;
+        }
+
+        System.arraycopy(sorted,0,asciis,0,asciis.length);
         return;
     }
 
     public static void main(String[] args) {
+        String[] asciis=new String[]{"abc","akf","qed"};
+        sortHelperLSD(asciis,2);
+        for(String elem:asciis){
+            System.out.print(elem+" ");
+        }
     }
 
     /**
