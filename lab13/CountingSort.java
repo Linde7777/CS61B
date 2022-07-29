@@ -73,17 +73,24 @@ public class CountingSort {
                 min = elem;
             }
         }
-        int bias = -min;
+        int bias = Math.abs(min);
         for (int i = 0; i < arr.length; i++) {
             arr[i] += bias;
         }
 
         int[] res = naiveCountingSort(arr);
-        for(int i=0;i<res.length;i++){
-            res[i]-=bias;
+        for (int i = 0; i < res.length; i++) {
+            res[i] -= bias;
         }
 
         return res;
     }
 
+    public static void main(String[] args) {
+        int[] someNegative = {9, 5, -4, 2, 1, -2, 5, 3, 0, -2, 3, 1, 1};
+        int[] res = betterCountingSort(someNegative);
+        for (int elem : res) {
+            System.out.print(elem + " ");
+        }
+    }
 }
