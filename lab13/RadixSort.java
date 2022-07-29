@@ -18,22 +18,22 @@ public class RadixSort {
     public static String[] sort(String[] asciis) {
         String[] result = new String[asciis.length];
         System.arraycopy(asciis, 0, result, 0, asciis.length);
-        int maxLength = Integer.MIN_VALUE;
+        int maxElementLength = Integer.MIN_VALUE;
         for (String elem : asciis) {
-            if (elem.length() > maxLength) {
-                maxLength = elem.length();
+            if (elem.length() > maxElementLength) {
+                maxElementLength = elem.length();
             }
         }
         /*
          if the length of elements in array are not all the same,
          we will fill the elements,
-         e.g. {"abc","john","m"} -> {"abc_","john","m___"}
+         e.g. {"abc","john","ma"} -> {"abc_","john","ma__"}
          */
         char spaceHolder = (char) 256;
-        fillElement(result, maxLength, spaceHolder);
+        fillElement(result, maxElementLength, spaceHolder);
 
-        for (int i = 1; i <= maxLength; i++) {
-            sortHelperLSD(result, maxLength - i);
+        for (int i = 1; i <= maxElementLength; i++) {
+            sortHelperLSD(result, maxElementLength - i);
         }
 
         filter(result, spaceHolder);
@@ -41,12 +41,12 @@ public class RadixSort {
         return result;
     }
 
-    private static void fillElement(String[] array, int maxLength, char spaceHolder) {
+    private static void fillElement(String[] array, int maxElementLength, char spaceHolder) {
         for (int i = 0; i < array.length; i++) {
             char[] element = array[i].toCharArray();
-            if (element.length < maxLength) {
-                char[] result = new char[maxLength];
-                for (int j = element.length; j < maxLength; j++) {
+            if (element.length < maxElementLength) {
+                char[] result = new char[maxElementLength];
+                for (int j = element.length; j < maxElementLength; j++) {
                     System.arraycopy(element, 0, result, 0, element.length);
                     result[j] = spaceHolder;
                 }
@@ -109,7 +109,7 @@ public class RadixSort {
     }
 
     public static void main(String[] args) {
-        String[] asciis = new String[]{"ab", "john"};
+        String[] asciis = new String[]{"ab", "john","c","kevin"};
         String[] res = sort(asciis);
         for (String elem : res) {
             System.out.print(elem + " ");
