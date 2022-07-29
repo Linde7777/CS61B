@@ -16,40 +16,32 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-
-        // TODO: the case where elements in array are not in the same length
-        // TODO: a fill element function?
-        String[] copy = new String[asciis.length];
-        System.arraycopy(asciis, 0, copy, 0, asciis.length);
+        String[] result = new String[asciis.length];
+        System.arraycopy(asciis, 0, result, 0, asciis.length);
         int maxLength = Integer.MIN_VALUE;
         for (String elem : asciis) {
             if (elem.length() > maxLength) {
                 maxLength = elem.length();
             }
         }
-
         /*
-        for (int i = 0; i < asciis.length; i++) {
-            if (asciis[i].length() < maxLength) {
-
-            }
-        }
+         if the length of elements in array are not all the same,
+         we will fill the elements,
+         e.g. {"abc","john","m"} -> {"abc_","john","m___"}
          */
-        // if the length of elements in array are not all the same,
-        // we fill the elements
-        // e.g. {"abc","john","m"} -> {"abc_","john","m___"}
-        fillElement(copy, maxLength);
+        char spaceHolder = (char) 256;
+        fillElement(result, maxLength, spaceHolder);
 
         for (int i = 1; i <= maxLength; i++) {
-            sortHelperLSD(copy, maxLength - i);
+            sortHelperLSD(result, maxLength - i);
         }
 
-        return copy;
+        filter(result,spaceHolder);
+
+        return result;
     }
 
-    private static void fillElement(String[] array, int maxLength) {
-        char spaceHolder = (char) 255;
+    private static void fillElement(String[] array, int maxLength, char spaceHolder) {
         for (int i = 0; i < array.length; i++) {
             char[] element = array[i].toCharArray();
             if (element.length < maxLength) {
@@ -63,6 +55,19 @@ public class RadixSort {
         }
     }
 
+    private static void filter(String[] array, char spaceHolder) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length(); j++) {
+                if (array[i].charAt(j) == spaceHolder) {
+                    char[] element=array[i].toCharArray();
+                    char[] newElement=new char[j];
+                    System.arraycopy(element,0,newElement,0,j);
+                    array[i]=String.valueOf(newElement);
+                }
+            }
+        }
+    }
+
     /**
      * LSD helper method that performs a destructive counting sort the array of
      * Strings based off characters at a specific index.
@@ -72,7 +77,13 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
-        int[] counts = new int[256];
+
+        /*
+        The input characters are from 0-255, totally 256 number,
+        the reason of the array's size is 257 is I set (char)256 as a space holder,
+        totally I need 257 number
+         */
+        int[] counts = new int[257];
         for (int i = 0; i < asciis.length; i++) {
             int asciiInNumber = (int) asciis[i].charAt(index);
             counts[asciiInNumber] += 1;
