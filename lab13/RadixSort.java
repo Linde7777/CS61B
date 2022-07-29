@@ -36,7 +36,7 @@ public class RadixSort {
             sortHelperLSD(result, maxLength - i);
         }
 
-        filter(result,spaceHolder);
+        filter(result, spaceHolder);
 
         return result;
     }
@@ -59,10 +59,10 @@ public class RadixSort {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length(); j++) {
                 if (array[i].charAt(j) == spaceHolder) {
-                    char[] element=array[i].toCharArray();
-                    char[] newElement=new char[j];
-                    System.arraycopy(element,0,newElement,0,j);
-                    array[i]=String.valueOf(newElement);
+                    char[] element = array[i].toCharArray();
+                    char[] newElement = new char[j];
+                    System.arraycopy(element, 0, newElement, 0, j);
+                    array[i] = String.valueOf(newElement);
                 }
             }
         }
