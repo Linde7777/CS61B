@@ -99,8 +99,11 @@ public class SeamCarver {
     }
 
     public int[] findVerticalSeam() {
+
+        int[] result = new int[height()];
         /*
-        (x, y) is in the bottom line
+        scan the bottom line, find (x,y)
+        we scan from bottom to top
 
         (x - 1, y - 1)
         (x, y - 1)
@@ -113,7 +116,6 @@ public class SeamCarver {
         result[2] = minEnergy(...)
 
          */
-        int[] result = new int[height()];
 
         // The bottom line is where we start to search the shortest path
         int x = 0;
@@ -130,20 +132,21 @@ public class SeamCarver {
         indexOfResult += 1;
 
         /*
-        we have scanned the bottom line, and we are continue to
+        we have scanned the bottom line, and we continue to
         scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
-        (recall that y=height()-1)
+        (recall that y=height()-1, and y will not be changed,
+        we use y+yHelper to walk through the picture)
          */
         for (int yHelper = -1; yHelper >= -(height() - 1); yHelper--) {
             /*
-            result[indexOfResult-1] store the x form the (x,y) which have the smallest
+            result[indexOfResult-1] store the x from the (x,y) which have the smallest
             energy in the lower line(recall that we scan from bottom to top)
              */
             x = result[indexOfResult - 1];
 
             /*
             Ideally, for each row(horizontal) we scan (x-1,?), (x,?) and (x+1,?),
-            but in reality we need to deal with the boundary.
+            but in some cases we need to deal with the boundary.
              */
             int xHelper;
             int xHelperBoundary;
@@ -172,9 +175,6 @@ public class SeamCarver {
             indexOfResult += 1;
 
         }
-
-
-
 
         return result;
     }
