@@ -99,16 +99,15 @@ public class SeamCarver {
     }
 
     public int[] findVerticalSeam() {
-        //TODO: what if meet boundary?
         int[] result = new int[height()];
 
         // The bottom line is where we start to search the shortest path
         int x = 0;
-        int y = width() - 1;
+        int y = height - 1;
         int minEnergy = Integer.MAX_VALUE;
         int indexOfResult = 0;
         for (int xHelper = 0; xHelper <= width() - 1; xHelper++) {
-            int currentNodeEnergy = (int) energy(x + xHelper, height() - 1);
+            int currentNodeEnergy = (int) energy(x + xHelper, y);
             if (currentNodeEnergy < minEnergy) {
                 minEnergy = currentNodeEnergy;
                 result[indexOfResult] = x + xHelper;
@@ -116,14 +115,37 @@ public class SeamCarver {
         }
         indexOfResult += 1;
 
-        //we scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
+        //TODO: what if we meet boundary?
+        /*
+        we scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
+        recall that initially y=height()-1,
+        and we have scanned the bottom line.
+         */
         for (int yHelper = -1; yHelper >= -(height() - 1); yHelper--) {
 
             minEnergy = Integer.MAX_VALUE;
 
-            // we scan (x-1,?), (x,?) and (x+1,?)
-            for (int xHelper = -1; xHelper <= 1; xHelper++) {
-                x = result[indexOfResult - 1];
+            x = result[indexOfResult - 1];
+            /*
+            Ideally, for each row(horizontal) we scan (x-1,?), (x,?) and (x+1,?),
+            but in reality we need to deal with the boundary.
+             */
+            int xHelper;
+            int xHelperBoundary;
+            // if x is the leftmost, we can not scan (x-1,?)
+            if (x == 0) {
+                xHelper = 0;
+            } else {
+                xHelper = -1;
+            }
+
+            // if x is the rightmost, we can not scan (x+1,?)
+            if (x == width() - 1) {
+                xHelperBoundary = 0;
+            } else {
+                xHelperBoundary = 1;
+            }
+            for (; xHelper <= xHelperBoundary; xHelper++) {
                 int currentNodeEnergy = (int) energy(x + xHelper, y + yHelper);
                 if (currentNodeEnergy < minEnergy) {
                     minEnergy = currentNodeEnergy;
