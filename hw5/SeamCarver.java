@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Picture;
 
+import javax.swing.plaf.IconUIResource;
+
 import static java.lang.Math.pow;
 
 public class SeamCarver {
@@ -85,7 +87,54 @@ public class SeamCarver {
     }
 
     public int[] findVerticalSeam() {
-        return null;
+        //TODO: what if meet boundary?
+        int[] result = new int[height()];
+
+        // The bottom line is where we start to search the shortest path
+        int x = 0;
+        int y = width() - 1;
+        int minEnergy = Integer.MAX_VALUE;
+        int indexOfResult = 0;
+        for (int xHelper = 0; xHelper <= width() - 1; xHelper++) {
+            int currentNodeEnergy = (int) energy(x + xHelper, height() - 1);
+            if (currentNodeEnergy < minEnergy) {
+                minEnergy = currentNodeEnergy;
+                result[indexOfResult] = x + xHelper;
+            }
+        }
+        indexOfResult += 1;
+
+        //we scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
+        for (int yHelper = -1; yHelper >= -(height() - 1); yHelper--) {
+            minEnergy = Integer.MAX_VALUE;
+            // we scan (x-1,?), (x,?) and (x+1,?)
+            for (int xHelper = -1; xHelper <= 1; xHelper++) {
+                x = result[indexOfResult - 1];
+                int currentNodeEnergy = (int) energy(x + xHelper, y + yHelper);
+                if (currentNodeEnergy < minEnergy) {
+                    minEnergy = currentNodeEnergy;
+                    result[indexOfResult] = x + xHelper;
+                }
+            }
+            indexOfResult += 1;
+        }
+
+        /*
+        (x, y)
+
+        (x - 1, y - 1)
+        (x, y - 1)
+        (x + 1, y - 1)
+        result[1] = min(energy()x - 1, x, x + 1)
+
+        (x - 1, y - 2)
+        (x, y - 2)
+        (x + 1, y - 2)
+        result[2] = min...
+         */
+
+
+        return result;
     }
 
     public void removeHorizontalSeam(int[] Seam) {
