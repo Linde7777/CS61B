@@ -22,9 +22,42 @@ public class SeamCarver {
     }
 
     public double energy(int x, int y) {
-        //TODO: what if meet boundary?
-        var xLeftNeighbor = picture.get(x - 1, y);
-        var xRightNeighbor = picture.get(x + 1, y);
+        /*
+        The reason I Initialize the variables using the coordinate(x,y)
+        is I don't know the type of picture.get(x,y).
+        Though intellij tell me its type is 'Color', when i typing 'Color',
+        the intellij recognize 'Color' is from java.awt
+         */
+        var xLeftNeighbor = picture.get(x, y);
+        var xRightNeighbor = picture.get(x, y);
+        var yUpperNeighbor = picture.get(x, y);
+        var yLowerNeighbor = picture.get(x, y);
+
+        if (x == 0) {
+            xLeftNeighbor = picture.get(width() - 1, y);
+        } else {
+            xLeftNeighbor = picture.get(x - 1, y);
+        }
+
+        if (x == width() - 1) {
+            xRightNeighbor = picture.get(0, y);
+        } else {
+            xRightNeighbor = picture.get(x + 1, y);
+        }
+
+        if (y == 0) {
+            yUpperNeighbor = picture.get(x, height() - 1);
+        } else {
+            yUpperNeighbor = picture.get(x, y - 1);
+        }
+
+        if (y == height() - 1) {
+            yLowerNeighbor = picture.get(x, 0);
+        } else {
+            yLowerNeighbor = picture.get(x, y + 1);
+        }
+
+
         int xRedAbsoluteDifference =
                 Math.abs(xLeftNeighbor.getRed() - xRightNeighbor.getRed());
         int xGreenAbsoluteDifference =
@@ -34,8 +67,6 @@ public class SeamCarver {
         int xGradient = (int) (pow(xRedAbsoluteDifference, 2) + pow(xGreenAbsoluteDifference, 2) +
                 pow(xBlueAbsoluteDifference, 2));
 
-        var yUpperNeighbor=picture.get(x,y-1);
-        var yLowerNeighbor=picture.get(x,y+1);
         int yRedAbsoluteDifference =
                 Math.abs(yUpperNeighbor.getRed() - yLowerNeighbor.getRed());
         int yGreenAbsoluteDifference =
