@@ -99,6 +99,20 @@ public class SeamCarver {
     }
 
     public int[] findVerticalSeam() {
+        /*
+        (x, y) is in the bottom line
+
+        (x - 1, y - 1)
+        (x, y - 1)
+        (x + 1, y - 1)
+        result[1] = minEnergy(x - 1, x, x + 1)
+
+        (x - 1, y - 2)
+        (x, y - 2)
+        (x + 1, y - 2)
+        result[2] = minEnergy(...)
+
+         */
         int[] result = new int[height()];
 
         // The bottom line is where we start to search the shortest path
@@ -115,7 +129,6 @@ public class SeamCarver {
         }
         indexOfResult += 1;
 
-        //TODO: what if we meet boundary?
         /*
         we have scanned the bottom line, and we are continue to
         scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
@@ -160,19 +173,7 @@ public class SeamCarver {
 
         }
 
-        /*
-        (x, y)
 
-        (x - 1, y - 1)
-        (x, y - 1)
-        (x + 1, y - 1)
-        result[1] = min(energy()x - 1, x, x + 1)
-
-        (x - 1, y - 2)
-        (x, y - 2)
-        (x + 1, y - 2)
-        result[2] = min...
-         */
 
 
         return result;
