@@ -117,15 +117,17 @@ public class SeamCarver {
 
         //TODO: what if we meet boundary?
         /*
-        we scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
-        recall that initially y=height()-1,
-        and we have scanned the bottom line.
+        we have scanned the bottom line, and we are continue to
+        scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
+        (recall that y=height()-1)
          */
         for (int yHelper = -1; yHelper >= -(height() - 1); yHelper--) {
-
-            minEnergy = Integer.MAX_VALUE;
-
+            /*
+            result[indexOfResult-1] store the x form the (x,y) which have the smallest
+            energy in the lower line(recall that we scan from bottom to top)
+             */
             x = result[indexOfResult - 1];
+
             /*
             Ideally, for each row(horizontal) we scan (x-1,?), (x,?) and (x+1,?),
             but in reality we need to deal with the boundary.
@@ -138,13 +140,14 @@ public class SeamCarver {
             } else {
                 xHelper = -1;
             }
-
             // if x is the rightmost, we can not scan (x+1,?)
             if (x == width() - 1) {
                 xHelperBoundary = 0;
             } else {
                 xHelperBoundary = 1;
             }
+
+            minEnergy = Integer.MAX_VALUE;
             for (; xHelper <= xHelperBoundary; xHelper++) {
                 int currentNodeEnergy = (int) energy(x + xHelper, y + yHelper);
                 if (currentNodeEnergy < minEnergy) {
