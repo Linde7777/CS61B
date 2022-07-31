@@ -6,9 +6,13 @@ import static java.lang.Math.pow;
 
 public class SeamCarver {
     Picture picture;
+    int width;
+    int height;
 
     public SeamCarver(Picture picture) {
         this.picture = picture;
+        this.width = picture.width();
+        this.height = picture.height();
     }
 
     public Picture picture() {
@@ -16,14 +20,22 @@ public class SeamCarver {
     }
 
     public int width() {
-        return this.picture.width();
+        return this.width;
     }
 
     public int height() {
-        return this.picture.height();
+        return this.height;
+    }
+
+    private void checkInput(int x, int y) {
+        if (x < 0 || x > width - 1
+                || y < 0 || y > height - 1) {
+            throw new java.lang.IndexOutOfBoundsException();
+        }
     }
 
     public double energy(int x, int y) {
+        checkInput(x, y);
         /*
         The reason I use coordinate(x,y) to initialize the variables
         is I don't know the type of picture.get(x,y).
@@ -106,7 +118,9 @@ public class SeamCarver {
 
         //we scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
         for (int yHelper = -1; yHelper >= -(height() - 1); yHelper--) {
+
             minEnergy = Integer.MAX_VALUE;
+
             // we scan (x-1,?), (x,?) and (x+1,?)
             for (int xHelper = -1; xHelper <= 1; xHelper++) {
                 x = result[indexOfResult - 1];
@@ -116,7 +130,9 @@ public class SeamCarver {
                     result[indexOfResult] = x + xHelper;
                 }
             }
+
             indexOfResult += 1;
+
         }
 
         /*
