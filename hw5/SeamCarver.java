@@ -23,10 +23,11 @@ public class SeamCarver {
 
     public double energy(int x, int y) {
         /*
-        The reason I Initialize the variables using the coordinate(x,y)
+        The reason I use coordinate(x,y) to initialize the variables
         is I don't know the type of picture.get(x,y).
-        Though intellij tell me its type is 'Color', when i typing 'Color',
-        the intellij recognize 'Color' is from java.awt
+        Though Intellij tell me its type is 'Color',
+        when i change 'var' into 'Color',
+        Intellij recognize 'Color' is from java.awt
          */
         var xLeftNeighbor = picture.get(x, y);
         var xRightNeighbor = picture.get(x, y);
@@ -56,7 +57,6 @@ public class SeamCarver {
         } else {
             yLowerNeighbor = picture.get(x, y + 1);
         }
-
 
         int xRedAbsoluteDifference =
                 Math.abs(xLeftNeighbor.getRed() - xRightNeighbor.getRed());
