@@ -94,10 +94,6 @@ public class SeamCarver {
         return energy;
     }
 
-    public int[] findHorizontalSeam() {
-        return null;
-    }
-
     public int[] findVerticalSeam() {
 
         int[] result = new int[height()];
@@ -179,12 +175,17 @@ public class SeamCarver {
         return result;
     }
 
-    public void removeHorizontalSeam(int[] Seam) {
-
+    public int[] findHorizontalSeam() {
+        return null;
     }
 
     public void removeVerticalSeam(int[] seam) {
 
     }
+
+    public void removeHorizontalSeam(int[] Seam) {
+
+    }
+
 
 }
