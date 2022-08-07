@@ -27,7 +27,7 @@ public class SeamCarver {
         return this.height;
     }
 
-    private void checkInput(int x, int y) {
+    private void checkIndexOutOfBounds(int x, int y) {
         if (x < 0 || x > width - 1
                 || y < 0 || y > height - 1) {
             throw new java.lang.IndexOutOfBoundsException();
@@ -35,7 +35,7 @@ public class SeamCarver {
     }
 
     public double energy(int x, int y) {
-        checkInput(x, y);
+        checkIndexOutOfBounds(x, y);
         /*
         The reason I use coordinate(x,y) to initialize the variables
         is I don't know the type of picture.get(x,y).
@@ -183,7 +183,7 @@ public class SeamCarver {
         int[] result = findVerticalSeam();
 
         // transpose this.picture back
-        this.picture=originalPictureKeeper;
+        this.picture = originalPictureKeeper;
         return result;
     }
 
@@ -211,11 +211,19 @@ public class SeamCarver {
     }
 
     public void removeVerticalSeam(int[] seam) {
-
+        // TODO: if the array is not a valid seam
+        //  (i.e., two consecutive entries differ by more than 1)?
+        if (seam.length != this.picture.height()) {
+            throw new IllegalArgumentException();
+        }
+        SeamRemover.removeVerticalSeam(this.picture, seam);
     }
 
-    public void removeHorizontalSeam(int[] Seam) {
-
+    public void removeHorizontalSeam(int[] seam) {
+        if (seam.length != this.picture.width()) {
+            throw new IllegalArgumentException();
+        }
+        SeamRemover.removeHorizontalSeam(this.picture, seam);
     }
 
 
