@@ -190,7 +190,8 @@ public class SeamCarver {
         // prevent this.picture from being recycled
         Picture originalPictureKeeper = this.picture;
 
-        transposePicture();
+        //TODO: bug: transposedPicture can not overlap this.picture
+        this.picture = generateTransposedPicture();
         int[] result = findVerticalSeam();
 
         // transpose this.picture back
@@ -198,7 +199,7 @@ public class SeamCarver {
         return result;
     }
 
-    private void transposePicture() {
+    private Picture generateTransposedPicture() {
         Picture transposedPicture = new Picture(this.picture.height(), this.picture.width());
         for (int tranY = 0; tranY < transposedPicture.height(); tranY++) {
             for (int tranX = 0; tranX < transposedPicture.width(); tranX++) {
@@ -206,7 +207,7 @@ public class SeamCarver {
             }
         }
 
-        this.picture = transposedPicture;
+        return transposedPicture;
     }
 
     private Color transposeHelper(int x, int y) {
