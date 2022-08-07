@@ -175,7 +175,27 @@ public class SeamCarver {
         return result;
     }
 
+    private void transposePicture() {
+        /*
+        there is a relation between original (x,y) and transposed (x,y):
+        (x,y) -> (y,width-1-x)
+
+        conversely, if we want to transpose picture to its original state:
+        (a,b) -> (-b+width-1,a)
+         */
+        Picture temp = new Picture(this.picture.height(), this.picture.width());
+        for (int tranX = 0; tranX < temp.width(); tranX++) {
+            for (int tranY = 0; tranY < temp.height(); tranY++) {
+
+            }
+        }
+
+
+    }
+
     public int[] findHorizontalSeam() {
+        transposePicture();
+
         return null;
     }
 
