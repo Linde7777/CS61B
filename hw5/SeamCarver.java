@@ -200,8 +200,8 @@ public class SeamCarver {
 
     private void transposePicture() {
         Picture transposedPicture = new Picture(this.picture.height(), this.picture.width());
-        for (int tranY = 0; tranY < transposedPicture.width(); tranY++) {
-            for (int tranX = 0; tranX < transposedPicture.height(); tranX++) {
+        for (int tranY = 0; tranY < transposedPicture.height(); tranY++) {
+            for (int tranX = 0; tranX < transposedPicture.width(); tranX++) {
                 transposedPicture.set(tranX, tranY, transposeHelper(tranX, tranY));
             }
         }
@@ -217,7 +217,7 @@ public class SeamCarver {
         conversely, if we want to transpose the transposed picture to its original state:
         (a,b) -> (-b+width-1,a)
          */
-        Color returnItem = this.picture.get(y, width() - 1 - x);
+        Color returnItem = this.picture.get(-y+this.picture.width()-1,x);
         return returnItem;
     }
 
