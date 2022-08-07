@@ -185,17 +185,8 @@ public class SeamCarver {
     public int[] findHorizontalSeam() {
         // prevent this.picture from being recycled
         Picture originalPictureKeeper = this.picture;
-
-        Picture transposedPicture = new Picture(this.picture.height(), this.picture.width());
-        for (int tranY = 0; tranY < transposedPicture.height(); tranY++) {
-            for (int tranX = 0; tranX < transposedPicture.width(); tranX++) {
-                transposedPicture.set(tranX, tranY, transposeHelper(tranX, tranY));
-            }
-        }
-        this.picture=transposedPicture;
-
+        this.picture=generateTransposedPicture();
         int[] result = findVerticalSeam();
-
         // transpose this.picture back
         this.picture = originalPictureKeeper;
         return result;
