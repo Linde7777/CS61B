@@ -93,25 +93,9 @@ public class SeamCarver {
     public int[] findVerticalSeam() {
 
         int[] result = new int[height()];
-        /*
-        scan the bottom line, find (x,y)
-        we scan from bottom to top
 
-        (x - 1, y - 1)
-        (x, y - 1)
-        (x + 1, y - 1)
-        result[1] = minEnergy(x - 1, x, x + 1)
-
-        (x - 1, y - 2)
-        (x, y - 2)
-        (x + 1, y - 2)
-        result[2] = minEnergy(...)
-
-         */
-
-        // The bottom line is where we start to search the shortest path
         int x = 0;
-        int y = height() - 1;
+        int y = 0;
         int minEnergy = Integer.MAX_VALUE;
         int indexOfResult = 0;
         for (int xHelper = 0; xHelper <= width() - 1; xHelper++) {
@@ -124,15 +108,15 @@ public class SeamCarver {
         indexOfResult += 1;
 
         /*
-        we have scanned the bottom line, and we continue to
-        scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
-        (recall that y=height()-1, and y will not be changed,
+        we have scanned the first line, and we continue to
+        scan from top to bottom: (?,y+1)->(?,y+2)->(?,y+3)
+        (recall that y=0, and y will not be changed,
         we use y+yHelper to walk through the picture)
          */
-        for (int yHelper = -1; yHelper >= -(height() - 1); yHelper--) {
+        for (int yHelper = 1; yHelper < height(); yHelper++) {
             /*
             result[indexOfResult-1] store the x from the (x,y) which have the smallest
-            energy in the lower line(recall that we scan from bottom to top)
+            energy in the upper line(recall that we scan from top to bottom)
              */
             x = result[indexOfResult - 1];
 
@@ -168,17 +152,6 @@ public class SeamCarver {
 
         }
 
-        /*
-        we scan from bottom to top,
-        but this function's API manual need us to
-        return the xCoordinates from top to bottom,
-        so we reverse the result.
-         */
-        for (int i = 0; i < result.length / 2; i++) {
-            int temp = result[i];
-            result[i] = result[result.length - 1 - i];
-            result[result.length - 1 - i] = temp;
-        }
         return result;
     }
 
