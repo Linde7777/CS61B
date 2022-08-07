@@ -6,13 +6,9 @@ import static java.lang.Math.pow;
 
 public class SeamCarver {
     Picture picture;
-    int width;
-    int height;
 
     public SeamCarver(Picture picture) {
         this.picture = picture;
-        this.width = picture.width();
-        this.height = picture.height();
     }
 
     public Picture picture() {
@@ -20,16 +16,16 @@ public class SeamCarver {
     }
 
     public int width() {
-        return this.width;
+        return this.picture.width();
     }
 
     public int height() {
-        return this.height;
+        return this.picture.height();
     }
 
     private void checkIndexOutOfBounds(int x, int y) {
-        if (x < 0 || x > width - 1
-                || y < 0 || y > height - 1) {
+        if (x < 0 || x > width() - 1
+                || y < 0 || y > height() - 1) {
             throw new java.lang.IndexOutOfBoundsException();
         }
     }
@@ -115,7 +111,7 @@ public class SeamCarver {
 
         // The bottom line is where we start to search the shortest path
         int x = 0;
-        int y = height - 1;
+        int y = height() - 1;
         int minEnergy = Integer.MAX_VALUE;
         int indexOfResult = 0;
         for (int xHelper = 0; xHelper <= width() - 1; xHelper++) {
@@ -190,8 +186,14 @@ public class SeamCarver {
         // prevent this.picture from being recycled
         Picture originalPictureKeeper = this.picture;
 
-        //TODO: bug: transposedPicture can not overlap this.picture
-        this.picture = generateTransposedPicture();
+        Picture transposedPicture = new Picture(this.picture.height(), this.picture.width());
+        for (int tranY = 0; tranY < transposedPicture.height(); tranY++) {
+            for (int tranX = 0; tranX < transposedPicture.width(); tranX++) {
+                transposedPicture.set(tranX, tranY, transposeHelper(tranX, tranY));
+            }
+        }
+        this.picture=transposedPicture;
+
         int[] result = findVerticalSeam();
 
         // transpose this.picture back
