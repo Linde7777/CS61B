@@ -1,6 +1,6 @@
 import edu.princeton.cs.algs4.Picture;
 
-import javax.swing.plaf.IconUIResource;
+import java.awt.*;
 
 import static java.lang.Math.pow;
 
@@ -175,22 +175,27 @@ public class SeamCarver {
         return result;
     }
 
-    private void transposePicture() {
+    private Color transposeHelper(int x, int y) {
         /*
         there is a relation between original (x,y) and transposed (x,y):
         (x,y) -> (y,width-1-x)
 
-        conversely, if we want to transpose picture to its original state:
+        conversely, if we want to transpose the transposed picture to its original state:
         (a,b) -> (-b+width-1,a)
          */
-        Picture temp = new Picture(this.picture.height(), this.picture.width());
-        for (int tranX = 0; tranX < temp.width(); tranX++) {
-            for (int tranY = 0; tranY < temp.height(); tranY++) {
+        Color returnItem = this.picture.get(y, width() - 1 - x);
+        return returnItem;
+    }
 
+    private void transposePicture() {
+        Picture transposedPicture = new Picture(this.picture.height(), this.picture.width());
+        for (int tranY = 0; tranY < transposedPicture.width(); tranY++) {
+            for (int tranX = 0; tranX < transposedPicture.height(); tranX++) {
+                transposedPicture.set(tranX, tranY, transposeHelper(tranX, tranY));
             }
         }
 
-
+        this.picture=transposedPicture;
     }
 
     public int[] findHorizontalSeam() {
