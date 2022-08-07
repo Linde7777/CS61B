@@ -195,13 +195,19 @@ public class SeamCarver {
             }
         }
 
-        this.picture=transposedPicture;
+        this.picture = transposedPicture;
     }
 
     public int[] findHorizontalSeam() {
-        transposePicture();
+        // prevent this.picture from being recycled
+        Picture originalPictureKeeper = this.picture;
 
-        return null;
+        transposePicture();
+        int[] result = findVerticalSeam();
+
+        // transpose this.picture back
+        this.picture=originalPictureKeeper;
+        return result;
     }
 
     public void removeVerticalSeam(int[] seam) {
