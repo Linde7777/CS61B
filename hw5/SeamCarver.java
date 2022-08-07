@@ -172,6 +172,17 @@ public class SeamCarver {
 
         }
 
+        /*
+        we scan from bottom to top,
+        but this function's API manual need us to
+        return the xCoordinates from top to bottom,
+        so we reverse the result.
+         */
+        for (int i = 0; i < result.length / 2; i++) {
+            int temp = result[i];
+            result[i] = result[result.length - 1 - i];
+            result[result.length - 1 - i] = temp;
+        }
         return result;
     }
 
