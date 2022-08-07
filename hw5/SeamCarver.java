@@ -175,16 +175,16 @@ public class SeamCarver {
         return result;
     }
 
-    private Color transposeHelper(int x, int y) {
-        /*
-        there is a relation between original (x,y) and transposed (x,y):
-        (x,y) -> (y,width-1-x)
+    public int[] findHorizontalSeam() {
+        // prevent this.picture from being recycled
+        Picture originalPictureKeeper = this.picture;
 
-        conversely, if we want to transpose the transposed picture to its original state:
-        (a,b) -> (-b+width-1,a)
-         */
-        Color returnItem = this.picture.get(y, width() - 1 - x);
-        return returnItem;
+        transposePicture();
+        int[] result = findVerticalSeam();
+
+        // transpose this.picture back
+        this.picture=originalPictureKeeper;
+        return result;
     }
 
     private void transposePicture() {
@@ -198,16 +198,16 @@ public class SeamCarver {
         this.picture = transposedPicture;
     }
 
-    public int[] findHorizontalSeam() {
-        // prevent this.picture from being recycled
-        Picture originalPictureKeeper = this.picture;
+    private Color transposeHelper(int x, int y) {
+        /*
+        there is a relation between original (x,y) and transposed (x,y):
+        (x,y) -> (y,width-1-x)
 
-        transposePicture();
-        int[] result = findVerticalSeam();
-
-        // transpose this.picture back
-        this.picture=originalPictureKeeper;
-        return result;
+        conversely, if we want to transpose the transposed picture to its original state:
+        (a,b) -> (-b+width-1,a)
+         */
+        Color returnItem = this.picture.get(y, width() - 1 - x);
+        return returnItem;
     }
 
     public void removeVerticalSeam(int[] seam) {
