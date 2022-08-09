@@ -1,11 +1,11 @@
 import edu.princeton.cs.algs4.Picture;
 
-import java.awt.*;
+import java.awt.Color;
 
 import static java.lang.Math.pow;
 
 public class SeamCarver {
-    Picture picture;
+    private Picture picture;
 
     public SeamCarver(Picture picture) {
         this.picture = picture;
@@ -74,17 +74,22 @@ public class SeamCarver {
                 Math.abs(xLeftNeighbor.getGreen() - xRightNeighbor.getGreen());
         int xBlueAbsoluteDifference =
                 Math.abs(xLeftNeighbor.getBlue() - xRightNeighbor.getBlue());
-        int xGradient = (int) (pow(xRedAbsoluteDifference, 2) + pow(xGreenAbsoluteDifference, 2) +
-                pow(xBlueAbsoluteDifference, 2));
+        int xGradient = (int) (pow(xRedAbsoluteDifference, 2)
+                + pow(xGreenAbsoluteDifference, 2)
+                + pow(xBlueAbsoluteDifference, 2));
 
         int yRedAbsoluteDifference =
-                Math.abs(yUpperNeighbor.getRed() - yLowerNeighbor.getRed());
+                Math.abs(yUpperNeighbor.getRed()
+                        - yLowerNeighbor.getRed());
         int yGreenAbsoluteDifference =
-                Math.abs(yUpperNeighbor.getGreen() - yLowerNeighbor.getGreen());
+                Math.abs(yUpperNeighbor.getGreen()
+                        - yLowerNeighbor.getGreen());
         int yBlueAbsoluteDifference =
-                Math.abs(yUpperNeighbor.getBlue() - yLowerNeighbor.getBlue());
-        int yGradient = (int) (pow(yRedAbsoluteDifference, 2) + pow(yGreenAbsoluteDifference, 2) +
-                pow(yBlueAbsoluteDifference, 2));
+                Math.abs(yUpperNeighbor.getBlue()
+                        - yLowerNeighbor.getBlue());
+        int yGradient = (int) (pow(yRedAbsoluteDifference, 2)
+                + pow(yGreenAbsoluteDifference, 2)
+                + pow(yBlueAbsoluteDifference, 2));
 
         int energy = xGradient + yGradient;
         return energy;
