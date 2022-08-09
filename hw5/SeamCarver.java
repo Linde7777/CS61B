@@ -144,6 +144,8 @@ public class SeamCarver {
                 int currentNodeEnergy = (int) energy(x + xHelper, y + yHelper);
                 if (currentNodeEnergy < minEnergy) {
                     minEnergy = currentNodeEnergy;
+
+                    //TODO: bug here
                     result[indexOfResult] = x + xHelper;
                 }
             }
@@ -158,7 +160,7 @@ public class SeamCarver {
     public int[] findHorizontalSeam() {
         // prevent this.picture from being recycled
         Picture originalPictureKeeper = this.picture;
-        this.picture=generateTransposedPicture();
+        this.picture = generateTransposedPicture();
         int[] result = findVerticalSeam();
         // transpose this.picture back
         this.picture = originalPictureKeeper;
@@ -169,22 +171,42 @@ public class SeamCarver {
         Picture transposedPicture = new Picture(this.picture.height(), this.picture.width());
         for (int tranY = 0; tranY < transposedPicture.height(); tranY++) {
             for (int tranX = 0; tranX < transposedPicture.width(); tranX++) {
-                transposedPicture.set(tranX, tranY, transposeHelper(tranX, tranY));
+                transposedPicture.set(tranX, tranY, getCorrespondingCoordinatesColor(tranX, tranY));
             }
         }
 
         return transposedPicture;
     }
 
-    private Color transposeHelper(int x, int y) {
+    private Color getCorrespondingCoordinatesColor(int x, int y) {
         /*
-        there is a relation between original (x,y) and transposed (x,y):
-        (x,y) -> (y,width-1-x)
+        there is a relation between transposed (x,y) and original (x,y):
+        (x,y) -> (y,x)
 
-        conversely, if we want to transpose the transposed picture to its original state:
-        (a,b) -> (-b+width-1,a)
+        We first set a horizontal axis of symmetry at the top of
+        original picture, then flip up along this axis of symmetry,
+        and then flip the resulting picture clockwise by ninety
+        degrees to obtain the transformed picture.
+
+        for example:
+
+        original picture:
+        A B C D
+        E F G H
+        I J K L
+
+        flip up along the axis of symmetry:
+        I J K L
+        E F G H
+        A B C D
+
+        flip ninety degrees, get transformed picture:
+        A E I
+        B F J
+        C G K
+        D H L
          */
-        Color returnItem = this.picture.get(-y+this.picture.width()-1,x);
+        Color returnItem = this.picture.get(y,x);
         return returnItem;
     }
 
