@@ -176,7 +176,7 @@ public class SeamCarver {
         return transposedPicture;
     }
 
-    private Color getCorrespondingCoordinatesColor(int x, int y) {
+    private Color getCorrespondingCoordinatesColor(int tranX, int tranY) {
         /*
         there is a relation between transposed (x,y) and original (x,y):
         (x,y) -> (y,x)
@@ -204,7 +204,7 @@ public class SeamCarver {
         C G K
         D H L
          */
-        Color returnItem = this.picture.get(y, x);
+        Color returnItem = this.picture.get(tranY, tranX);
         return returnItem;
     }
 
