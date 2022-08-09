@@ -144,8 +144,6 @@ public class SeamCarver {
                 int currentNodeEnergy = (int) energy(x + xHelper, y + yHelper);
                 if (currentNodeEnergy < minEnergy) {
                     minEnergy = currentNodeEnergy;
-
-                    //TODO: bug here
                     result[indexOfResult] = x + xHelper;
                 }
             }
@@ -206,7 +204,7 @@ public class SeamCarver {
         C G K
         D H L
          */
-        Color returnItem = this.picture.get(y,x);
+        Color returnItem = this.picture.get(y, x);
         return returnItem;
     }
 
