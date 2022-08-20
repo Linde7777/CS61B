@@ -21,7 +21,7 @@ public class SawToothGenerator implements Generator {
         int minState = 0;
         int maxState = this.period - 1;
         if (state > maxState) {
-            state = minState;
+            state = state % period;
         }
 
         double minValue = -1.0;
