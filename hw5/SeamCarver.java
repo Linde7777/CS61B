@@ -100,7 +100,8 @@ public class SeamCarver {
         int[] result = new int[height()];
 
         int x = 0;
-        int y = 0;
+        // modify the line below
+        int y = height()-1;
         int minEnergy = Integer.MAX_VALUE;
         int indexOfResult = 0;
         for (int xHelper = 0; xHelper <= width() - 1; xHelper++) {
@@ -112,13 +113,14 @@ public class SeamCarver {
         }
         indexOfResult += 1;
 
+        //TODO: grandscope test say I should scan from bottom
         /*
         we have scanned the first line, and we continue to
-        scan from top to bottom: (?,y+1)->(?,y+2)->(?,y+3)
+        scan from bottom to top: (?,y-1)->(?,y-2)->(?,y-3)
         (recall that y=0, and y will not be changed,
         we use y+yHelper to walk through the picture)
          */
-        for (int yHelper = 1; yHelper < height(); yHelper++) {
+        for (int yHelper = -1; yHelper > -(height()-1); yHelper--) {
             /*
             result[indexOfResult-1] store the x from the (x,y) which have the smallest
             energy in the upper line(recall that we scan from top to bottom)
@@ -156,6 +158,16 @@ public class SeamCarver {
             indexOfResult += 1;
 
         }
+
+        // reverse the result
+        /*
+        for(int i=0;i<result.length/2;i++){
+            int temp=result[i];
+            result[i]=result[result.length-1-i];
+            result[result.length-1-i]=temp;
+        }
+
+         */
 
         return result;
     }
