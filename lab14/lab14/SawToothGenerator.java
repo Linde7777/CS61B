@@ -25,9 +25,9 @@ public class SawToothGenerator implements Generator {
         }
         double minValue = -1.0;
         double maxValue = 1.0;
-        double Magnification = (maxState - minState) / (maxValue - minValue);
+        double magnification = (maxState - minState) / (maxValue - minValue);
         double offset = 1;
 
-        return (state / Magnification) - offset;
+        return (state / magnification) - offset;
     }
 }
