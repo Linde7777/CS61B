@@ -14,10 +14,10 @@ public class SawToothGenerator implements Generator {
     @Override
     public double next() {
         state = (state + 1);
-        return normalize(state);
+        return normalize();
     }
 
-    private double normalize(int state) {
+    private double normalize() {
         int minState = 0;
         int maxState = this.period - 1;
         if (state > maxState) {
