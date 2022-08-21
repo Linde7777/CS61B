@@ -21,7 +21,6 @@ public class AcceleratingSawToothGenerator implements Generator {
     }
 
     private double normalize() {
-        //TODO: modify state-> this.state
         if (this.state > this.period - 1) {
             this.state = this.state % this.period;
             this.period = (int) (this.period * factor);
