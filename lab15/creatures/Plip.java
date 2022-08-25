@@ -57,7 +57,9 @@ public class Plip extends Creature {
      * that you get this exactly correct.
      */
     public Color color() {
+        r = 99;
         g = 63;
+        b = 76;
         return color(r, g, b);
     }
 
@@ -71,8 +73,8 @@ public class Plip extends Creature {
      * ensure Plip won't have energy more than 2
      */
     private void checkIfEnergyOutOfBoundary() {
-        if (this.energy > 2) {
-            this.energy = 2;
+        if (energy > 2) {
+            energy = 2;
         }
     }
 
@@ -83,7 +85,7 @@ public class Plip extends Creature {
      * private static final variable. This is not required for this lab.
      */
     public void move() {
-        this.energy -= 0.15;
+        energy -= 0.15;
     }
 
 
@@ -91,7 +93,7 @@ public class Plip extends Creature {
      * Plips gain 0.2 energy when staying due to photosynthesis.
      */
     public void stay() {
-        this.energy += 0.2;
+        energy += 0.2;
         checkIfEnergyOutOfBoundary();
     }
 
