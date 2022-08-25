@@ -1,14 +1,11 @@
 package creatures;
 
-import huglife.Creature;
-import huglife.Direction;
-import huglife.Action;
-import huglife.Occupant;
-import huglife.HugLifeUtils;
+import huglife.*;
 
 import java.awt.Color;
 import java.util.Map;
 import java.util.List;
+import java.util.Random;
 
 /**
  * An implementation of a motile pacifist photosynthesizer.
@@ -124,7 +121,42 @@ public class Plip extends Creature {
      * for an example to follow.
      */
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
-        return new Action(Action.ActionType.STAY);
+        List<Direction> empties = getNeighborsOfType(neighbors, "empty");
+
+        if(empties.size()!=0){
+
+            if(energy>1.0){
+                return new Action(Action.ActionType.REPLICATE, chooseDirectionRandomly(empties));
+            }
+
+            if(neighbors.containsValue("Clorus")){
+                if(chooseToRunRandomly()){
+                    return new Action(Action.ActionType.MOVE, chooseDirectionRandomly(empties));
+                }else{
+                    return new Action(Action.ActionType.STAY);
+                }
+            }else {
+                return new Action(Action.ActionType.STAY);
+            }
+
+        }else {
+            return new Action(Action.ActionType.STAY);
+        }
+
+    }
+
+    private Direction chooseDirectionRandomly(List<Direction> empties){
+        Random random=new Random();
+        return empties.get(random.nextInt(empties.size()));
+    }
+
+    private boolean chooseToRunRandomly(){
+        Random random=new Random();
+        if(random.nextInt(2)==0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String name() {

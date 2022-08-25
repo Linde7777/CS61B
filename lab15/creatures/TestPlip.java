@@ -42,7 +42,7 @@ public class TestPlip {
         assertEquals(0.5,offspringOfP.energy(),0.000001);
     }
 
-    //@Test
+    @Test
     public void testChoose() {
         Plip p = new Plip(1.2);
         HashMap<Direction, Occupant> surrounded = new HashMap<Direction, Occupant>();
@@ -59,6 +59,31 @@ public class TestPlip {
         Action expected = new Action(Action.ActionType.STAY);
 
         assertEquals(expected, actual);
+
+        //--------------------------------------------------------------------
+
+        Plip p2 = new Plip(1.8);
+        HashMap<Direction, Occupant> surrounded2 = new HashMap<Direction, Occupant>();
+        surrounded2.put(Direction.TOP, new Empty());
+        surrounded2.put(Direction.BOTTOM, new Impassible());
+        surrounded2.put(Direction.LEFT, new Impassible());
+        surrounded2.put(Direction.RIGHT, new Impassible());
+
+        Action actual2=p2.chooseAction(surrounded2);
+        Action expected2=new Action(Action.ActionType.REPLICATE,Direction.TOP);
+        assertEquals(expected2,actual2);
+
+        //-------------------------------------------------------------------
+        Plip p3 = new Plip(0.3);
+        HashMap<Direction, Occupant> surrounded3 = new HashMap<Direction, Occupant>();
+        surrounded3.put(Direction.TOP, new Empty());
+        surrounded3.put(Direction.BOTTOM, new Impassible());
+        surrounded3.put(Direction.LEFT, new Impassible());
+        surrounded3.put(Direction.RIGHT, new Impassible());
+
+        Action actual3=p3.chooseAction(surrounded3);
+        Action expected3=new Action(Action.ActionType.STAY);
+        assertEquals(expected3,actual3);
     }
 
     @Test
