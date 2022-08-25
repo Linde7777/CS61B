@@ -20,6 +20,12 @@ public class Clorus extends Creature {
      */
     private int b;
 
+    /** fraction of energy to retain when replicating. */
+    private double repEnergyRetained = 0.5;
+
+    /** fraction of energy to bestow upon offspring. */
+    private double repEnergyGiven = 0.5;
+
     /**
      * creates plip with energy equal to E.
      */
@@ -43,9 +49,9 @@ public class Clorus extends Creature {
 
     @Override
     public Creature replicate() {
-        Clorus offspring = new Clorus(0.5 * energy);
-        this.energy *= 0.5;
-        return offspring;
+        energy = energy * repEnergyRetained;
+        double babyEnergy = energy * repEnergyGiven;
+        return new Plip(babyEnergy);
     }
 
     @Override

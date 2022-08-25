@@ -74,4 +74,14 @@ public class TestClorus {
         assertEquals(expected5,actual5);
 
     }
+
+    @Test
+    public void testAttack(){
+        Clorus c=new Clorus(0.5);
+        Plip p=new Plip(1.2);
+        c.attack(p);
+        double expected=0.5+1.2;
+        double actual=c.energy();
+        assertEquals(expected,actual,0.000001);
+    }
 }
