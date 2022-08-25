@@ -146,8 +146,8 @@ public class Plip extends Creature {
 
     private Direction chooseDirectionRandomly(List<Direction> empties) {
         Random random = new Random();
-        int randomIndexOfDirection=random.nextInt(empties.size());
-        return empties.get(randomIndexOfDirection);
+        int randomIndexOfDirectionList=random.nextInt(empties.size());
+        return empties.get(randomIndexOfDirectionList);
     }
 
     private boolean decideToRun() {
