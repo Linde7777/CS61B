@@ -39,7 +39,7 @@ public class TestPlip {
         Plip p=new Plip(1);
         Plip offspringOfP=p.replicate();
         assertNotSame(p,offspringOfP);
-        assertEquals(0.5,offspringOfP.energy(),0.000001);
+        assertEquals(0.25,offspringOfP.energy(),0.000001);
     }
 
     @Test
