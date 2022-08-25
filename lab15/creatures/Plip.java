@@ -27,6 +27,8 @@ public class Plip extends Creature {
      */
     private int b;
 
+    private double runProbability=0.5;
+
     /**
      * creates plip with energy equal to E.
      */
@@ -145,18 +147,11 @@ public class Plip extends Creature {
     }
 
     private Direction chooseDirectionRandomly(List<Direction> empties) {
-        Random random = new Random();
-        int indexOfDirectionList=random.nextInt(empties.size());
-        return empties.get(indexOfDirectionList);
+        return HugLifeUtils.randomEntry(empties);
     }
 
     private boolean decideToRun() {
-        Random random = new Random();
-        if (random.nextInt(2) == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return HugLifeUtils.random() > runProbability;
     }
 
     public String name() {
