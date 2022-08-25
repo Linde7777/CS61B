@@ -30,12 +30,16 @@ public class Plip extends Creature {
     /**
      * probability of run when plip meet clorus
      */
-    private double runProbability=0.5;
+    private double runProbability = 0.5;
 
-    /** fraction of energy to retain when replicating. */
+    /**
+     * fraction of energy to retain when replicating.
+     */
     private double repEnergyRetained = 0.5;
 
-    /** fraction of energy to bestow upon offspring. */
+    /**
+     * fraction of energy to bestow upon offspring.
+     */
     private double repEnergyGiven = 0.5;
 
     /**
@@ -133,11 +137,12 @@ public class Plip extends Creature {
      */
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         List<Direction> empties = getNeighborsOfType(neighbors, "empty");
+        List<Direction> clorus = getNeighborsOfType(neighbors, "clorus");
 
         // Sorry for writing four nested if statements
         if (empties.size() != 0) {
             if (energy < 1.0) {
-                if (neighbors.containsValue("clorus")) {
+                if (clorus.size() != 0) {
                     if (decideToRun()) {
                         return new Action(Action.ActionType.MOVE, chooseDirectionRandomly(empties));
                     } else {
