@@ -126,7 +126,7 @@ public class Plip extends Creature {
         // Sorry for writing four nested if statements
         if (empties.size() != 0) {
             if (energy < 1.0) {
-                if (neighbors.containsValue("Clorus")) {
+                if (neighbors.containsValue("clorus")) {
                     if (decideToRun()) {
                         return new Action(Action.ActionType.MOVE, chooseDirectionRandomly(empties));
                     } else {
