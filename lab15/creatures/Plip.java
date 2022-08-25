@@ -58,10 +58,13 @@ public class Plip extends Creature {
      */
     public Color color() {
         r = 99;
-        g = 63;
         b = 76;
+
+        int magnification = (255 - 63) / (2 - 0);
+        g = (int) (energy * magnification) + 63;
         return color(r, g, b);
     }
+
 
     /**
      * Do nothing with C, Plips are pacifists.

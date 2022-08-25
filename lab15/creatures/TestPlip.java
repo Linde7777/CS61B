@@ -10,7 +10,7 @@ import huglife.Impassible;
 import huglife.Empty;
 
 /** Tests the plip class   
- *  @authr FIXME
+ *  @authr Linde
  */
 
 public class TestPlip {
@@ -56,6 +56,16 @@ public class TestPlip {
         Action expected = new Action(Action.ActionType.STAY);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testColor(){
+        Plip p=new Plip(0);
+        assertEquals(new Color(99,63,76),p.color());
+
+        Plip p2=new Plip(2);
+        assertEquals(new Color(99,255,76),p2.color());
+
     }
 
     public static void main(String[] args) {
