@@ -104,8 +104,8 @@ public class Plip extends Creature {
      * Plip.
      */
     public Plip replicate() {
-        Plip offspring=new Plip(0.5*energy);
-        this.energy*=0.5;
+        Plip offspring = new Plip(0.5 * energy);
+        this.energy *= 0.5;
         return offspring;
     }
 
@@ -123,38 +123,37 @@ public class Plip extends Creature {
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         List<Direction> empties = getNeighborsOfType(neighbors, "empty");
 
-        if(empties.size()!=0){
-
-            if(energy>1.0){
-                return new Action(Action.ActionType.REPLICATE, chooseDirectionRandomly(empties));
-            }
-
-            if(neighbors.containsValue("Clorus")){
-                if(chooseToRunRandomly()){
-                    return new Action(Action.ActionType.MOVE, chooseDirectionRandomly(empties));
-                }else{
+        // Sorry for writing four nested if statements
+        if (empties.size() != 0) {
+            if (energy < 1.0) {
+                if (neighbors.containsValue("Clorus")) {
+                    if (decideToRun()) {
+                        return new Action(Action.ActionType.MOVE, chooseDirectionRandomly(empties));
+                    } else {
+                        return new Action(Action.ActionType.STAY);
+                    }
+                } else {
                     return new Action(Action.ActionType.STAY);
                 }
-            }else {
-                return new Action(Action.ActionType.STAY);
+            } else {
+                return new Action(Action.ActionType.REPLICATE, chooseDirectionRandomly(empties));
             }
-
-        }else {
+        } else {
             return new Action(Action.ActionType.STAY);
         }
 
     }
 
-    private Direction chooseDirectionRandomly(List<Direction> empties){
-        Random random=new Random();
+    private Direction chooseDirectionRandomly(List<Direction> empties) {
+        Random random = new Random();
         return empties.get(random.nextInt(empties.size()));
     }
 
-    private boolean chooseToRunRandomly(){
-        Random random=new Random();
-        if(random.nextInt(2)==0){
+    private boolean decideToRun() {
+        Random random = new Random();
+        if (random.nextInt(2) == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
