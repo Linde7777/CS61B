@@ -7,22 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public class Clorus extends Creature {
-    /**
-     * red color.
-     */
+    /** red color*/
     private int r;
-    /**
-     * green color.
-     */
+    /** green color*/
     private int g;
-    /**
-     * blue color.
-     */
+    /** blue color*/
     private int b;
-
     /** fraction of energy to retain when replicating. */
     private double repEnergyRetained = 0.5;
-
     /** fraction of energy to bestow upon offspring. */
     private double repEnergyGiven = 0.5;
 

@@ -13,33 +13,17 @@ import java.util.Random;
  * @author Josh Hug
  */
 public class Plip extends Creature {
-
-    /**
-     * red color.
-     */
+    /** red color*/
     private int r;
-    /**
-     * green color.
-     */
+    /** green color*/
     private int g;
-    /**
-     * blue color.
-     */
+    /** blue color*/
     private int b;
-
-    /**
-     * probability of run when plip meet clorus
-     */
+    /** probability of run when plip meet clorus */
     private double runProbability = 0.5;
-
-    /**
-     * fraction of energy to retain when replicating.
-     */
+    /** fraction of energy to retain when replicating. */
     private double repEnergyRetained = 0.5;
-
-    /**
-     * fraction of energy to bestow upon offspring.
-     */
+    /** fraction of energy to bestow upon offspring. */
     private double repEnergyGiven = 0.5;
 
     /**
