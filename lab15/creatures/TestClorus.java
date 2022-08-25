@@ -46,11 +46,8 @@ public class TestClorus {
         surrounded3.put(Direction.LEFT,new Empty());
         surrounded3.put(Direction.RIGHT,new Impassible());
         Action actual3=c3.chooseAction(surrounded3);
-        Action expected3=new Action(Action.ActionType.ATTACK);
-        double actualEnergy3=c3.energy();
-        double expectedEnergy3=0.5+1.3;
+        Action expected3=new Action(Action.ActionType.ATTACK,Direction.BOTTOM);
         assertEquals(expected3,actual3);
-        assertEquals(expectedEnergy3,actualEnergy3,0.0000001);
 
         //-------------------------------------------------------------
 
@@ -62,7 +59,7 @@ public class TestClorus {
         surrounded4.put(Direction.LEFT,new Impassible());
         surrounded4.put(Direction.RIGHT,new Impassible());
         Action actual4=c4.chooseAction(surrounded4);
-        Action expected4=new Action(Action.ActionType.REPLICATE);
+        Action expected4=new Action(Action.ActionType.REPLICATE,Direction.TOP);
         assertEquals(expected4,actual4);
 
         //test if Clorus will move
@@ -73,7 +70,7 @@ public class TestClorus {
         surrounded5.put(Direction.LEFT,new Impassible());
         surrounded5.put(Direction.RIGHT,new Impassible());
         Action actual5=c5.chooseAction(surrounded5);
-        Action expected5=new Action(Action.ActionType.MOVE);
+        Action expected5=new Action(Action.ActionType.MOVE,Direction.TOP);
         assertEquals(expected5,actual5);
 
     }

@@ -56,16 +56,16 @@ public class Clorus extends Creature {
     @Override
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         List<Direction> empties = getNeighborsOfType(neighbors, "empty");
-        List<Direction> plips= getNeighborsOfType(neighbors, "plip");
+        List<Direction> plips = getNeighborsOfType(neighbors, "plip");
 
         if (empties.size() != 0) {
-            if(!neighbors.containsValue("plip")){
-                if(energy>=1.0){
-                    return new Action(Action.ActionType.REPLICATE,chooseDirectionRandomly(empties));
-                }else{
-                    return new Action(Action.ActionType.MOVE,chooseDirectionRandomly(empties));
+            if (plips.size() == 0) {
+                if (energy >= 1.0) {
+                    return new Action(Action.ActionType.REPLICATE, chooseDirectionRandomly(empties));
+                } else {
+                    return new Action(Action.ActionType.MOVE, chooseDirectionRandomly(empties));
                 }
-            }else{
+            } else {
                 return new Action(Action.ActionType.ATTACK, choosePlipDirectionRandomly(plips));
             }
         } else {
@@ -78,7 +78,7 @@ public class Clorus extends Creature {
         return HugLifeUtils.randomEntry(empties);
     }
 
-    private Direction choosePlipDirectionRandomly(List<Direction> plips){
+    private Direction choosePlipDirectionRandomly(List<Direction> plips) {
         return HugLifeUtils.randomEntry(plips);
     }
 
@@ -95,8 +95,6 @@ public class Clorus extends Creature {
         return plipDirection;
     }
      */
-
-
 
 
     @Override
