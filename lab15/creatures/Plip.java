@@ -39,6 +39,7 @@ public class Plip extends Creature {
         g = 0;
         b = 0;
         energy = e;
+        checkIfEnergyOutOfBoundary();
     }
 
     /**
