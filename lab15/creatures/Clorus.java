@@ -1,11 +1,9 @@
 package creatures;
 
-import huglife.Action;
-import huglife.Creature;
-import huglife.Direction;
-import huglife.Occupant;
+import huglife.*;
 
 import java.awt.*;
+import java.util.List;
 import java.util.Map;
 
 public class Clorus extends Creature {
@@ -57,8 +55,49 @@ public class Clorus extends Creature {
 
     @Override
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
-        return null;
+        List<Direction> empties = getNeighborsOfType(neighbors, "empty");
+        List<Direction> plips= getNeighborsOfType(neighbors, "plip");
+
+        if (empties.size() != 0) {
+            if(!neighbors.containsValue("plip")){
+                if(energy>=1.0){
+                    return new Action(Action.ActionType.REPLICATE,chooseDirectionRandomly(empties));
+                }else{
+                    return new Action(Action.ActionType.MOVE,chooseDirectionRandomly(empties));
+                }
+            }else{
+                return new Action(Action.ActionType.ATTACK, choosePlipDirectionRandomly(plips));
+            }
+        } else {
+            return new Action(Action.ActionType.STAY);
+        }
+
     }
+
+    private Direction chooseDirectionRandomly(List<Direction> empties) {
+        return HugLifeUtils.randomEntry(empties);
+    }
+
+    private Direction choosePlipDirectionRandomly(List<Direction> plips){
+        return HugLifeUtils.randomEntry(plips);
+    }
+
+    /*
+    private List<Direction> getDirectionOfPlip(Map<Direction, Occupant> neighbors){
+        List<Direction> plipDirection =new ArrayList<>();
+        for(int i=0;i<neighbors.size();i++){
+            var item=neighbors.
+            if(item){
+                plipDirection.add(neighbors)
+            }
+        }
+
+        return plipDirection;
+    }
+     */
+
+
+
 
     @Override
     public Color color() {
