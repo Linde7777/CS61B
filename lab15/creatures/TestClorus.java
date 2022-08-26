@@ -13,6 +13,7 @@ import huglife.Empty;
  *  @authr Linde
  */
 public class TestClorus {
+
     @Test
     public void testChooseAction(){
         //test if Clorus will stay
@@ -82,6 +83,24 @@ public class TestClorus {
         c.attack(p);
         double expected=0.5+1.2;
         double actual=c.energy();
-        assertEquals(expected,actual,0.000001);
+        assertEquals(expected,actual,0.01);
     }
+
+    @Test
+    public void testBasics(){
+        Clorus c=new Clorus(3);
+        assertEquals(3,c.energy(),0.01);
+        assertEquals(new Color(34,0,231),c.color());
+        c.move();
+        assertEquals(2.97,c.energy(),0.01);
+        c.move();
+        assertEquals(2.94,c.energy(),0.01);
+        c.stay();
+        assertEquals(2.93,c.energy(),0.01);
+        c.stay();
+        assertEquals(2.92,c.energy(),0.01);
+    }
+
+
+
 }
