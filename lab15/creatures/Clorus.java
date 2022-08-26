@@ -19,7 +19,7 @@ public class Clorus extends Creature {
     private double repEnergyGiven = 0.5;
 
     /**
-     * creates plip with energy equal to E.
+     * creates clorus with energy equal to E.
      */
     public Clorus(double e) {
         super("clorus");
@@ -27,6 +27,21 @@ public class Clorus extends Creature {
         g = 0;
         b = 0;
         energy = e;
+    }
+
+    /**
+     * Default constructor: Creatures creature with energy 1.
+     */
+    public Clorus() {
+        this(1);
+    }
+
+    @Override
+    public Color color() {
+        r = 34;
+        g = 0;
+        b = 231;
+        return new Color(r, g, b);
     }
 
     @Override
@@ -40,15 +55,15 @@ public class Clorus extends Creature {
     }
 
     @Override
-    public Creature replicate() {
-        energy = energy * repEnergyRetained;
-        double babyEnergy = energy * repEnergyGiven;
-        return new Plip(babyEnergy);
+    public void stay() {
+        energy -= 0.01;
     }
 
     @Override
-    public void stay() {
-        energy -= 0.01;
+    public Creature replicate() {
+        energy = energy * repEnergyRetained;
+        double babyEnergy = energy * repEnergyGiven;
+        return new Clorus(babyEnergy);
     }
 
     @Override
@@ -78,26 +93,6 @@ public class Clorus extends Creature {
 
     private Direction choosePlipDirectionRandomly(List<Direction> plips) {
         return HugLifeUtils.randomEntry(plips);
-    }
-
-    /*
-    private List<Direction> getDirectionOfPlip(Map<Direction, Occupant> neighbors){
-        List<Direction> plipDirection =new ArrayList<>();
-        for(int i=0;i<neighbors.size();i++){
-            var item=neighbors.
-            if(item){
-                plipDirection.add(neighbors)
-            }
-        }
-
-        return plipDirection;
-    }
-     */
-
-
-    @Override
-    public Color color() {
-        return new Color(34, 0, 231);
     }
 
     public String name() {
