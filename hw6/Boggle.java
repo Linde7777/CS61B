@@ -44,7 +44,7 @@ public class Boggle {
         return result;
     }
 
-    public char[][] createBoardArray(In boardStream){
+    private char[][] createBoardArray(In boardStream){
         int width=boardStream.readLine().length();
         int height=1;
         while(boardStream.hasNextLine()){
